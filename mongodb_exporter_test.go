@@ -20,8 +20,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/globalsign/mgo"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/mgo.v2"
 )
 
 // bin stores information about path of executable and attached port
