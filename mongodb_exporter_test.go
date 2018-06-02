@@ -50,7 +50,7 @@ func TestBin(t *testing.T) {
 		}
 	}()
 
-	importpath := "github.com/percona/mongodb_exporter/vendor/github.com/prometheus/common"
+	importpath := "github.com/evergage/mongodb_exporter/vendor/github.com/prometheus/common"
 	path := binDir + "/" + binName
 	xVariables := map[string]string{
 		importpath + "/version.Version":  "gotest-version",
