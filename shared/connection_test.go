@@ -43,5 +43,5 @@ func TestMongoSession(t *testing.T) {
 
 	nodeType, err := MongoSessionNodeType(session)
 	assert.NoError(t, err)
-	assert.Equal(t, "mongod", nodeType)
+	assert.Subset(t, []string{"mongod", "mongos"}, []string{nodeType})
 }
