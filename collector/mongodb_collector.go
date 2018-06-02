@@ -19,9 +19,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/globalsign/mgo"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/log"
-	"gopkg.in/mgo.v2"
 
 	"github.com/evergage/mongodb_exporter/collector/mongod"
 	"github.com/evergage/mongodb_exporter/collector/mongos"
