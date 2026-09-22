@@ -48,6 +48,7 @@ var (
 	collectIndexUsageF           = kingpin.Flag("collect.indexusage", "Enable collection of per index usage stats").Bool()
 	mongodbCollectConnPoolStatsF = kingpin.Flag("collect.connpoolstats", "Collect MongoDB connpoolstats").Bool()
 	suppressCollectShardingStatusF = kingpin.Flag("suppress.collectshardingstatus", "Suppress the collection of Sharding Status").Default("false").Bool()
+	suppressSSV5F                  = kingpin.Flag("suppress.collectserverstatusv5", "Suppress the modern MongoDB 5 server-status metric module").Default("false").Bool()
 
 	uriF = kingpin.Flag("mongodb.uri", "MongoDB URI, format").
 		PlaceHolder("[mongodb://][user:pass@]host1[:port1][,host2[:port2],...][/database][?options]").
@@ -90,6 +91,7 @@ func main() {
 		CollectIndexUsageStats:   *collectIndexUsageF,
 		CollectConnPoolStats:     *mongodbCollectConnPoolStatsF,
 		SuppressCollectShardingStatus:    *suppressCollectShardingStatusF,
+		SuppressServerStatusV5:        *suppressSSV5F,
 	})
 	prometheus.MustRegister(programCollector, mongodbCollector)
 
