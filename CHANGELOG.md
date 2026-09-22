@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Bounded MongoDB 5 server-status coverage for replication, flow control, sharding, workload, security, storage, and WiredTiger metrics under the `mongodb_server_status_` namespace.
-- The `--suppress.collectserverstatusv5` rollout switch disables only the new metric module.
+- Exact MongoDB 5.0.34 server-status coverage classifies all 1,581 observed scalar leaves: 144 remain with the legacy collector, 1,411 have bounded modern dispositions, and 26 reviewed identity or opaque-text fields are omitted.
+- The modern collector exposes 837 metric families and at most 1,349 primary, 1,282 secondary, or 1,357 union series. Command, aggregation-stage, operator, and range labels use fixed reviewed vocabularies.
+- The `--suppress.collectserverstatusv5` rollout switch disables only the modern metric module.
 
 ## [0.11.2]
 ### Added

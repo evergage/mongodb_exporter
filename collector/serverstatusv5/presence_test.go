@@ -15,7 +15,7 @@ func TestPresenceAwareBSONSemantics(t *testing.T) {
 	fields := []string{"int32", "int64", "double", "date", "timestamp", "boolean", "zero", "missing", "null"}
 	metricDefinitions = make([]metricDefinition, 0, len(fields))
 	for _, field := range fields {
-		metricDefinitions = append(metricDefinitions, metricDefinition{Path: field, Family: "mongodb_server_status_test_" + field, Help: field, Type: "gauge", Conversion: 1})
+		metricDefinitions = append(metricDefinitions, metricDefinition{SourcePath: field, PathSegments: []string{field}, Family: "mongodb_server_status_test_" + field, Help: field, Type: "gauge", Conversion: 1})
 	}
 	document := []byte(`{"int32":{"$numberInt":"7"},"int64":{"$numberLong":"8"},"double":{"$numberDouble":"1.5"},"date":{"$date":{"$numberLong":"1660000000000"}},"timestamp":{"$timestamp":{"t":42,"i":3}},"boolean":false,"zero":{"$numberLong":"0"},"null":null}`)
 	var raw bson.Raw

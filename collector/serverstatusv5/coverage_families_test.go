@@ -228,7 +228,7 @@ func TestBoundedWorkloadCoverage(t *testing.T) {
 	if got := metricValueDTO(metricWithLabels(primary["mongodb_server_status_operator_total"], map[string]string{"category": "expressions", "operator": "$eq"})); got != 686313 {
 		t.Errorf("operator eq=%v", got)
 	}
-	checks := map[string]float64{"mongodb_server_status_metrics_query_update_many_count_total": 144579867, "mongodb_server_status_metrics_cursor_total_opened_total": 6062679, "mongodb_server_status_metrics_cursor_open": 2}
+	checks := map[string]float64{"mongodb_server_status_metrics_query_update_many_count_total": 144579867, "mongodb_server_status_metrics_cursor_total_opened_total": 6062679}
 	for family, want := range checks {
 		metric := metricWithLabels(primary[family], nil)
 		if metric == nil {
@@ -275,12 +275,10 @@ func TestNetworkSecurityAndStorageCoverage(t *testing.T) {
 }
 func TestSelectedWiredTigerCoverage(t *testing.T) {
 	primary := gatherFixture(t, "primary")
-	concurrent := primary["mongodb_server_status_wired_tiger_concurrent_transactions"]
-	if got := metricValueDTO(metricWithLabels(concurrent, map[string]string{"operation": "write", "state": "out"})); got != 7 {
-		t.Errorf("write tickets out=%v", got)
-	}
-	if got := metricValueDTO(metricWithLabels(concurrent, map[string]string{"operation": "read", "state": "available"})); got != 127 {
-		t.Errorf("read tickets available=%v", got)
+	for _, family := range []string{"mongodb_server_status_wired_tiger_concurrent_transactions", "mongodb_server_status_metrics_cursor_open"} {
+		if primary[family] != nil {
+			t.Errorf("duplicate modern family %s remains", family)
+		}
 	}
 	checks := map[string]float64{
 		"mongodb_server_status_wired_tiger_snapshot_window_settings_total_number_of_snapshot_too_old_errors_total":     0,

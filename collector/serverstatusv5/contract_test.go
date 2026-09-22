@@ -65,15 +65,17 @@ func TestCoverageAuditRejectsDuplicateClassification(t *testing.T) {
 }
 func TestCoverageAuditRejectsStaleClassification(t *testing.T) {
 	contract, paths := loadCoverageInputs(t)
-	contract.Entries = append(contract.Entries, ContractEntry{Path: "not.present", Classification: "metadata_omitted"})
+	contract.Entries = append(contract.Entries, ContractEntry{Path: "not.present", PathSegments: []string{"not", "present"}, Classification: "drop", Reason: "reviewed", DecisionSource: "test", Reviewed: true})
 	if err := contract.Audit(paths); err == nil || !strings.Contains(err.Error(), "stale=") {
 		t.Fatalf("got %v", err)
 	}
 }
-func TestCoverageAuditRejectsDuplicateRule(t *testing.T) {
+func TestCoverageAuditRejectsUnreviewedDrop(t *testing.T) {
 	contract, paths := loadCoverageInputs(t)
-	contract.Rules = append(contract.Rules, contract.Rules[0])
-	if err := contract.Audit(paths); err == nil || !strings.Contains(err.Error(), "duplicate=") {
+	contract.Entries[0].Classification = "drop"
+	contract.Entries[0].Metric = nil
+	contract.Entries[0].Reviewed = false
+	if err := contract.Audit(paths); err == nil || !strings.Contains(err.Error(), "invalid=") {
 		t.Fatalf("got %v", err)
 	}
 }

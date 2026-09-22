@@ -40,8 +40,8 @@ func TestFixtureGoldenSamplesAndSeriesCeilings(t *testing.T) {
 	}{{"primary", contract.SeriesCeilings.Primary}, {"secondary", contract.SeriesCeilings.Secondary}} {
 		t.Run(test.role, func(t *testing.T) {
 			actual, series := renderFixtureMetrics(t, test.role)
-			if series > test.ceiling {
-				t.Fatalf("series=%d exceeds ceiling=%d", series, test.ceiling)
+			if series != test.ceiling {
+				t.Fatalf("series=%d, exact ceiling=%d", series, test.ceiling)
 			}
 			path := filepath.Join("testdata", "golden", test.role+".prom")
 			if os.Getenv("UPDATE_GOLDEN") == "1" {

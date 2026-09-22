@@ -3,7 +3,9 @@ package serverstatusv5
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -15,7 +17,6 @@ type Contract struct {
 	ScrapeDurationSecondsCeiling float64             `json:"scrape_duration_seconds_ceiling"`
 	DynamicVocabularies          map[string][]string `json:"dynamic_vocabularies"`
 	Entries                      []ContractEntry     `json:"entries"`
-	Rules                        []PrefixRule        `json:"rules"`
 }
 type SeriesCeilings struct {
 	PerFamily int `json:"per_family"`
@@ -24,16 +25,17 @@ type SeriesCeilings struct {
 	Union     int `json:"union"`
 }
 type ContractEntry struct {
-	Path           string          `json:"path"`
-	Roles          []string        `json:"roles"`
-	Classification string          `json:"classification"`
-	Reason         string          `json:"reason,omitempty"`
-	Metric         *MetricContract `json:"metric,omitempty"`
-}
-type PrefixRule struct {
-	Prefix         string `json:"prefix"`
-	Classification string `json:"classification"`
-	Reason         string `json:"reason"`
+	Path              string           `json:"path"`
+	PathSegments      []string         `json:"path_segments"`
+	Roles             []string         `json:"roles"`
+	Classification    string           `json:"classification"`
+	Reason            string           `json:"reason"`
+	DecisionSource    string           `json:"decision_source"`
+	LegacyFamily      string           `json:"legacy_family,omitempty"`
+	Reviewed          bool             `json:"reviewed,omitempty"`
+	ConsumedBy        string           `json:"consumed_by,omitempty"`
+	Metric            *MetricContract  `json:"metric,omitempty"`
+	AdditionalMetrics []MetricContract `json:"additional_metrics,omitempty"`
 }
 type MetricContract struct {
 	Family        string            `json:"family"`
@@ -42,7 +44,8 @@ type MetricContract struct {
 	Conversion    float64           `json:"conversion"`
 	Help          string            `json:"help"`
 	Labels        map[string]string `json:"labels"`
-	ValueLabel    string            `json:"value_label"`
+	Transform     string            `json:"transform,omitempty"`
+	ValueLabel    string            `json:"value_label,omitempty"`
 	AllowedValues []string          `json:"allowed_values"`
 	SeriesCeiling int               `json:"series_ceiling"`
 }
@@ -54,109 +57,100 @@ func ParseContract(data []byte) (*Contract, error) {
 	}
 	return &c, nil
 }
+
 func (c *Contract) Audit(paths []string) error {
 	valid := map[string]bool{}
 	for _, v := range c.Classifications {
 		valid[v] = true
 	}
-	exact := map[string]int{}
-	for _, e := range c.Entries {
-		exact[e.Path]++
-		if !valid[e.Classification] {
-			return fmt.Errorf("unknown classification %q for %s", e.Classification, e.Path)
-		}
-		if e.Classification == "new_metric" && e.Metric == nil {
-			return fmt.Errorf("new metric %s has no metric contract", e.Path)
-		}
-	}
-	rules := map[string]int{}
-	for _, r := range c.Rules {
-		rules[r.Prefix]++
-		if !valid[r.Classification] || r.Classification == "new_metric" || r.Reason == "" {
-			return fmt.Errorf("invalid rule %s", r.Prefix)
-		}
-	}
-	fixture := map[string]bool{}
+	fixture := map[string]int{}
 	for _, p := range paths {
-		fixture[p] = true
+		fixture[p]++
+	}
+	entries := map[string]int{}
+	var invalid []string
+	for _, e := range c.Entries {
+		entries[e.Path]++
+		if !valid[e.Classification] || e.Reason == "" || e.DecisionSource == "" || len(e.PathSegments) == 0 {
+			invalid = append(invalid, e.Path)
+		}
+		switch e.Classification {
+		case "legacy":
+			if e.LegacyFamily == "" || e.Metric != nil {
+				invalid = append(invalid, e.Path)
+			}
+		case "modern":
+			if e.Metric == nil && e.ConsumedBy == "" {
+				invalid = append(invalid, e.Path)
+			}
+		case "drop":
+			if !e.Reviewed || e.Metric != nil {
+				invalid = append(invalid, e.Path)
+			}
+		}
 	}
 	var missing, duplicate, stale []string
-	for p := range fixture {
-		if exact[p] > 0 {
-			continue
+	for p, n := range fixture {
+		if n > 1 || entries[p] > 1 {
+			duplicate = append(duplicate, p)
 		}
-		best := -1
-		matches := 0
-		for _, r := range c.Rules {
-			if ruleMatches(p, r.Prefix) {
-				if len(r.Prefix) > best {
-					best, matches = len(r.Prefix), 1
-				} else if len(r.Prefix) == best {
-					matches++
-				}
-			}
-		}
-		if best < 0 {
+		if entries[p] == 0 {
 			missing = append(missing, p)
-		} else if matches > 1 {
-			duplicate = append(duplicate, p)
 		}
 	}
-	for p, n := range exact {
+	for p, n := range entries {
 		if n > 1 {
 			duplicate = append(duplicate, p)
 		}
-		if !fixture[p] {
+		if fixture[p] == 0 {
 			stale = append(stale, p)
-		}
-	}
-	for prefix, n := range rules {
-		if n > 1 {
-			duplicate = append(duplicate, prefix)
-		}
-		found := false
-		for p := range fixture {
-			if ruleMatches(p, prefix) {
-				found = true
-				break
-			}
-		}
-		if !found {
-			stale = append(stale, prefix)
 		}
 	}
 	sort.Strings(missing)
 	sort.Strings(duplicate)
 	sort.Strings(stale)
-	if len(missing)+len(duplicate)+len(stale) > 0 {
-		return fmt.Errorf("coverage audit failed: missing=%v duplicate=%v stale=%v", missing, duplicate, stale)
+	sort.Strings(invalid)
+	if len(missing)+len(duplicate)+len(stale)+len(invalid) > 0 {
+		return fmt.Errorf("coverage audit failed: missing=%v duplicate=%v stale=%v invalid=%v", missing, duplicate, stale, invalid)
 	}
 	return nil
 }
-func ruleMatches(path, prefix string) bool {
-	return path == strings.TrimSuffix(prefix, ".") || strings.HasPrefix(path, prefix)
-}
+
 func (c *Contract) ValidatePolicy() error {
 	if c.ScrapeDurationSecondsCeiling <= 0 {
 		return fmt.Errorf("scrape duration ceiling must be positive")
 	}
 	familyCounts := map[string]int{}
 	roleCounts := map[string]int{"primary": 0, "secondary": 0}
-	for _, entry := range c.Entries {
-		metric := entry.Metric
-		if entry.Classification != "new_metric" || metric == nil || metric.Family == "" || metric.Type == "" || metric.Unit == "" || metric.Help == "" || metric.Conversion == 0 {
-			return fmt.Errorf("%s has an incomplete metric mapping", entry.Path)
+	for _, e := range c.Entries {
+		metrics := make([]*MetricContract, 0, 1+len(e.AdditionalMetrics))
+		if e.Metric != nil {
+			metrics = append(metrics, e.Metric)
 		}
-		possible := 1
-		if metric.ValueLabel != "" {
-			if len(metric.AllowedValues) == 0 {
-				return fmt.Errorf("%s has an unbounded value label", entry.Path)
+		for i := range e.AdditionalMetrics {
+			metrics = append(metrics, &e.AdditionalMetrics[i])
+		}
+		for _, m := range metrics {
+			if m.Family == "" || m.Type == "" || m.Unit == "" || m.Help == "" || m.Conversion == 0 {
+				return fmt.Errorf("%s has an incomplete metric mapping", e.Path)
 			}
-			possible = len(metric.AllowedValues)
-		}
-		familyCounts[metric.Family] += possible
-		for _, role := range entry.Roles {
-			roleCounts[role] += possible
+			if e.DecisionSource != "existing modern contract" && m.Type == "counter" && !strings.HasSuffix(m.Family, "_total") {
+				return fmt.Errorf("counter %s does not end in _total", m.Family)
+			}
+			if e.DecisionSource != "existing modern contract" && m.Conversion != 1 {
+				return fmt.Errorf("new mapping %s conversion=%v, want 1", e.Path, m.Conversion)
+			}
+			for name, value := range m.Labels {
+				if strings.HasPrefix(name, "lower_bound_") {
+					if _, err := strconv.ParseFloat(value, 64); err != nil {
+						return fmt.Errorf("%s has nonnumeric %s=%q", e.Path, name, value)
+					}
+				}
+			}
+			familyCounts[m.Family]++
+			for _, role := range e.Roles {
+				roleCounts[role]++
+			}
 		}
 	}
 	maxFamily, union := 0, 0
@@ -165,26 +159,44 @@ func (c *Contract) ValidatePolicy() error {
 		if count > maxFamily {
 			maxFamily = count
 		}
-		for _, entry := range c.Entries {
-			if entry.Metric.Family == family && entry.Metric.SeriesCeiling != count {
-				return fmt.Errorf("%s ceiling is %d, want %d", family, entry.Metric.SeriesCeiling, count)
+		for _, e := range c.Entries {
+			if e.Metric != nil && e.Metric.Family == family && e.Metric.SeriesCeiling != count {
+				return fmt.Errorf("%s ceiling is %d, want %d", family, e.Metric.SeriesCeiling, count)
+			}
+			for _, m := range e.AdditionalMetrics {
+				if m.Family == family && m.SeriesCeiling != count {
+					return fmt.Errorf("%s ceiling is %d, want %d", family, m.SeriesCeiling, count)
+				}
 			}
 		}
 	}
-	if maxFamily != c.SeriesCeilings.PerFamily || roleCounts["primary"] != c.SeriesCeilings.Primary || roleCounts["secondary"] != c.SeriesCeilings.Secondary || union != c.SeriesCeilings.Union {
-		return fmt.Errorf("derived ceilings family=%d primary=%d secondary=%d union=%d do not match %+v", maxFamily, roleCounts["primary"], roleCounts["secondary"], union, c.SeriesCeilings)
+	got := SeriesCeilings{maxFamily, roleCounts["primary"], roleCounts["secondary"], union}
+	if got != c.SeriesCeilings {
+		return fmt.Errorf("derived ceilings %+v do not match %+v", got, c.SeriesCeilings)
 	}
-	for name, values := range c.DynamicVocabularies {
-		if len(values) == 0 {
-			return fmt.Errorf("%s vocabulary is empty", name)
+	wantSizes := map[string]int{"commands": 60, "aggregation_stages": 49, "operators_expressions": 141, "operators_groupAccumulators": 14, "operators_match": 35, "operators_windowAccumulators": 20}
+	for name, want := range wantSizes {
+		values := c.DynamicVocabularies[name]
+		if len(values) != want {
+			return fmt.Errorf("%s vocabulary has %d values, want %d", name, len(values), want)
 		}
 		seen := map[string]bool{}
-		for _, value := range values {
-			if seen[value] {
-				return fmt.Errorf("%s vocabulary repeats %s", name, value)
+		for _, v := range values {
+			if seen[v] {
+				return fmt.Errorf("%s vocabulary repeats %q", name, v)
 			}
-			seen[value] = true
+			seen[v] = true
 		}
 	}
 	return nil
+}
+
+var wiredTigerRangePattern = regexp.MustCompile(`(?:histogram - |\) - )(\d+)(?:-|(?:ms|us)\+| and higher)`)
+
+func wiredTigerHistogramLowerBound(description string) (string, error) {
+	m := wiredTigerRangePattern.FindStringSubmatch(description)
+	if len(m) != 2 {
+		return "", fmt.Errorf("ambiguous WiredTiger histogram range %q", description)
+	}
+	return m[1], nil
 }
