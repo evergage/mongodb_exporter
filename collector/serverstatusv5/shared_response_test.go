@@ -31,7 +31,7 @@ func TestOneRawResponseServesLegacyAndModernPaths(t *testing.T) {
 	if legacy.Version != "5.0.34" {
 		t.Fatalf("legacy decode version=%q", legacy.Version)
 	}
-	metrics := make(chan prometheus.Metric, 1000)
+	metrics := make(chan prometheus.Metric, 2000)
 	report := serverstatusv5.New().Collect(raw, metrics)
 	close(metrics)
 	if len(report.Errors) > 0 {

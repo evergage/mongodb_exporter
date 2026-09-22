@@ -31,7 +31,7 @@ func TestModernDescriptorsDoNotCollideWithLegacyDescriptors(t *testing.T) {
 	}
 	for _, definition := range metricDefinitions {
 		if legacy[definition.Family] {
-			t.Errorf("modern descriptor %s for %s collides with legacy descriptor", definition.Family, definition.Path)
+			t.Errorf("modern descriptor %s for %s collides with legacy descriptor", definition.Family, definition.SourcePath)
 		}
 	}
 }

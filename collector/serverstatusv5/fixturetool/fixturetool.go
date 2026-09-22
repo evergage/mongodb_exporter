@@ -111,31 +111,86 @@ func marshalIndent(value interface{}) ([]byte, error) {
 	}
 	return append(data, '\n'), nil
 }
+
+type Leaf struct {
+	Path     string
+	Segments []string
+	Type     string
+}
+
+func SortedLeaves(value interface{}) []Leaf {
+	var leaves []Leaf
+	walkTypedLeaves(value, "", nil, &leaves)
+	sort.Slice(leaves, func(i, j int) bool { return leaves[i].Path < leaves[j].Path })
+	return leaves
+}
+
 func SortedLeafPaths(value interface{}) []string {
-	var paths []string
-	walkLeaves(value, "", &paths)
-	sort.Strings(paths)
+	leaves := SortedLeaves(value)
+	paths := make([]string, len(leaves))
+	for i := range leaves {
+		paths[i] = leaves[i].Path
+	}
 	return paths
 }
-func walkLeaves(value interface{}, path string, paths *[]string) {
+
+func sourceKeyPath(path, key string) string {
+	if key != "" {
+		valid := true
+		for i, r := range key {
+			if !(r == '_' || r == '$' || r >= 'A' && r <= 'Z' || r >= 'a' && r <= 'z' || i > 0 && r >= '0' && r <= '9') {
+				valid = false
+				break
+			}
+		}
+		if valid {
+			if path == "" {
+				return key
+			}
+			return path + "." + key
+		}
+	}
+	escaped := strings.ReplaceAll(strings.ReplaceAll(key, "\\", "\\\\"), "'", "\\'")
+	return path + "['" + escaped + "']"
+}
+
+func sourceType(value interface{}) string {
+	switch value.(type) {
+	case json.Number:
+		return "number"
+	case string:
+		return "string"
+	case bool:
+		return "boolean"
+	case nil:
+		return "null"
+	default:
+		return "container"
+	}
+}
+
+func walkTypedLeaves(value interface{}, path string, segments []string, leaves *[]Leaf) {
 	switch v := value.(type) {
 	case map[string]interface{}:
 		if len(v) == 0 {
-			*paths = append(*paths, path)
+			*leaves = append(*leaves, Leaf{path, append([]string(nil), segments...), "object"})
 			return
 		}
-		for k, c := range v {
-			walkLeaves(c, join(path, k), paths)
+		for key, child := range v {
+			next := append(append([]string(nil), segments...), key)
+			walkTypedLeaves(child, sourceKeyPath(path, key), next, leaves)
 		}
 	case []interface{}:
 		if len(v) == 0 {
-			*paths = append(*paths, path)
+			*leaves = append(*leaves, Leaf{path, append([]string(nil), segments...), "array"})
 			return
 		}
-		for i, c := range v {
-			walkLeaves(c, fmt.Sprintf("%s[%d]", path, i), paths)
+		for i, child := range v {
+			index := strconv.Itoa(i)
+			next := append(append([]string(nil), segments...), index)
+			walkTypedLeaves(child, fmt.Sprintf("%s[%d]", path, i), next, leaves)
 		}
 	default:
-		*paths = append(*paths, path)
+		*leaves = append(*leaves, Leaf{path, append([]string(nil), segments...), sourceType(value)})
 	}
 }

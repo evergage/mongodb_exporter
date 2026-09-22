@@ -13,9 +13,9 @@ func TestMalformedValueIsolatesMetricFamily(t *testing.T) {
 	original := metricDefinitions
 	defer func() { metricDefinitions = original }()
 	metricDefinitions = []metricDefinition{
-		{Path: "broken.good", Family: "mongodb_server_status_test_broken", Help: "broken", Type: "gauge", Conversion: 1},
-		{Path: "broken.bad", Family: "mongodb_server_status_test_broken", Help: "broken", Type: "gauge", Conversion: 1},
-		{Path: "healthy.value", Family: "mongodb_server_status_test_healthy", Help: "healthy", Type: "gauge", Conversion: 1},
+		{SourcePath: "broken.good", PathSegments: []string{"broken", "good"}, Family: "mongodb_server_status_test_broken", Help: "broken", Type: "gauge", Conversion: 1},
+		{SourcePath: "broken.bad", PathSegments: []string{"broken", "bad"}, Family: "mongodb_server_status_test_broken", Help: "broken", Type: "gauge", Conversion: 1},
+		{SourcePath: "healthy.value", PathSegments: []string{"healthy", "value"}, Family: "mongodb_server_status_test_healthy", Help: "healthy", Type: "gauge", Conversion: 1},
 	}
 	rawBytes, err := bson.Marshal(bson.M{"broken": bson.M{"good": 1, "bad": "invalid"}, "healthy": bson.M{"value": 2}})
 	if err != nil {
