@@ -1,0 +1,30 @@
+{
+  "redaction_version": "1",
+  "reconstruction_version": "1",
+  "normalization_version": "1",
+  "original_bson_types_available": false,
+  "fixtures": [
+    {
+      "role": "primary",
+      "mongodb_version": "5.0.34",
+      "capture_time": "2026-09-21T21:05:28.899Z",
+      "source": "source/server-status-primary-5.0.34.json",
+      "source_sha256": "5c84aec99d1de82306b09f2a44af4e5fd59af38997ff7d0665b2b08f78d57a0b",
+      "reconstructed": "reconstructed/server-status-primary-5.0.34.json",
+      "reconstructed_sha256": "808ee6ef1a5c8aed11d41508fe132651e489fccfdbb75aa62d7d7f3e2c83b166",
+      "normalized": "normalized/server-status-primary-5.0.34.json",
+      "normalized_sha256": "5c84aec99d1de82306b09f2a44af4e5fd59af38997ff7d0665b2b08f78d57a0b"
+    },
+    {
+      "role": "secondary",
+      "mongodb_version": "5.0.34",
+      "capture_time": "2026-09-21T20:42:39.325Z",
+      "source": "source/server-status-secondary-5.0.34.json",
+      "source_sha256": "227abf474edc8b83ab63311b5c19cecab9e11918c3a819237eadb5875efe8ac7",
+      "reconstructed": "reconstructed/server-status-secondary-5.0.34.json",
+      "reconstructed_sha256": "f7985c6ed450f694db0bc19603e74770707c06f25eeeade98db3a98a4c844152",
+      "normalized": "normalized/server-status-secondary-5.0.34.json",
+      "normalized_sha256": "227abf474edc8b83ab63311b5c19cecab9e11918c3a819237eadb5875efe8ac7"
+    }
+  ]
+}

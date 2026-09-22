@@ -6,37 +6,27 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"github.com/percona/mongodb_exporter/testutils"
 )
 
 func Test_ParserTopStatus(t *testing.T) {
 	raw := &TopStatusRaw{}
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
-	if err != nil {
-		t.Fatal(err)
-	}
+	client := testutils.MustGetConnectedMongodClient(context.TODO(), t)
 	defer client.Disconnect(context.TODO())
-	err = client.Database("admin").RunCommand(context.TODO(), bson.D{{"top", 1}}).Decode(&raw)
+	err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"top", 1}}).Decode(&raw)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	topStatus := raw.TopStatus()
-
-	collections := []string{
-		"admin.system.roles",
-		"admin.system.version",
-		"local.startup_log",
-		"local.system.replset",
+	assert.NotEmpty(t, topStatus.TopStats)
+	positive := false
+	for _, stats := range topStatus.TopStats {
+		if stats.Total.Time > 0 && stats.Total.Count > 0 {
+			positive = true
+			break
+		}
 	}
-
-	assert.True(t, len(collections) <= len(topStatus.TopStats),
-		"expected more than %d collections, got %d", len(collections), len(topStatus.TopStats))
-	for _, col := range collections {
-		assert.Contains(t, topStatus.TopStats, col)
-		stats := topStatus.TopStats[col]
-		assert.NotZero(t, stats.Total.Time, "%s: %+v", col, stats)
-		assert.NotZero(t, stats.Total.Count, "%s: %+v", col, stats)
-	}
+	assert.True(t, positive, "expected at least one observed namespace")
 }

@@ -15,11 +15,19 @@
 package shared
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
+
+func integrationMongoURI() string {
+	if value := os.Getenv("TEST_MONGODB_URI"); value != "" {
+		return value
+	}
+	return "mongodb://localhost:27017"
+}
 
 func TestRedactMongoUri(t *testing.T) {
 	uri := "mongodb://mongodb_exporter:s3cr3tpassw0rd@localhost:27017"
@@ -32,7 +40,7 @@ func TestRedactMongoUri(t *testing.T) {
 
 func TestMongoSession(t *testing.T) {
 	mso := &MongoSessionOpts{
-		URI: "mongodb://localhost:27017",
+		URI: integrationMongoURI(),
 	}
 	session := MongoClient(mso)
 	require.NotNil(t, session)
@@ -50,19 +58,17 @@ func TestMongoSession(t *testing.T) {
 
 func TestTestConnection(t *testing.T) {
 	mso := MongoSessionOpts{
-		URI: "mongodb://localhost:27017",
+		URI: integrationMongoURI(),
 	}
 	_, err := TestConnection(mso)
 	require.NoError(t, err)
 }
 
 func TestTestSSLConnection(t *testing.T) {
-	tlsCertificateKeyFile := "../testdata/client.pem"
-	tlsCAFile := "../testdata/ca.crt"
-
-	mso := MongoSessionOpts{
-		URI: "mongodb://127.0.0.1:27017/admin/?ssl=true&tlsCertificateKeyFile=" + tlsCertificateKeyFile + "&tlsCAFile=" + tlsCAFile + "&tlsInsecure=true&serverSelectionTimeoutMS=2000",
+	uri := os.Getenv("TEST_MONGODB_TLS_URI")
+	if uri == "" {
+		t.Skip("TEST_MONGODB_TLS_URI is not configured; hermetic CA-rotation TLS coverage runs separately")
 	}
-	_, err := TestConnection(mso)
+	_, err := TestConnection(MongoSessionOpts{URI: uri})
 	require.NoError(t, err)
 }

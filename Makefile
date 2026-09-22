@@ -70,44 +70,41 @@ build: release
 
 snapshot: $(GOPATH)/bin/goreleaser
 	@echo ">> building snapshot"
-	goreleaser --snapshot --skip-sign --skip-validate --skip-publish --rm-dist
+	goreleaser release --snapshot --clean
 
 # We use this target name to build binary across all PMM components
 release:
 	@echo ">> building binary"
 	@CGO_ENABLED=0 $(GO) build -v \
 		-ldflags '\
-		-X '$(GO_PACKAGE)/vendor/github.com/percona/pmm/version.ProjectName=$(BIN_NAME)' \
-		-X '$(GO_PACKAGE)/vendor/github.com/percona/pmm/version.Version=$(APP_VERSION)' \
-		-X '$(GO_PACKAGE)/vendor/github.com/percona/pmm/version.PMMVersion=$(PMM_RELEASE_VERSION)' \
-		-X '$(GO_PACKAGE)/vendor/github.com/percona/pmm/version.Timestamp=$(PMM_RELEASE_TIMESTAMP)' \
-		-X '$(GO_PACKAGE)/vendor/github.com/percona/pmm/version.FullCommit=$(PMM_RELEASE_FULLCOMMIT)' \
-		-X '$(GO_PACKAGE)/vendor/github.com/percona/pmm/version.Branch=$(PMM_RELEASE_BRANCH)' \
-		-X '$(GO_PACKAGE)/vendor/github.com/prometheus/common/version.BuildUser=$(USER)@$(TRAVIS_APP_HOST)' \
+		-X 'github.com/percona/pmm/version.ProjectName=$(BIN_NAME)' \
+		-X 'github.com/percona/pmm/version.Version=$(APP_VERSION)' \
+		-X 'github.com/percona/pmm/version.PMMVersion=$(PMM_RELEASE_VERSION)' \
+		-X 'github.com/percona/pmm/version.Timestamp=$(PMM_RELEASE_TIMESTAMP)' \
+		-X 'github.com/percona/pmm/version.FullCommit=$(PMM_RELEASE_FULLCOMMIT)' \
+		-X 'github.com/percona/pmm/version.Branch=$(PMM_RELEASE_BRANCH)' \
+		-X 'github.com/prometheus/common/version.BuildUser=$(USER)@$(TRAVIS_APP_HOST)' \
 		'\
 		-o $(BIN_DIR)/$(BIN_NAME) .
 
 community-release: $(GOPATH)/bin/goreleaser
 	@echo ">> building release"
-	goreleaser release --rm-dist --skip-validate
+	goreleaser release --clean
 
 docker:
 	@echo ">> building docker image"
 	@docker build -t "$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_TAG)" .
 
-$(GOPATH)/bin/dep:
-	curl -s https://raw.githubusercontent.com/golang/dep/v0.5.0/install.sh | sh
-
 $(GOPATH)/bin/goreleaser:
 	curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | BINDIR=$(GOPATH)/bin sh
 
-init: $(GOPATH)/bin/dep $(GOPATH)/bin/goreleaser
+init: $(GOPATH)/bin/goreleaser
 
-# Ensure that vendor/ is in sync with code and Gopkg.*
-check-vendor-synced: init
-	rm -fr vendor/
-	dep ensure -v
-	git diff --exit-code
+# Ensure that vendor/ is in sync with go.mod and go.sum.
+check-vendor-synced:
+	$(GO) mod tidy
+	$(GO) mod vendor
+	git diff --exit-code -- go.mod go.sum vendor/
 
 clean:
 	@echo ">> removing build artifacts"

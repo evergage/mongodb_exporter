@@ -30,7 +30,7 @@ import (
 func TestParserServerStatus(t *testing.T) {
 
 	serverStatus := &ServerStatus{}
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(testutils.MongodURI()))
 	if err != nil {
 		t.Fatal(err)
 	}

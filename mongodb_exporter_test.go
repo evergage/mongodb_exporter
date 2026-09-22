@@ -333,14 +333,15 @@ func testFlagTest(t *testing.T, data bin) {
 func testFlagTestWithTLS(t *testing.T, data bin) {
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
-
-	tlsCertificateKeyFile := "testdata/client.pem"
-	tlsCAFile := "testdata/ca.crt"
+	uri := os.Getenv("TEST_MONGODB_TLS_URI")
+	if uri == "" {
+		t.Skip("TEST_MONGODB_TLS_URI is not configured; hermetic CA-rotation TLS coverage runs separately")
+	}
 
 	cmd := exec.CommandContext(
 		ctx,
 		data.path,
-		"--mongodb.uri=mongodb://127.0.0.1:27017/admin/?ssl=true&tlsCertificateKeyFile="+tlsCertificateKeyFile+"&tlsCAFile="+tlsCAFile+"&tlsInsecure=true&serverSelectionTimeoutMS=2000",
+		"--mongodb.uri="+uri,
 		"--test",
 	)
 

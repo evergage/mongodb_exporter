@@ -1,0 +1,5348 @@
+{
+  "$clusterTime": {
+    "clusterTime": {
+      "$timestamp": {
+        "i": 2535,
+        "t": 1790024728
+      }
+    },
+    "signature": {
+      "hash": {
+        "$binary": {
+          "base64": "AAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+          "subType": "00"
+        }
+      },
+      "keyId": {
+        "$numberLong": "0"
+      }
+    }
+  },
+  "$configServerState": {
+    "opTime": {
+      "t": {
+        "$numberLong": "-1"
+      },
+      "ts": [
+        {
+          "$numberLong": "1790024728"
+        },
+        {
+          "$numberLong": "2066"
+        }
+      ]
+    }
+  },
+  "$gleStats": {
+    "electionId": {
+      "$oid": "7fffffff0000000000000001"
+    },
+    "lastOpTime": {
+      "$timestamp": {
+        "i": 0,
+        "t": 0
+      }
+    }
+  },
+  "asserts": {
+    "msg": {
+      "$numberLong": "0"
+    },
+    "regular": {
+      "$numberLong": "0"
+    },
+    "rollovers": {
+      "$numberLong": "0"
+    },
+    "tripwire": {
+      "$numberLong": "0"
+    },
+    "user": {
+      "$numberLong": "3328277"
+    },
+    "warning": {
+      "$numberLong": "0"
+    }
+  },
+  "catalogStats": {
+    "capped": {
+      "$numberLong": "0"
+    },
+    "collections": {
+      "$numberLong": "29937"
+    },
+    "internalCollections": {
+      "$numberLong": "158298"
+    },
+    "internalViews": {
+      "$numberLong": "1"
+    },
+    "timeseries": {
+      "$numberLong": "0"
+    },
+    "views": {
+      "$numberLong": "0"
+    }
+  },
+  "connections": {
+    "active": {
+      "$numberLong": "173"
+    },
+    "available": {
+      "$numberLong": "637311"
+    },
+    "awaitingTopologyChanges": {
+      "$numberLong": "274"
+    },
+    "current": {
+      "$numberLong": "2689"
+    },
+    "exhaustHello": {
+      "$numberLong": "3"
+    },
+    "exhaustIsMaster": {
+      "$numberLong": "166"
+    },
+    "threaded": {
+      "$numberLong": "2689"
+    },
+    "totalCreated": {
+      "$numberLong": "75898"
+    }
+  },
+  "electionMetrics": {
+    "averageCatchUpOps": {
+      "$numberLong": "0"
+    },
+    "catchUpTakeover": {
+      "called": {
+        "$numberLong": "0"
+      },
+      "successful": {
+        "$numberLong": "0"
+      }
+    },
+    "electionTimeout": {
+      "called": {
+        "$numberLong": "0"
+      },
+      "successful": {
+        "$numberLong": "0"
+      }
+    },
+    "freezeTimeout": {
+      "called": {
+        "$numberLong": "0"
+      },
+      "successful": {
+        "$numberLong": "0"
+      }
+    },
+    "numCatchUps": {
+      "$numberLong": "0"
+    },
+    "numCatchUpsAlreadyCaughtUp": {
+      "$numberLong": "1"
+    },
+    "numCatchUpsFailedWithError": {
+      "$numberLong": "0"
+    },
+    "numCatchUpsFailedWithNewTerm": {
+      "$numberLong": "0"
+    },
+    "numCatchUpsFailedWithReplSetAbortPrimaryCatchUpCmd": {
+      "$numberLong": "0"
+    },
+    "numCatchUpsSkipped": {
+      "$numberLong": "0"
+    },
+    "numCatchUpsSucceeded": {
+      "$numberLong": "0"
+    },
+    "numCatchUpsTimedOut": {
+      "$numberLong": "0"
+    },
+    "numStepDownsCausedByHigherTerm": {
+      "$numberLong": "0"
+    },
+    "priorityTakeover": {
+      "called": {
+        "$numberLong": "0"
+      },
+      "successful": {
+        "$numberLong": "0"
+      }
+    },
+    "stepUpCmd": {
+      "called": {
+        "$numberLong": "1"
+      },
+      "successful": {
+        "$numberLong": "1"
+      }
+    }
+  },
+  "extra_info": {
+    "input_blocks": {
+      "$numberLong": "153397462846"
+    },
+    "involuntary_context_switches": {
+      "$numberLong": "2834622018"
+    },
+    "maximum_resident_set_kb": {
+      "$numberLong": "95324916"
+    },
+    "note": "fields vary by platform",
+    "output_blocks": {
+      "$numberLong": "458348156536"
+    },
+    "page_faults": {
+      "$numberLong": "27772027"
+    },
+    "page_reclaims": {
+      "$numberLong": "53464228955"
+    },
+    "system_time_us": {
+      "$numberLong": "1305638662732"
+    },
+    "threads": {
+      "$numberLong": "2778"
+    },
+    "user_time_us": {
+      "$numberLong": "11680153402161"
+    },
+    "voluntary_context_switches": {
+      "$numberLong": "44272784221"
+    }
+  },
+  "featureCompatibilityVersion": {
+    "major": {
+      "$numberLong": "5"
+    },
+    "minor": {
+      "$numberLong": "0"
+    },
+    "transitioning": {
+      "$numberLong": "0"
+    }
+  },
+  "flowControl": {
+    "enabled": true,
+    "isLagged": false,
+    "isLaggedCount": {
+      "$numberLong": "54"
+    },
+    "isLaggedTimeMicros": {
+      "$numberLong": "243249782"
+    },
+    "locksPerKiloOp": {
+      "$numberLong": "1081"
+    },
+    "sustainerRate": {
+      "$numberLong": "5000"
+    },
+    "targetRateLimit": {
+      "$numberLong": "1000000000"
+    },
+    "timeAcquiringMicros": {
+      "$numberLong": "206603115128"
+    }
+  },
+  "globalLock": {
+    "activeClients": {
+      "readers": {
+        "$numberLong": "0"
+      },
+      "total": {
+        "$numberLong": "1"
+      },
+      "writers": {
+        "$numberLong": "1"
+      }
+    },
+    "currentQueue": {
+      "readers": {
+        "$numberLong": "0"
+      },
+      "total": {
+        "$numberLong": "0"
+      },
+      "writers": {
+        "$numberLong": "0"
+      }
+    },
+    "totalTime": {
+      "$numberLong": "2772002802000"
+    }
+  },
+  "host": "mongo-primary",
+  "indexBulkBuilder": {
+    "count": {
+      "$numberLong": "0"
+    },
+    "filesClosedForExternalSort": {
+      "$numberLong": "0"
+    },
+    "filesOpenedForExternalSort": {
+      "$numberLong": "0"
+    },
+    "resumed": {
+      "$numberLong": "0"
+    }
+  },
+  "indexStats": {
+    "count": {
+      "$numberLong": "158292"
+    },
+    "features": {
+      "2d": {
+        "accesses": {
+          "$numberLong": "0"
+        },
+        "count": {
+          "$numberLong": "0"
+        }
+      },
+      "2dsphere": {
+        "accesses": {
+          "$numberLong": "0"
+        },
+        "count": {
+          "$numberLong": "0"
+        }
+      },
+      "collation": {
+        "accesses": {
+          "$numberLong": "0"
+        },
+        "count": {
+          "$numberLong": "1952"
+        }
+      },
+      "compound": {
+        "accesses": {
+          "$numberLong": "13042497"
+        },
+        "count": {
+          "$numberLong": "38560"
+        }
+      },
+      "hashed": {
+        "accesses": {
+          "$numberLong": "29244"
+        },
+        "count": {
+          "$numberLong": "2082"
+        }
+      },
+      "id": {
+        "accesses": {
+          "$numberLong": "4009216929"
+        },
+        "count": {
+          "$numberLong": "29937"
+        }
+      },
+      "normal": {
+        "accesses": {
+          "$numberLong": "386540496"
+        },
+        "count": {
+          "$numberLong": "126273"
+        }
+      },
+      "partial": {
+        "accesses": {
+          "$numberLong": "0"
+        },
+        "count": {
+          "$numberLong": "0"
+        }
+      },
+      "single": {
+        "accesses": {
+          "$numberLong": "373527243"
+        },
+        "count": {
+          "$numberLong": "89795"
+        }
+      },
+      "sparse": {
+        "accesses": {
+          "$numberLong": "133867800"
+        },
+        "count": {
+          "$numberLong": "52903"
+        }
+      },
+      "text": {
+        "accesses": {
+          "$numberLong": "0"
+        },
+        "count": {
+          "$numberLong": "0"
+        }
+      },
+      "ttl": {
+        "accesses": {
+          "$numberLong": "43"
+        },
+        "count": {
+          "$numberLong": "2356"
+        }
+      },
+      "unique": {
+        "accesses": {
+          "$numberLong": "62528"
+        },
+        "count": {
+          "$numberLong": "890"
+        }
+      },
+      "wildcard": {
+        "accesses": {
+          "$numberLong": "0"
+        },
+        "count": {
+          "$numberLong": "0"
+        }
+      }
+    }
+  },
+  "lastCommittedOpTime": [
+    {
+      "$numberLong": "1790024728"
+    },
+    {
+      "$numberLong": "2424"
+    }
+  ],
+  "localTime": {
+    "$date": {
+      "$numberLong": "1790024728899"
+    }
+  },
+  "locks": {
+    "Collection": {
+      "acquireCount": {
+        "R": {
+          "$numberLong": "773"
+        },
+        "W": {
+          "$numberLong": "2258"
+        },
+        "r": {
+          "$numberLong": "44195643"
+        },
+        "w": {
+          "$numberLong": "2648510075"
+        }
+      },
+      "acquireWaitCount": {
+        "R": {
+          "$numberLong": "60"
+        },
+        "W": {
+          "$numberLong": "6"
+        },
+        "w": {
+          "$numberLong": "21"
+        }
+      },
+      "timeAcquiringMicros": {
+        "R": {
+          "$numberLong": "180186"
+        },
+        "W": {
+          "$numberLong": "2312"
+        },
+        "w": {
+          "$numberLong": "22896"
+        }
+      }
+    },
+    "Database": {
+      "acquireCount": {
+        "W": {
+          "$numberLong": "2052"
+        },
+        "r": {
+          "$numberLong": "49526669"
+        },
+        "w": {
+          "$numberLong": "2648514748"
+        }
+      },
+      "acquireWaitCount": {
+        "W": {
+          "$numberLong": "5"
+        },
+        "w": {
+          "$numberLong": "10"
+        }
+      },
+      "timeAcquiringMicros": {
+        "W": {
+          "$numberLong": "4414"
+        },
+        "w": {
+          "$numberLong": "10043"
+        }
+      }
+    },
+    "FeatureCompatibilityVersion": {
+      "acquireCount": {
+        "r": {
+          "$numberLong": "12712233497"
+        },
+        "w": {
+          "$numberLong": "2591331163"
+        }
+      }
+    },
+    "Global": {
+      "acquireCount": {
+        "W": {
+          "$numberLong": "7"
+        },
+        "r": {
+          "$numberLong": "12741333794"
+        },
+        "w": {
+          "$numberLong": "2649521127"
+        }
+      },
+      "acquireWaitCount": {
+        "W": {
+          "$numberLong": "1"
+        },
+        "r": {
+          "$numberLong": "2"
+        }
+      },
+      "timeAcquiringMicros": {
+        "W": {
+          "$numberLong": "46"
+        },
+        "r": {
+          "$numberLong": "231638992"
+        }
+      }
+    },
+    "Mutex": {
+      "acquireCount": {
+        "W": {
+          "$numberLong": "468445"
+        },
+        "r": {
+          "$numberLong": "15377255769"
+        }
+      },
+      "acquireWaitCount": {
+        "W": {
+          "$numberLong": "798"
+        },
+        "r": {
+          "$numberLong": "2557"
+        }
+      },
+      "timeAcquiringMicros": {
+        "W": {
+          "$numberLong": "41696"
+        },
+        "r": {
+          "$numberLong": "756880"
+        }
+      }
+    },
+    "ParallelBatchWriterMode": {
+      "acquireCount": {
+        "W": {
+          "$numberLong": "665342"
+        },
+        "r": {
+          "$numberLong": "2658283143"
+        }
+      },
+      "acquireWaitCount": {
+        "W": {
+          "$numberLong": "5786"
+        },
+        "r": {
+          "$numberLong": "10220"
+        }
+      },
+      "timeAcquiringMicros": {
+        "W": {
+          "$numberLong": "10572006"
+        },
+        "r": {
+          "$numberLong": "46270712"
+        }
+      }
+    },
+    "ReplicationStateTransition": {
+      "acquireCount": {
+        "W": {
+          "$numberLong": "2"
+        },
+        "w": {
+          "$numberLong": "2842837434"
+        }
+      },
+      "acquireWaitCount": {
+        "w": {
+          "$numberLong": "6"
+        }
+      },
+      "timeAcquiringMicros": {
+        "w": {
+          "$numberLong": "37590351"
+        }
+      }
+    },
+    "oplog": {
+      "acquireCount": {
+        "W": {
+          "$numberLong": "1"
+        },
+        "r": {
+          "$numberLong": "92385"
+        },
+        "w": {
+          "$numberLong": "1"
+        }
+      }
+    }
+  },
+  "logicalSessionRecordCache": {
+    "activeSessionsCount": {
+      "$numberLong": "3899"
+    },
+    "lastSessionsCollectionJobCursorsClosed": {
+      "$numberLong": "0"
+    },
+    "lastSessionsCollectionJobDurationMillis": {
+      "$numberLong": "837"
+    },
+    "lastSessionsCollectionJobEntriesEnded": {
+      "$numberLong": "0"
+    },
+    "lastSessionsCollectionJobEntriesRefreshed": {
+      "$numberLong": "8422"
+    },
+    "lastSessionsCollectionJobTimestamp": {
+      "$date": {
+        "$numberLong": "1790024613551"
+      }
+    },
+    "lastTransactionReaperJobDurationMillis": {
+      "$numberLong": "30"
+    },
+    "lastTransactionReaperJobEntriesCleanedUp": {
+      "$numberLong": "0"
+    },
+    "lastTransactionReaperJobTimestamp": {
+      "$date": {
+        "$numberLong": "1790024613583"
+      }
+    },
+    "sessionCatalogSize": {
+      "$numberLong": "7"
+    },
+    "sessionsCollectionJobCount": {
+      "$numberLong": "9239"
+    },
+    "transactionReaperJobCount": {
+      "$numberLong": "9239"
+    }
+  },
+  "mem": {
+    "bits": {
+      "$numberLong": "64"
+    },
+    "resident": {
+      "$numberLong": "86034"
+    },
+    "supported": true,
+    "virtual": {
+      "$numberLong": "106789"
+    }
+  },
+  "metrics": {
+    "aggStageCounters": {
+      "$_internalApplyOplogUpdate": {
+        "$numberLong": "0"
+      },
+      "$_internalBoundedSort": {
+        "$numberLong": "0"
+      },
+      "$_internalConvertBucketIndexStats": {
+        "$numberLong": "0"
+      },
+      "$_internalFindAndModifyImageLookup": {
+        "$numberLong": "0"
+      },
+      "$_internalInhibitOptimization": {
+        "$numberLong": "0"
+      },
+      "$_internalReshardingIterateTransaction": {
+        "$numberLong": "0"
+      },
+      "$_internalReshardingOwnershipMatch": {
+        "$numberLong": "0"
+      },
+      "$_internalSetWindowFields": {
+        "$numberLong": "0"
+      },
+      "$_internalShredDocuments": {
+        "$numberLong": "0"
+      },
+      "$_internalSplitPipeline": {
+        "$numberLong": "0"
+      },
+      "$_internalUnpackBucket": {
+        "$numberLong": "0"
+      },
+      "$_unpackBucket": {
+        "$numberLong": "0"
+      },
+      "$addFields": {
+        "$numberLong": "43"
+      },
+      "$bucket": {
+        "$numberLong": "0"
+      },
+      "$bucketAuto": {
+        "$numberLong": "0"
+      },
+      "$changeStream": {
+        "$numberLong": "0"
+      },
+      "$collStats": {
+        "$numberLong": "0"
+      },
+      "$count": {
+        "$numberLong": "0"
+      },
+      "$currentOp": {
+        "$numberLong": "9"
+      },
+      "$documents": {
+        "$numberLong": "0"
+      },
+      "$facet": {
+        "$numberLong": "0"
+      },
+      "$geoNear": {
+        "$numberLong": "0"
+      },
+      "$graphLookup": {
+        "$numberLong": "0"
+      },
+      "$group": {
+        "$numberLong": "369667"
+      },
+      "$indexStats": {
+        "$numberLong": "192226"
+      },
+      "$limit": {
+        "$numberLong": "158753"
+      },
+      "$listLocalSessions": {
+        "$numberLong": "0"
+      },
+      "$listSessions": {
+        "$numberLong": "0"
+      },
+      "$lookup": {
+        "$numberLong": "0"
+      },
+      "$match": {
+        "$numberLong": "197794"
+      },
+      "$merge": {
+        "$numberLong": "0"
+      },
+      "$mergeCursors": {
+        "$numberLong": "358"
+      },
+      "$operationMetrics": {
+        "$numberLong": "0"
+      },
+      "$out": {
+        "$numberLong": "0"
+      },
+      "$planCacheStats": {
+        "$numberLong": "0"
+      },
+      "$project": {
+        "$numberLong": "329104"
+      },
+      "$queue": {
+        "$numberLong": "0"
+      },
+      "$redact": {
+        "$numberLong": "0"
+      },
+      "$replaceRoot": {
+        "$numberLong": "0"
+      },
+      "$replaceWith": {
+        "$numberLong": "0"
+      },
+      "$sample": {
+        "$numberLong": "297"
+      },
+      "$set": {
+        "$numberLong": "93085466"
+      },
+      "$setWindowFields": {
+        "$numberLong": "0"
+      },
+      "$skip": {
+        "$numberLong": "0"
+      },
+      "$sort": {
+        "$numberLong": "228"
+      },
+      "$sortByCount": {
+        "$numberLong": "0"
+      },
+      "$unionWith": {
+        "$numberLong": "0"
+      },
+      "$unset": {
+        "$numberLong": "0"
+      },
+      "$unwind": {
+        "$numberLong": "177536"
+      }
+    },
+    "apiVersions": {
+      "": [
+        "default"
+      ],
+      "MongoD Async": [
+        "default"
+      ],
+      "MongoD Sync": [
+        "default"
+      ],
+      "MongoDB Shell": [
+        "default"
+      ],
+      "OplogFetcher": [
+        "default"
+      ],
+      "mongodb_exporter": [
+        "default"
+      ]
+    },
+    "changeStreams": {
+      "largeEventsFailed": {
+        "$numberLong": "0"
+      }
+    },
+    "commands": {
+      "_flushDatabaseCacheUpdates": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1529"
+        }
+      },
+      "_flushDatabaseCacheUpdatesWithWriteConcern": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "8"
+        }
+      },
+      "_flushRoutingTableCacheUpdates": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "130951"
+        }
+      },
+      "_flushRoutingTableCacheUpdatesWithWriteConcern": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "256"
+        }
+      },
+      "_getNextSessionMods": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "2639"
+        }
+      },
+      "_migrateClone": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "2621"
+        }
+      },
+      "_recvChunkAbort": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "403"
+        }
+      },
+      "_recvChunkCommit": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "756"
+        }
+      },
+      "_recvChunkStart": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1159"
+        }
+      },
+      "_recvChunkStatus": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "2292"
+        }
+      },
+      "_shardsvrCreateCollectionParticipant": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "2"
+        }
+      },
+      "_shardsvrDropCollection": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "302"
+        }
+      },
+      "_shardsvrDropCollectionParticipant": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1115"
+        }
+      },
+      "_shardsvrDropDatabase": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "2"
+        }
+      },
+      "_shardsvrDropDatabaseParticipant": {
+        "failed": {
+          "$numberLong": "4"
+        },
+        "total": {
+          "$numberLong": "10"
+        }
+      },
+      "_shardsvrSetAllowMigrations": {
+        "failed": {
+          "$numberLong": "15"
+        },
+        "total": {
+          "$numberLong": "90976"
+        }
+      },
+      "_transferMods": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "3946"
+        }
+      },
+      "aggregate": {
+        "allowDiskUseTrue": {
+          "$numberLong": "10936"
+        },
+        "failed": {
+          "$numberLong": "13285"
+        },
+        "total": {
+          "$numberLong": "212611"
+        }
+      },
+      "authenticate": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "28"
+        }
+      },
+      "autoSplitVector": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "4"
+        }
+      },
+      "buildInfo": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "92424"
+        }
+      },
+      "collStats": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "92385"
+        }
+      },
+      "connectionStatus": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "34"
+        }
+      },
+      "count": {
+        "failed": {
+          "$numberLong": "4"
+        },
+        "total": {
+          "$numberLong": "17289356"
+        }
+      },
+      "createIndexes": {
+        "failed": {
+          "$numberLong": "1"
+        },
+        "total": {
+          "$numberLong": "33599"
+        }
+      },
+      "delete": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "88925650"
+        }
+      },
+      "distinct": {
+        "failed": {
+          "$numberLong": "13"
+        },
+        "total": {
+          "$numberLong": "1711617"
+        }
+      },
+      "drop": {
+        "failed": {
+          "$numberLong": "35"
+        },
+        "total": {
+          "$numberLong": "1134"
+        }
+      },
+      "endSessions": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "9"
+        }
+      },
+      "features": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "8968"
+        }
+      },
+      "find": {
+        "failed": {
+          "$numberLong": "590"
+        },
+        "total": {
+          "$numberLong": "2113596255"
+        }
+      },
+      "findAndModify": {
+        "arrayFilters": {
+          "$numberLong": "0"
+        },
+        "failed": {
+          "$numberLong": "0"
+        },
+        "pipeline": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "8918"
+        }
+      },
+      "getCmdLineOpts": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1"
+        }
+      },
+      "getLog": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1"
+        }
+      },
+      "getMore": {
+        "failed": {
+          "$numberLong": "6"
+        },
+        "total": {
+          "$numberLong": "3294607577"
+        }
+      },
+      "hello": {
+        "failed": {
+          "$numberLong": "76"
+        },
+        "total": {
+          "$numberLong": "1662041"
+        }
+      },
+      "insert": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1273998"
+        }
+      },
+      "isMaster": {
+        "failed": {
+          "$numberLong": "97"
+        },
+        "total": {
+          "$numberLong": "154121277"
+        }
+      },
+      "killCursors": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "145"
+        }
+      },
+      "listCollections": {
+        "failed": {
+          "$numberLong": "2"
+        },
+        "total": {
+          "$numberLong": "166220"
+        }
+      },
+      "listDatabases": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1313"
+        }
+      },
+      "listIndexes": {
+        "failed": {
+          "$numberLong": "77"
+        },
+        "total": {
+          "$numberLong": "399362"
+        }
+      },
+      "moveChunk": {
+        "failed": {
+          "$numberLong": "16"
+        },
+        "total": {
+          "$numberLong": "777"
+        }
+      },
+      "ping": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "45995931"
+        }
+      },
+      "replSetGetConfig": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "92387"
+        }
+      },
+      "replSetGetStatus": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "92599"
+        }
+      },
+      "replSetHeartbeat": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "5541723"
+        }
+      },
+      "replSetReconfig": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "2"
+        }
+      },
+      "replSetStepUp": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1"
+        }
+      },
+      "replSetUpdatePosition": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "3691177401"
+        }
+      },
+      "rotateCertificates": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "1"
+        }
+      },
+      "serverStatus": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "184600"
+        }
+      },
+      "setShardVersion": {
+        "failed": {
+          "$numberLong": "8"
+        },
+        "total": {
+          "$numberLong": "751"
+        }
+      },
+      "splitChunk": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "4"
+        }
+      },
+      "update": {
+        "arrayFilters": {
+          "$numberLong": "0"
+        },
+        "failed": {
+          "$numberLong": "0"
+        },
+        "pipeline": {
+          "$numberLong": "93085309"
+        },
+        "total": {
+          "$numberLong": "1900252225"
+        }
+      },
+      "whatsmyuri": {
+        "failed": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "3"
+        }
+      }
+    },
+    "cursor": {
+      "lifespan": {
+        "greaterThanOrEqual10Minutes": {
+          "$numberLong": "749"
+        },
+        "lessThan10Minutes": {
+          "$numberLong": "1543"
+        },
+        "lessThan15Seconds": {
+          "$numberLong": "45919"
+        },
+        "lessThan1Minute": {
+          "$numberLong": "798"
+        },
+        "lessThan1Second": {
+          "$numberLong": "5984091"
+        },
+        "lessThan30Seconds": {
+          "$numberLong": "6679"
+        },
+        "lessThan5Seconds": {
+          "$numberLong": "22898"
+        }
+      },
+      "moreThanOneBatch": {
+        "$numberLong": "5895816"
+      },
+      "open": {
+        "noTimeout": {
+          "$numberLong": "0"
+        },
+        "pinned": {
+          "$numberLong": "0"
+        },
+        "total": {
+          "$numberLong": "2"
+        }
+      },
+      "timedOut": {
+        "$numberLong": "0"
+      },
+      "totalOpened": {
+        "$numberLong": "6062679"
+      }
+    },
+    "document": {
+      "deleted": {
+        "$numberLong": "56106027"
+      },
+      "inserted": {
+        "$numberLong": "26951751"
+      },
+      "returned": {
+        "$numberLong": "14962784763"
+      },
+      "updated": {
+        "$numberLong": "2169695741"
+      }
+    },
+    "dotsAndDollarsFields": {
+      "inserts": {
+        "$numberLong": "0"
+      },
+      "updates": {
+        "$numberLong": "0"
+      }
+    },
+    "getLastError": {
+      "default": {
+        "unsatisfiable": {
+          "$numberLong": "0"
+        },
+        "wtimeouts": {
+          "$numberLong": "0"
+        }
+      },
+      "wtime": {
+        "num": {
+          "$numberLong": "3380678"
+        },
+        "totalMillis": {
+          "$numberLong": "63997243"
+        }
+      },
+      "wtimeouts": {
+        "$numberLong": "11"
+      }
+    },
+    "mongos": {
+      "cursor": {
+        "moreThanOneBatch": {
+          "$numberLong": "0"
+        },
+        "totalOpened": {
+          "$numberLong": "22177"
+        }
+      }
+    },
+    "operation": {
+      "scanAndOrder": {
+        "$numberLong": "201316997"
+      },
+      "transactionTooLargeForCacheErrors": {
+        "$numberLong": "0"
+      },
+      "transactionTooLargeForCacheErrorsConvertedToWriteConflict": {
+        "$numberLong": "0"
+      },
+      "writeConflicts": {
+        "$numberLong": "5392990"
+      }
+    },
+    "operatorCounters": {
+      "expressions": {
+        "$_internalJsEmit": {
+          "$numberLong": "0"
+        },
+        "$_internalKeyStringValue": {
+          "$numberLong": "0"
+        },
+        "$abs": {
+          "$numberLong": "0"
+        },
+        "$acos": {
+          "$numberLong": "0"
+        },
+        "$acosh": {
+          "$numberLong": "0"
+        },
+        "$add": {
+          "$numberLong": "31115"
+        },
+        "$allElementsTrue": {
+          "$numberLong": "0"
+        },
+        "$and": {
+          "$numberLong": "398"
+        },
+        "$anyElementTrue": {
+          "$numberLong": "0"
+        },
+        "$arrayElemAt": {
+          "$numberLong": "316561"
+        },
+        "$arrayToObject": {
+          "$numberLong": "0"
+        },
+        "$asin": {
+          "$numberLong": "0"
+        },
+        "$asinh": {
+          "$numberLong": "0"
+        },
+        "$atan": {
+          "$numberLong": "0"
+        },
+        "$atan2": {
+          "$numberLong": "0"
+        },
+        "$atanh": {
+          "$numberLong": "0"
+        },
+        "$avg": {
+          "$numberLong": "0"
+        },
+        "$binarySize": {
+          "$numberLong": "0"
+        },
+        "$bsonSize": {
+          "$numberLong": "0"
+        },
+        "$ceil": {
+          "$numberLong": "0"
+        },
+        "$cmp": {
+          "$numberLong": "0"
+        },
+        "$concat": {
+          "$numberLong": "0"
+        },
+        "$concatArrays": {
+          "$numberLong": "33"
+        },
+        "$cond": {
+          "$numberLong": "32295"
+        },
+        "$const": {
+          "$numberLong": "810986"
+        },
+        "$convert": {
+          "$numberLong": "0"
+        },
+        "$cos": {
+          "$numberLong": "0"
+        },
+        "$cosh": {
+          "$numberLong": "0"
+        },
+        "$dateAdd": {
+          "$numberLong": "0"
+        },
+        "$dateDiff": {
+          "$numberLong": "0"
+        },
+        "$dateFromParts": {
+          "$numberLong": "0"
+        },
+        "$dateFromString": {
+          "$numberLong": "0"
+        },
+        "$dateSubtract": {
+          "$numberLong": "0"
+        },
+        "$dateToParts": {
+          "$numberLong": "0"
+        },
+        "$dateToString": {
+          "$numberLong": "10"
+        },
+        "$dateTrunc": {
+          "$numberLong": "0"
+        },
+        "$dayOfMonth": {
+          "$numberLong": "0"
+        },
+        "$dayOfWeek": {
+          "$numberLong": "0"
+        },
+        "$dayOfYear": {
+          "$numberLong": "0"
+        },
+        "$degreesToRadians": {
+          "$numberLong": "0"
+        },
+        "$divide": {
+          "$numberLong": "78"
+        },
+        "$eq": {
+          "$numberLong": "686313"
+        },
+        "$exp": {
+          "$numberLong": "0"
+        },
+        "$filter": {
+          "$numberLong": "362"
+        },
+        "$first": {
+          "$numberLong": "0"
+        },
+        "$floor": {
+          "$numberLong": "0"
+        },
+        "$function": {
+          "$numberLong": "0"
+        },
+        "$getField": {
+          "$numberLong": "0"
+        },
+        "$gt": {
+          "$numberLong": "349038"
+        },
+        "$gte": {
+          "$numberLong": "445"
+        },
+        "$hour": {
+          "$numberLong": "0"
+        },
+        "$ifNull": {
+          "$numberLong": "158308"
+        },
+        "$in": {
+          "$numberLong": "223"
+        },
+        "$indexOfArray": {
+          "$numberLong": "0"
+        },
+        "$indexOfBytes": {
+          "$numberLong": "0"
+        },
+        "$indexOfCP": {
+          "$numberLong": "0"
+        },
+        "$isArray": {
+          "$numberLong": "0"
+        },
+        "$isNumber": {
+          "$numberLong": "0"
+        },
+        "$isoDayOfWeek": {
+          "$numberLong": "0"
+        },
+        "$isoWeek": {
+          "$numberLong": "0"
+        },
+        "$isoWeekYear": {
+          "$numberLong": "0"
+        },
+        "$last": {
+          "$numberLong": "0"
+        },
+        "$let": {
+          "$numberLong": "66"
+        },
+        "$literal": {
+          "$numberLong": "0"
+        },
+        "$ln": {
+          "$numberLong": "32184"
+        },
+        "$log": {
+          "$numberLong": "0"
+        },
+        "$log10": {
+          "$numberLong": "0"
+        },
+        "$lt": {
+          "$numberLong": "158"
+        },
+        "$lte": {
+          "$numberLong": "47"
+        },
+        "$ltrim": {
+          "$numberLong": "0"
+        },
+        "$map": {
+          "$numberLong": "99"
+        },
+        "$max": {
+          "$numberLong": "0"
+        },
+        "$mergeObjects": {
+          "$numberLong": "0"
+        },
+        "$meta": {
+          "$numberLong": "0"
+        },
+        "$millisecond": {
+          "$numberLong": "0"
+        },
+        "$min": {
+          "$numberLong": "0"
+        },
+        "$minute": {
+          "$numberLong": "0"
+        },
+        "$mod": {
+          "$numberLong": "10422"
+        },
+        "$month": {
+          "$numberLong": "0"
+        },
+        "$multiply": {
+          "$numberLong": "32402"
+        },
+        "$ne": {
+          "$numberLong": "99"
+        },
+        "$not": {
+          "$numberLong": "190"
+        },
+        "$objectToArray": {
+          "$numberLong": "158272"
+        },
+        "$or": {
+          "$numberLong": "158339"
+        },
+        "$pow": {
+          "$numberLong": "0"
+        },
+        "$radiansToDegrees": {
+          "$numberLong": "0"
+        },
+        "$rand": {
+          "$numberLong": "0"
+        },
+        "$range": {
+          "$numberLong": "0"
+        },
+        "$reduce": {
+          "$numberLong": "316577"
+        },
+        "$regexFind": {
+          "$numberLong": "0"
+        },
+        "$regexFindAll": {
+          "$numberLong": "0"
+        },
+        "$regexMatch": {
+          "$numberLong": "0"
+        },
+        "$replaceAll": {
+          "$numberLong": "0"
+        },
+        "$replaceOne": {
+          "$numberLong": "0"
+        },
+        "$reverseArray": {
+          "$numberLong": "0"
+        },
+        "$round": {
+          "$numberLong": "0"
+        },
+        "$rtrim": {
+          "$numberLong": "0"
+        },
+        "$second": {
+          "$numberLong": "0"
+        },
+        "$setDifference": {
+          "$numberLong": "316544"
+        },
+        "$setEquals": {
+          "$numberLong": "0"
+        },
+        "$setField": {
+          "$numberLong": "0"
+        },
+        "$setIntersection": {
+          "$numberLong": "158272"
+        },
+        "$setIsSubset": {
+          "$numberLong": "0"
+        },
+        "$setUnion": {
+          "$numberLong": "158272"
+        },
+        "$sin": {
+          "$numberLong": "0"
+        },
+        "$sinh": {
+          "$numberLong": "0"
+        },
+        "$size": {
+          "$numberLong": "316544"
+        },
+        "$slice": {
+          "$numberLong": "0"
+        },
+        "$split": {
+          "$numberLong": "6"
+        },
+        "$sqrt": {
+          "$numberLong": "0"
+        },
+        "$stdDevPop": {
+          "$numberLong": "0"
+        },
+        "$stdDevSamp": {
+          "$numberLong": "0"
+        },
+        "$strLenBytes": {
+          "$numberLong": "0"
+        },
+        "$strLenCP": {
+          "$numberLong": "0"
+        },
+        "$strcasecmp": {
+          "$numberLong": "0"
+        },
+        "$substr": {
+          "$numberLong": "0"
+        },
+        "$substrBytes": {
+          "$numberLong": "0"
+        },
+        "$substrCP": {
+          "$numberLong": "0"
+        },
+        "$subtract": {
+          "$numberLong": "10394"
+        },
+        "$sum": {
+          "$numberLong": "82"
+        },
+        "$switch": {
+          "$numberLong": "0"
+        },
+        "$tan": {
+          "$numberLong": "0"
+        },
+        "$tanh": {
+          "$numberLong": "0"
+        },
+        "$toBool": {
+          "$numberLong": "0"
+        },
+        "$toDate": {
+          "$numberLong": "0"
+        },
+        "$toDecimal": {
+          "$numberLong": "0"
+        },
+        "$toDouble": {
+          "$numberLong": "0"
+        },
+        "$toHashedIndexKey": {
+          "$numberLong": "0"
+        },
+        "$toInt": {
+          "$numberLong": "0"
+        },
+        "$toLong": {
+          "$numberLong": "0"
+        },
+        "$toLower": {
+          "$numberLong": "0"
+        },
+        "$toObjectId": {
+          "$numberLong": "0"
+        },
+        "$toString": {
+          "$numberLong": "0"
+        },
+        "$toUpper": {
+          "$numberLong": "0"
+        },
+        "$trim": {
+          "$numberLong": "0"
+        },
+        "$trunc": {
+          "$numberLong": "0"
+        },
+        "$type": {
+          "$numberLong": "0"
+        },
+        "$unsetField": {
+          "$numberLong": "0"
+        },
+        "$week": {
+          "$numberLong": "0"
+        },
+        "$year": {
+          "$numberLong": "0"
+        },
+        "$zip": {
+          "$numberLong": "0"
+        }
+      },
+      "groupAccumulators": {
+        "$_internalJsReduce": {
+          "$numberLong": "0"
+        },
+        "$accumulator": {
+          "$numberLong": "0"
+        },
+        "$addToSet": {
+          "$numberLong": "192226"
+        },
+        "$avg": {
+          "$numberLong": "12"
+        },
+        "$count": {
+          "$numberLong": "0"
+        },
+        "$first": {
+          "$numberLong": "158284"
+        },
+        "$last": {
+          "$numberLong": "5"
+        },
+        "$max": {
+          "$numberLong": "10"
+        },
+        "$mergeObjects": {
+          "$numberLong": "0"
+        },
+        "$min": {
+          "$numberLong": "5"
+        },
+        "$push": {
+          "$numberLong": "509502"
+        },
+        "$stdDevPop": {
+          "$numberLong": "0"
+        },
+        "$stdDevSamp": {
+          "$numberLong": "0"
+        },
+        "$sum": {
+          "$numberLong": "69314"
+        }
+      },
+      "match": {
+        "$all": {
+          "$numberLong": "0"
+        },
+        "$alwaysFalse": {
+          "$numberLong": "0"
+        },
+        "$alwaysTrue": {
+          "$numberLong": "0"
+        },
+        "$and": {
+          "$numberLong": "1465304577"
+        },
+        "$bitsAllClear": {
+          "$numberLong": "0"
+        },
+        "$bitsAllSet": {
+          "$numberLong": "0"
+        },
+        "$bitsAnyClear": {
+          "$numberLong": "0"
+        },
+        "$bitsAnySet": {
+          "$numberLong": "1584"
+        },
+        "$comment": {
+          "$numberLong": "0"
+        },
+        "$elemMatch": {
+          "$numberLong": "3430599"
+        },
+        "$eq": {
+          "$numberLong": "5389935410"
+        },
+        "$exists": {
+          "$numberLong": "28951"
+        },
+        "$expr": {
+          "$numberLong": "844599"
+        },
+        "$geoIntersects": {
+          "$numberLong": "0"
+        },
+        "$geoWithin": {
+          "$numberLong": "0"
+        },
+        "$gt": {
+          "$numberLong": "3084"
+        },
+        "$gte": {
+          "$numberLong": "1166835161"
+        },
+        "$in": {
+          "$numberLong": "437939779"
+        },
+        "$jsonSchema": {
+          "$numberLong": "0"
+        },
+        "$lt": {
+          "$numberLong": "769030488"
+        },
+        "$lte": {
+          "$numberLong": "398594443"
+        },
+        "$mod": {
+          "$numberLong": "0"
+        },
+        "$ne": {
+          "$numberLong": "249479158"
+        },
+        "$near": {
+          "$numberLong": "0"
+        },
+        "$nearSphere": {
+          "$numberLong": "0"
+        },
+        "$nin": {
+          "$numberLong": "583670"
+        },
+        "$nor": {
+          "$numberLong": "0"
+        },
+        "$not": {
+          "$numberLong": "4819"
+        },
+        "$or": {
+          "$numberLong": "621315141"
+        },
+        "$regex": {
+          "$numberLong": "171"
+        },
+        "$sampleRate": {
+          "$numberLong": "0"
+        },
+        "$size": {
+          "$numberLong": "0"
+        },
+        "$text": {
+          "$numberLong": "0"
+        },
+        "$type": {
+          "$numberLong": "0"
+        },
+        "$where": {
+          "$numberLong": "0"
+        }
+      },
+      "windowAccumulators": {
+        "$addToSet": {
+          "$numberLong": "0"
+        },
+        "$avg": {
+          "$numberLong": "0"
+        },
+        "$count": {
+          "$numberLong": "0"
+        },
+        "$covariancePop": {
+          "$numberLong": "0"
+        },
+        "$covarianceSamp": {
+          "$numberLong": "0"
+        },
+        "$denseRank": {
+          "$numberLong": "0"
+        },
+        "$derivative": {
+          "$numberLong": "0"
+        },
+        "$documentNumber": {
+          "$numberLong": "0"
+        },
+        "$expMovingAvg": {
+          "$numberLong": "0"
+        },
+        "$first": {
+          "$numberLong": "0"
+        },
+        "$integral": {
+          "$numberLong": "0"
+        },
+        "$last": {
+          "$numberLong": "0"
+        },
+        "$max": {
+          "$numberLong": "0"
+        },
+        "$min": {
+          "$numberLong": "0"
+        },
+        "$push": {
+          "$numberLong": "0"
+        },
+        "$rank": {
+          "$numberLong": "0"
+        },
+        "$shift": {
+          "$numberLong": "0"
+        },
+        "$stdDevPop": {
+          "$numberLong": "0"
+        },
+        "$stdDevSamp": {
+          "$numberLong": "0"
+        },
+        "$sum": {
+          "$numberLong": "0"
+        }
+      }
+    },
+    "query": {
+      "deleteManyCount": {
+        "$numberLong": "87903198"
+      },
+      "externalRetryableWriteCount": {
+        "$numberLong": "0"
+      },
+      "internalRetryableWriteCount": {
+        "$numberLong": "3435"
+      },
+      "multiPlanner": {
+        "classicCount": {
+          "$numberLong": "1997"
+        },
+        "classicMicros": {
+          "$numberLong": "134207046"
+        },
+        "classicWorks": {
+          "$numberLong": "848213"
+        },
+        "histograms": {
+          "classicMicros": [
+            {
+              "count": {
+                "$numberLong": "828"
+              },
+              "lowerBound": {
+                "$numberLong": "0"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "491"
+              },
+              "lowerBound": {
+                "$numberLong": "1024"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "494"
+              },
+              "lowerBound": {
+                "$numberLong": "4096"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "114"
+              },
+              "lowerBound": {
+                "$numberLong": "16384"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "53"
+              },
+              "lowerBound": {
+                "$numberLong": "65536"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "11"
+              },
+              "lowerBound": {
+                "$numberLong": "262144"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "5"
+              },
+              "lowerBound": {
+                "$numberLong": "1048576"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "4194304"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "16777216"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "1"
+              },
+              "lowerBound": {
+                "$numberLong": "67108864"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "268435456"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "1073741824"
+              }
+            }
+          ],
+          "classicNumPlans": [
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "0"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "1838"
+              },
+              "lowerBound": {
+                "$numberLong": "2"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "53"
+              },
+              "lowerBound": {
+                "$numberLong": "4"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "106"
+              },
+              "lowerBound": {
+                "$numberLong": "8"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "16"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "32"
+              }
+            }
+          ],
+          "classicWorks": [
+            {
+              "count": {
+                "$numberLong": "1711"
+              },
+              "lowerBound": {
+                "$numberLong": "0"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "115"
+              },
+              "lowerBound": {
+                "$numberLong": "128"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "82"
+              },
+              "lowerBound": {
+                "$numberLong": "256"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "43"
+              },
+              "lowerBound": {
+                "$numberLong": "512"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "25"
+              },
+              "lowerBound": {
+                "$numberLong": "1024"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "10"
+              },
+              "lowerBound": {
+                "$numberLong": "2048"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "2"
+              },
+              "lowerBound": {
+                "$numberLong": "4096"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "4"
+              },
+              "lowerBound": {
+                "$numberLong": "8192"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "1"
+              },
+              "lowerBound": {
+                "$numberLong": "16384"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "4"
+              },
+              "lowerBound": {
+                "$numberLong": "32768"
+              }
+            }
+          ],
+          "sbeMicros": [
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "0"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "1024"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "4096"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "16384"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "65536"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "262144"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "1048576"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "4194304"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "16777216"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "67108864"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "268435456"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "1073741824"
+              }
+            }
+          ],
+          "sbeNumPlans": [
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "0"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "2"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "4"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "8"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "16"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "32"
+              }
+            }
+          ],
+          "sbeNumReads": [
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "0"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "128"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "256"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "512"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "1024"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "2048"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "4096"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "8192"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "16384"
+              }
+            },
+            {
+              "count": {
+                "$numberLong": "0"
+              },
+              "lowerBound": {
+                "$numberLong": "32768"
+              }
+            }
+          ]
+        },
+        "sbeCount": {
+          "$numberLong": "0"
+        },
+        "sbeMicros": {
+          "$numberLong": "0"
+        },
+        "sbeNumReads": {
+          "$numberLong": "0"
+        }
+      },
+      "planCacheTotalSizeEstimateBytes": {
+        "$numberLong": "16607654"
+      },
+      "updateDeleteManyDocumentsMaxCount": {
+        "$numberLong": "18688"
+      },
+      "updateDeleteManyDocumentsTotalCount": {
+        "$numberLong": "216022280"
+      },
+      "updateDeleteManyDurationMaxMs": {
+        "$numberLong": "12839"
+      },
+      "updateDeleteManyDurationTotalMs": {
+        "$numberLong": "266703517"
+      },
+      "updateManyCount": {
+        "$numberLong": "144579867"
+      },
+      "updateOneOpStyleBroadcastWithExactIDCount": {
+        "$numberLong": "0"
+      }
+    },
+    "queryExecutor": {
+      "collectionScans": {
+        "nonTailable": {
+          "$numberLong": "82433687"
+        },
+        "total": {
+          "$numberLong": "82433715"
+        }
+      },
+      "scanned": {
+        "$numberLong": "11819959219"
+      },
+      "scannedObjects": {
+        "$numberLong": "21257491671"
+      }
+    },
+    "record": {
+      "moves": {
+        "$numberLong": "0"
+      }
+    },
+    "repl": {
+      "apply": {
+        "attemptsToBecomeSecondary": {
+          "$numberLong": "1"
+        },
+        "batchSize": {
+          "$numberLong": "3627913"
+        },
+        "batches": {
+          "num": {
+            "$numberLong": "665342"
+          },
+          "totalMillis": {
+            "$numberLong": "1298061"
+          }
+        },
+        "ops": {
+          "$numberLong": "3627913"
+        }
+      },
+      "buffer": {
+        "count": {
+          "$numberLong": "0"
+        },
+        "maxSizeBytes": {
+          "$numberLong": "268435456"
+        },
+        "sizeBytes": {
+          "$numberLong": "0"
+        }
+      },
+      "executor": {
+        "networkInterface": "DEPRECATED: getDiagnosticString is deprecated in NetworkInterfaceTL",
+        "pool": {
+          "inProgressCount": {
+            "$numberLong": "0"
+          }
+        },
+        "queues": {
+          "networkInProgress": {
+            "$numberLong": "0"
+          },
+          "sleepers": {
+            "$numberLong": "5"
+          }
+        },
+        "shuttingDown": false,
+        "unsignaledEvents": {
+          "$numberLong": "0"
+        }
+      },
+      "initialSync": {
+        "completed": {
+          "$numberLong": "0"
+        },
+        "failedAttempts": {
+          "$numberLong": "0"
+        },
+        "failures": {
+          "$numberLong": "0"
+        }
+      },
+      "network": {
+        "bytes": {
+          "$numberLong": "145407102770"
+        },
+        "getmores": {
+          "num": {
+            "$numberLong": "1461815"
+          },
+          "numEmptyBatches": {
+            "$numberLong": "488444"
+          },
+          "totalMillis": {
+            "$numberLong": "1561372"
+          }
+        },
+        "notPrimaryLegacyUnacknowledgedWrites": {
+          "$numberLong": "0"
+        },
+        "notPrimaryUnacknowledgedWrites": {
+          "$numberLong": "0"
+        },
+        "oplogGetMoresProcessed": {
+          "num": {
+            "$numberLong": "3282520326"
+          },
+          "totalMillis": {
+            "$numberLong": "11027195"
+          }
+        },
+        "ops": {
+          "$numberLong": "3627909"
+        },
+        "readersCreated": {
+          "$numberLong": "2"
+        },
+        "replSetUpdatePosition": {
+          "num": {
+            "$numberLong": "1117893"
+          }
+        }
+      },
+      "reconfig": {
+        "numAutoReconfigsForRemovalOfNewlyAddedFields": {
+          "$numberLong": "0"
+        }
+      },
+      "stateTransition": {
+        "lastStateTransition": "stepUp",
+        "userOperationsKilled": {
+          "$numberLong": "0"
+        },
+        "userOperationsRunning": {
+          "$numberLong": "164"
+        }
+      },
+      "syncSource": {
+        "numSelections": {
+          "$numberLong": "3"
+        },
+        "numSyncSourceChangesDueToSignificantlyCloserNode": {
+          "$numberLong": "0"
+        },
+        "numTimesChoseDifferent": {
+          "$numberLong": "2"
+        },
+        "numTimesChoseSame": {
+          "$numberLong": "0"
+        },
+        "numTimesCouldNotFind": {
+          "$numberLong": "1"
+        }
+      },
+      "waiters": {
+        "opTime": {
+          "$numberLong": "0"
+        },
+        "replication": {
+          "$numberLong": "0"
+        }
+      }
+    },
+    "ttl": {
+      "deletedDocuments": {
+        "$numberLong": "68584806"
+      },
+      "passes": {
+        "$numberLong": "45482"
+      }
+    }
+  },
+  "network": {
+    "bytesIn": {
+      "$numberLong": "182006760933221"
+    },
+    "bytesOut": {
+      "$numberLong": "363855131625131"
+    },
+    "compression": {
+      "snappy": {
+        "compressor": {
+          "bytesIn": {
+            "$numberLong": "0"
+          },
+          "bytesOut": {
+            "$numberLong": "0"
+          }
+        },
+        "decompressor": {
+          "bytesIn": {
+            "$numberLong": "0"
+          },
+          "bytesOut": {
+            "$numberLong": "0"
+          }
+        }
+      },
+      "zstd": {
+        "compressor": {
+          "bytesIn": {
+            "$numberLong": "363747234298988"
+          },
+          "bytesOut": {
+            "$numberLong": "59825880316788"
+          }
+        },
+        "decompressor": {
+          "bytesIn": {
+            "$numberLong": "33410019814104"
+          },
+          "bytesOut": {
+            "$numberLong": "180756763771752"
+          }
+        }
+      }
+    },
+    "numRequests": {
+      "$numberLong": "11316762352"
+    },
+    "numSlowDNSOperations": {
+      "$numberLong": "58"
+    },
+    "numSlowSSLOperations": {
+      "$numberLong": "412"
+    },
+    "physicalBytesIn": {
+      "$numberLong": "33523969332746"
+    },
+    "physicalBytesOut": {
+      "$numberLong": "60065771533801"
+    },
+    "serviceExecutors": {
+      "fixed": {
+        "clientsInTotal": {
+          "$numberLong": "0"
+        },
+        "clientsRunning": {
+          "$numberLong": "0"
+        },
+        "clientsWaitingForData": {
+          "$numberLong": "0"
+        },
+        "threadsRunning": {
+          "$numberLong": "1"
+        }
+      },
+      "passthrough": {
+        "clientsInTotal": {
+          "$numberLong": "2689"
+        },
+        "clientsRunning": {
+          "$numberLong": "2689"
+        },
+        "clientsWaitingForData": {
+          "$numberLong": "0"
+        },
+        "threadsRunning": {
+          "$numberLong": "2689"
+        }
+      }
+    },
+    "tcpFastOpen": {
+      "accepted": {
+        "$numberLong": "0"
+      },
+      "clientSupported": true,
+      "kernelSetting": {
+        "$numberLong": "1"
+      },
+      "serverSupported": true
+    }
+  },
+  "ok": {
+    "$numberLong": "1"
+  },
+  "opLatencies": {
+    "commands": {
+      "latency": {
+        "$numberLong": "229366803809"
+      },
+      "ops": {
+        "$numberLong": "3899896433"
+      }
+    },
+    "reads": {
+      "latency": {
+        "$numberLong": "1692038344539"
+      },
+      "ops": {
+        "$numberLong": "5426521815"
+      }
+    },
+    "transactions": {
+      "latency": {
+        "$numberLong": "0"
+      },
+      "ops": {
+        "$numberLong": "0"
+      }
+    },
+    "writes": {
+      "latency": {
+        "$numberLong": "3691197126495"
+      },
+      "ops": {
+        "$numberLong": "1990343956"
+      }
+    }
+  },
+  "opcounters": {
+    "command": {
+      "$numberLong": "3919126548"
+    },
+    "delete": {
+      "$numberLong": "89066414"
+    },
+    "getmore": {
+      "$numberLong": "3294607549"
+    },
+    "insert": {
+      "$numberLong": "39151336"
+    },
+    "query": {
+      "$numberLong": "2113596759"
+    },
+    "update": {
+      "$numberLong": "2359423173"
+    }
+  },
+  "opcountersRepl": {
+    "command": {
+      "$numberLong": "0"
+    },
+    "delete": {
+      "$numberLong": "147144"
+    },
+    "getmore": {
+      "$numberLong": "0"
+    },
+    "insert": {
+      "$numberLong": "314381"
+    },
+    "query": {
+      "$numberLong": "0"
+    },
+    "update": {
+      "$numberLong": "3166146"
+    }
+  },
+  "operationTime": [
+    {
+      "$numberLong": "1790024728"
+    },
+    {
+      "$numberLong": "2534"
+    }
+  ],
+  "oplogTruncation": {
+    "processingMethod": "sampling",
+    "totalTimeProcessingMicros": {
+      "$numberLong": "75708937"
+    },
+    "totalTimeTruncatingMicros": {
+      "$numberLong": "789430184"
+    },
+    "truncateCount": {
+      "$numberLong": "1736"
+    }
+  },
+  "pid": {
+    "$numberLong": "10014"
+  },
+  "process": "mongod",
+  "readConcernCounters": {
+    "nonTransactionOps": {
+      "available": {
+        "$numberLong": "0"
+      },
+      "linearizable": {
+        "$numberLong": "0"
+      },
+      "local": {
+        "$numberLong": "41753"
+      },
+      "majority": {
+        "$numberLong": "0"
+      },
+      "none": {
+        "$numberLong": "2131887187"
+      },
+      "noneInfo": {
+        "CWRC": {
+          "available": {
+            "$numberLong": "2131317319"
+          },
+          "local": {
+            "$numberLong": "0"
+          },
+          "majority": {
+            "$numberLong": "0"
+          }
+        },
+        "implicitDefault": {
+          "available": {
+            "$numberLong": "0"
+          },
+          "local": {
+            "$numberLong": "569868"
+          }
+        }
+      },
+      "snapshot": {
+        "withClusterTime": {
+          "$numberLong": "0"
+        },
+        "withoutClusterTime": {
+          "$numberLong": "0"
+        }
+      }
+    },
+    "transactionOps": {
+      "local": {
+        "$numberLong": "0"
+      },
+      "majority": {
+        "$numberLong": "0"
+      },
+      "none": {
+        "$numberLong": "0"
+      },
+      "noneInfo": {
+        "CWRC": {
+          "local": {
+            "$numberLong": "0"
+          },
+          "majority": {
+            "$numberLong": "0"
+          }
+        },
+        "implicitDefault": {
+          "local": {
+            "$numberLong": "0"
+          }
+        }
+      },
+      "snapshot": {
+        "withClusterTime": {
+          "$numberLong": "0"
+        },
+        "withoutClusterTime": {
+          "$numberLong": "0"
+        }
+      }
+    }
+  },
+  "repl": {
+    "electionId": {
+      "$oid": "7fffffff0000000000000001"
+    },
+    "hosts": [
+      "mongo-1.example.invalid:27017",
+      "mongo-2.example.invalid:27017",
+      "mongo-3.example.invalid:27017",
+      "mongo-4.example.invalid:27017"
+    ],
+    "isImplicitDefaultMajorityWC": true,
+    "isWritablePrimary": true,
+    "lastWrite": {
+      "lastWriteDate": {
+        "$date": {
+          "$numberLong": "1790024728000"
+        }
+      },
+      "majorityOpTime": {
+        "t": {
+          "$numberLong": "32"
+        },
+        "ts": [
+          {
+            "$numberLong": "1790024728"
+          },
+          {
+            "$numberLong": "2355"
+          }
+        ]
+      },
+      "majorityWriteDate": {
+        "$date": {
+          "$numberLong": "1790024728000"
+        }
+      },
+      "opTime": {
+        "t": {
+          "$numberLong": "32"
+        },
+        "ts": [
+          {
+            "$numberLong": "1790024728"
+          },
+          {
+            "$numberLong": "2398"
+          }
+        ]
+      }
+    },
+    "me": "mongo-1.example.invalid:27017",
+    "primary": "mongo-1.example.invalid:27017",
+    "primaryOnlyServices": {
+      "RenameCollectionParticipantService": {
+        "numInstances": {
+          "$numberLong": "0"
+        },
+        "state": "running"
+      },
+      "ReshardingDonorService": {
+        "numInstances": {
+          "$numberLong": "0"
+        },
+        "state": "running"
+      },
+      "ReshardingRecipientService": {
+        "numInstances": {
+          "$numberLong": "0"
+        },
+        "state": "running"
+      },
+      "ShardingDDLCoordinator": {
+        "numInstances": {
+          "$numberLong": "0"
+        },
+        "state": "running"
+      }
+    },
+    "rbid": {
+      "$numberLong": "1"
+    },
+    "secondary": false,
+    "setName": "rs_fixture",
+    "setVersion": {
+      "$numberLong": "9834321"
+    },
+    "topologyVersion": {
+      "counter": {
+        "$numberLong": "12"
+      },
+      "processId": {
+        "$oid": "000000000000000000000001"
+      }
+    }
+  },
+  "scramCache": {
+    "SCRAM-SHA-1": {
+      "count": {
+        "$numberLong": "0"
+      },
+      "hits": {
+        "$numberLong": "0"
+      },
+      "misses": {
+        "$numberLong": "0"
+      }
+    },
+    "SCRAM-SHA-256": {
+      "count": {
+        "$numberLong": "0"
+      },
+      "hits": {
+        "$numberLong": "0"
+      },
+      "misses": {
+        "$numberLong": "0"
+      }
+    }
+  },
+  "security": {
+    "SSLServerCertificateExpirationDate": {
+      "$date": {
+        "$numberLong": "1796194911000"
+      }
+    },
+    "SSLServerSubjectName": "CN=mongodb.example.invalid",
+    "authentication": {
+      "mechanisms": {
+        "MONGODB-X509": {
+          "authenticate": {
+            "received": {
+              "$numberLong": "75739"
+            },
+            "successful": {
+              "$numberLong": "75739"
+            }
+          },
+          "clusterAuthenticate": {
+            "received": {
+              "$numberLong": "75395"
+            },
+            "successful": {
+              "$numberLong": "75395"
+            }
+          },
+          "speculativeAuthenticate": {
+            "received": {
+              "$numberLong": "75711"
+            },
+            "successful": {
+              "$numberLong": "75711"
+            }
+          }
+        },
+        "SCRAM-SHA-1": {
+          "authenticate": {
+            "received": {
+              "$numberLong": "0"
+            },
+            "successful": {
+              "$numberLong": "0"
+            }
+          },
+          "clusterAuthenticate": {
+            "received": {
+              "$numberLong": "0"
+            },
+            "successful": {
+              "$numberLong": "0"
+            }
+          },
+          "speculativeAuthenticate": {
+            "received": {
+              "$numberLong": "0"
+            },
+            "successful": {
+              "$numberLong": "0"
+            }
+          }
+        },
+        "SCRAM-SHA-256": {
+          "authenticate": {
+            "received": {
+              "$numberLong": "0"
+            },
+            "successful": {
+              "$numberLong": "0"
+            }
+          },
+          "clusterAuthenticate": {
+            "received": {
+              "$numberLong": "0"
+            },
+            "successful": {
+              "$numberLong": "0"
+            }
+          },
+          "speculativeAuthenticate": {
+            "received": {
+              "$numberLong": "0"
+            },
+            "successful": {
+              "$numberLong": "0"
+            }
+          }
+        }
+      },
+      "saslSupportedMechsReceived": {
+        "$numberLong": "75395"
+      }
+    }
+  },
+  "sharding": {
+    "configsvrConnectionString": "config_fixture/config-1.example.invalid:27017,config-2.example.invalid:27017,config-3.example.invalid:27017",
+    "lastSeenConfigServerOpTime": {
+      "t": {
+        "$numberLong": "-1"
+      },
+      "ts": [
+        {
+          "$numberLong": "1790024728"
+        },
+        {
+          "$numberLong": "2066"
+        }
+      ]
+    },
+    "maxChunkSizeInBytes": {
+      "$numberLong": "67108864"
+    }
+  },
+  "shardingStatistics": {
+    "catalogCache": {
+      "countFailedRefreshes": {
+        "$numberLong": "1135"
+      },
+      "countFullRefreshesStarted": {
+        "$numberLong": "28956"
+      },
+      "countIncrementalRefreshesStarted": {
+        "$numberLong": "143223"
+      },
+      "countStaleConfigErrors": {
+        "$numberLong": "0"
+      },
+      "numActiveFullRefreshes": {
+        "$numberLong": "0"
+      },
+      "numActiveIncrementalRefreshes": {
+        "$numberLong": "0"
+      },
+      "numCollectionEntries": {
+        "$numberLong": "11357"
+      },
+      "numDatabaseEntries": {
+        "$numberLong": "449"
+      },
+      "totalRefreshWaitTimeMicros": {
+        "$numberLong": "1979893986"
+      }
+    },
+    "chunkMigrationConcurrency": {
+      "$numberLong": "1"
+    },
+    "countBytesClonedOnCatchUpOnRecipient": {
+      "$numberLong": "628658"
+    },
+    "countBytesClonedOnDonor": {
+      "$numberLong": "22622841111"
+    },
+    "countBytesClonedOnRecipient": {
+      "$numberLong": "20518281469"
+    },
+    "countBytesDeletedByRangeDeleter": {
+      "$numberLong": "22619145186"
+    },
+    "countDocsClonedOnCatchUpOnRecipient": {
+      "$numberLong": "78"
+    },
+    "countDocsClonedOnDonor": {
+      "$numberLong": "10075748"
+    },
+    "countDocsClonedOnRecipient": {
+      "$numberLong": "11699118"
+    },
+    "countDocsDeletedByRangeDeleter": {
+      "$numberLong": "10075151"
+    },
+    "countDonorMoveChunkAbortConflictingIndexOperation": {
+      "$numberLong": "0"
+    },
+    "countDonorMoveChunkAborted": {
+      "$numberLong": "16"
+    },
+    "countDonorMoveChunkCommitted": {
+      "$numberLong": "761"
+    },
+    "countDonorMoveChunkLockTimeout": {
+      "$numberLong": "0"
+    },
+    "countDonorMoveChunkStarted": {
+      "$numberLong": "777"
+    },
+    "countRecipientMoveChunkStarted": {
+      "$numberLong": "1159"
+    },
+    "countStaleConfigErrors": {
+      "$numberLong": "168416"
+    },
+    "rangeDeleterTasks": {
+      "$numberLong": "0"
+    },
+    "resharding": {
+      "bytesCopied": {
+        "$numberLong": "0"
+      },
+      "collClonerFillBatchForInsertLatencyMillis": {
+        "(-inf, 10)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "[10, 100)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "[100, 1000)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "[1000, 10000)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "[10000, inf)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "totalCount": {
+          "$numberLong": "0"
+        }
+      },
+      "countReshardingCanceled": {
+        "$numberLong": "0"
+      },
+      "countReshardingFailures": {
+        "$numberLong": "0"
+      },
+      "countReshardingOperations": {
+        "$numberLong": "0"
+      },
+      "countReshardingSuccessful": {
+        "$numberLong": "0"
+      },
+      "countWritesDuringCriticalSection": {
+        "$numberLong": "0"
+      },
+      "documentsCopied": {
+        "$numberLong": "0"
+      },
+      "lastOpEndingChunkImbalance": {
+        "$numberLong": "0"
+      },
+      "maxShardRemainingOperationTimeEstimatedMillis": {
+        "$numberLong": "0"
+      },
+      "minShardRemainingOperationTimeEstimatedMillis": {
+        "$numberLong": "0"
+      },
+      "opcounters": {
+        "delete": {
+          "$numberLong": "0"
+        },
+        "insert": {
+          "$numberLong": "0"
+        },
+        "update": {
+          "$numberLong": "0"
+        }
+      },
+      "oplogApplierApplyBatchLatencyMillis": {
+        "(-inf, 10)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "[10, 100)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "[100, 1000)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "[1000, 10000)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "[10000, inf)": {
+          "count": {
+            "$numberLong": "0"
+          }
+        },
+        "totalCount": {
+          "$numberLong": "0"
+        }
+      },
+      "oplogEntriesApplied": {
+        "$numberLong": "0"
+      },
+      "oplogEntriesFetched": {
+        "$numberLong": "0"
+      }
+    },
+    "totalCriticalSectionCommitTimeMillis": {
+      "$numberLong": "21413"
+    },
+    "totalCriticalSectionTimeMillis": {
+      "$numberLong": "53541"
+    },
+    "totalDonorChunkCloneTimeMillis": {
+      "$numberLong": "1747953"
+    },
+    "totalDonorMoveChunkTimeMillis": {
+      "$numberLong": "3824870"
+    },
+    "unfinishedMigrationFromPreviousPrimary": {
+      "$numberLong": "0"
+    }
+  },
+  "storageEngine": {
+    "backupCursorOpen": false,
+    "dropPendingIdents": {
+      "$numberLong": "0"
+    },
+    "name": "wiredTiger",
+    "oldestRequiredTimestampForCrashRecovery": [
+      {
+        "$numberLong": "1790024699"
+      },
+      {
+        "$numberLong": "1389"
+      }
+    ],
+    "persistent": true,
+    "readOnly": false,
+    "supportsCommittedReads": true,
+    "supportsPendingDrops": true,
+    "supportsResumableIndexBuilds": true,
+    "supportsSnapshotReadConcern": true
+  },
+  "tcmalloc": {
+    "generic": {
+      "current_allocated_bytes": {
+        "$numberLong": "47480180216"
+      },
+      "heap_size": {
+        "$numberLong": "106592198656"
+      }
+    },
+    "tcmalloc": {
+      "aggressive_memory_decommit": {
+        "$numberLong": "0"
+      },
+      "central_cache_free_bytes": {
+        "$numberLong": "1042633008"
+      },
+      "current_total_thread_cache_bytes": {
+        "$numberLong": "822955112"
+      },
+      "formattedString": "------------------------------------------------\nMALLOC:    47480175512 (45280.6 MiB) Bytes in use by application\nMALLOC: +  47010369536 (44832.6 MiB) Bytes in page heap freelist\nMALLOC: +   1042617776 (  994.3 MiB) Bytes in central cache freelist\nMALLOC: +        77312 (    0.1 MiB) Bytes in transfer cache freelist\nMALLOC: +    822894776 (  784.8 MiB) Bytes in thread cache freelists\nMALLOC: +    376569856 (  359.1 MiB) Bytes in malloc metadata\nMALLOC:   ------------\nMALLOC: =  96732704768 (92251.5 MiB) Actual memory used (physical + swap)\nMALLOC: +  10236063744 ( 9761.9 MiB) Bytes released to OS (aka unmapped)\nMALLOC:   ------------\nMALLOC: = 106968768512 (102013.4 MiB) Virtual address space used\nMALLOC:\nMALLOC:        2105109              Spans in use\nMALLOC:           2776              Thread heaps in use\nMALLOC:           4096              Tcmalloc page size\n------------------------------------------------\nCall ReleaseFreeMemory() to release freelist memory to the OS (via madvise()).\nBytes released to the OS take up virtual address space but no physical memory.\n",
+      "max_total_thread_cache_bytes": {
+        "$numberLong": "1073741824"
+      },
+      "pageheap_commit_count": {
+        "$numberLong": "481000287"
+      },
+      "pageheap_committed_bytes": {
+        "$numberLong": "96356134912"
+      },
+      "pageheap_decommit_count": {
+        "$numberLong": "464096154"
+      },
+      "pageheap_free_bytes": {
+        "$numberLong": "47009964032"
+      },
+      "pageheap_reserve_count": {
+        "$numberLong": "31030"
+      },
+      "pageheap_scavenge_count": {
+        "$numberLong": "462878296"
+      },
+      "pageheap_total_commit_bytes": {
+        "$numberLong": "226805244911616"
+      },
+      "pageheap_total_decommit_bytes": {
+        "$numberLong": "226708888776704"
+      },
+      "pageheap_total_reserve_bytes": {
+        "$numberLong": "106592198656"
+      },
+      "pageheap_unmapped_bytes": {
+        "$numberLong": "10236063744"
+      },
+      "release_rate": {
+        "$numberLong": "2"
+      },
+      "spinlock_total_delay_ns": {
+        "$numberLong": "180100011792492"
+      },
+      "thread_cache_free_bytes": {
+        "$numberLong": "822915704"
+      },
+      "total_free_bytes": {
+        "$numberLong": "1865659032"
+      },
+      "transfer_cache_free_bytes": {
+        "$numberLong": "77312"
+      }
+    }
+  },
+  "tenantMigrations": {
+    "currentMigrationsDonating": {
+      "$numberLong": "0"
+    },
+    "currentMigrationsReceiving": {
+      "$numberLong": "0"
+    },
+    "totalFailedMigrationsDonated": {
+      "$numberLong": "0"
+    },
+    "totalFailedMigrationsReceived": {
+      "$numberLong": "0"
+    },
+    "totalSuccessfulMigrationsDonated": {
+      "$numberLong": "0"
+    },
+    "totalSuccessfulMigrationsReceived": {
+      "$numberLong": "0"
+    }
+  },
+  "trafficRecording": {
+    "running": false
+  },
+  "transactions": {
+    "currentActive": {
+      "$numberLong": "0"
+    },
+    "currentInactive": {
+      "$numberLong": "0"
+    },
+    "currentOpen": {
+      "$numberLong": "0"
+    },
+    "currentPrepared": {
+      "$numberLong": "0"
+    },
+    "retriedCommandsCount": {
+      "$numberLong": "0"
+    },
+    "retriedStatementsCount": {
+      "$numberLong": "0"
+    },
+    "totalAborted": {
+      "$numberLong": "0"
+    },
+    "totalCommitted": {
+      "$numberLong": "0"
+    },
+    "totalPrepared": {
+      "$numberLong": "0"
+    },
+    "totalPreparedThenAborted": {
+      "$numberLong": "0"
+    },
+    "totalPreparedThenCommitted": {
+      "$numberLong": "0"
+    },
+    "totalStarted": {
+      "$numberLong": "0"
+    },
+    "transactionsCollectionWriteCount": {
+      "$numberLong": "3110"
+    }
+  },
+  "transportSecurity": {
+    "1.0": {
+      "$numberLong": "0"
+    },
+    "1.1": {
+      "$numberLong": "0"
+    },
+    "1.2": {
+      "$numberLong": "168611"
+    },
+    "1.3": {
+      "$numberLong": "0"
+    },
+    "unknown": {
+      "$numberLong": "0"
+    }
+  },
+  "twoPhaseCommitCoordinator": {
+    "currentInSteps": {
+      "deletingCoordinatorDoc": {
+        "$numberLong": "0"
+      },
+      "waitingForDecisionAcks": {
+        "$numberLong": "0"
+      },
+      "waitingForVotes": {
+        "$numberLong": "0"
+      },
+      "writingDecision": {
+        "$numberLong": "0"
+      },
+      "writingParticipantList": {
+        "$numberLong": "0"
+      }
+    },
+    "totalAbortedTwoPhaseCommit": {
+      "$numberLong": "0"
+    },
+    "totalCommittedTwoPhaseCommit": {
+      "$numberLong": "0"
+    },
+    "totalCreated": {
+      "$numberLong": "0"
+    },
+    "totalStartedTwoPhaseCommit": {
+      "$numberLong": "0"
+    }
+  },
+  "uptime": {
+    "$numberLong": "2772002"
+  },
+  "uptimeEstimate": {
+    "$numberLong": "2772002"
+  },
+  "uptimeMillis": {
+    "$numberLong": "2772002758"
+  },
+  "version": "5.0.34",
+  "wiredTiger": {
+    "block-manager": {
+      "block cache cached blocks updated": {
+        "$numberLong": "0"
+      },
+      "block cache cached bytes updated": {
+        "$numberLong": "0"
+      },
+      "block cache evicted blocks": {
+        "$numberLong": "0"
+      },
+      "block cache file size causing bypass": {
+        "$numberLong": "0"
+      },
+      "block cache lookups": {
+        "$numberLong": "0"
+      },
+      "block cache number of blocks not evicted due to overhead": {
+        "$numberLong": "0"
+      },
+      "block cache number of bypasses because no-write-allocate setting was on": {
+        "$numberLong": "0"
+      },
+      "block cache number of bypasses due to overhead on put": {
+        "$numberLong": "0"
+      },
+      "block cache number of bypasses on get": {
+        "$numberLong": "0"
+      },
+      "block cache number of bypasses on put because file is too small": {
+        "$numberLong": "0"
+      },
+      "block cache number of eviction passes": {
+        "$numberLong": "0"
+      },
+      "block cache number of hits including existence checks": {
+        "$numberLong": "0"
+      },
+      "block cache number of misses including existence checks": {
+        "$numberLong": "0"
+      },
+      "block cache number of put bypasses on checkpoint I/O": {
+        "$numberLong": "0"
+      },
+      "block cache removed blocks": {
+        "$numberLong": "0"
+      },
+      "block cache total blocks": {
+        "$numberLong": "0"
+      },
+      "block cache total blocks inserted on read path": {
+        "$numberLong": "0"
+      },
+      "block cache total blocks inserted on write path": {
+        "$numberLong": "0"
+      },
+      "block cache total bytes": {
+        "$numberLong": "0"
+      },
+      "block cache total bytes inserted on read path": {
+        "$numberLong": "0"
+      },
+      "block cache total bytes inserted on write path": {
+        "$numberLong": "0"
+      },
+      "blocks pre-loaded": {
+        "$numberLong": "109374756"
+      },
+      "blocks read": {
+        "$numberLong": "13989771096"
+      },
+      "blocks written": {
+        "$numberLong": "6581438297"
+      },
+      "bytes read": {
+        "$numberLong": "270144985792512"
+      },
+      "bytes read via memory map API": {
+        "$numberLong": "0"
+      },
+      "bytes read via system call API": {
+        "$numberLong": "0"
+      },
+      "bytes written": {
+        "$numberLong": "228386792460288"
+      },
+      "bytes written for checkpoint": {
+        "$numberLong": "19708908187648"
+      },
+      "bytes written via memory map API": {
+        "$numberLong": "0"
+      },
+      "bytes written via system call API": {
+        "$numberLong": "0"
+      },
+      "mapped blocks read": {
+        "$numberLong": "0"
+      },
+      "mapped bytes read": {
+        "$numberLong": "0"
+      },
+      "number of times the file was remapped because it changed size via fallocate or truncate": {
+        "$numberLong": "0"
+      },
+      "number of times the region was remapped via write": {
+        "$numberLong": "0"
+      }
+    },
+    "cache": {
+      "application threads page read from disk to cache count": {
+        "$numberLong": "12741348485"
+      },
+      "application threads page read from disk to cache time (usecs)": {
+        "$numberLong": "975838271631"
+      },
+      "application threads page write from cache to disk count": {
+        "$numberLong": "1179995386"
+      },
+      "application threads page write from cache to disk time (usecs)": {
+        "$numberLong": "66681136443"
+      },
+      "bytes allocated for updates": {
+        "$numberLong": "1320818731"
+      },
+      "bytes belonging to page images in the cache": {
+        "$numberLong": "37726913086"
+      },
+      "bytes belonging to the history store table in the cache": {
+        "$numberLong": "1008005946"
+      },
+      "bytes currently in the cache": {
+        "$numberLong": "42091893195"
+      },
+      "bytes dirty in the cache cumulative": {
+        "$numberLong": "707240663185366"
+      },
+      "bytes not belonging to page images in the cache": {
+        "$numberLong": "4364980108"
+      },
+      "bytes read into cache": {
+        "$numberLong": "697104827006861"
+      },
+      "bytes written from cache": {
+        "$numberLong": "684779535076437"
+      },
+      "cache overflow score": {
+        "$numberLong": "0"
+      },
+      "checkpoint blocked page eviction": {
+        "$numberLong": "1495014"
+      },
+      "checkpoint of history store file blocked non-history store page eviction": {
+        "$numberLong": "0"
+      },
+      "eviction calls to get a page": {
+        "$numberLong": "27171520819"
+      },
+      "eviction calls to get a page found queue empty": {
+        "$numberLong": "6941292405"
+      },
+      "eviction calls to get a page found queue empty after locking": {
+        "$numberLong": "159839017"
+      },
+      "eviction currently operating in aggressive mode": {
+        "$numberLong": "0"
+      },
+      "eviction empty score": {
+        "$numberLong": "0"
+      },
+      "eviction gave up due to detecting an out of order on disk value behind the last update on the chain": {
+        "$numberLong": "0"
+      },
+      "eviction gave up due to detecting an out of order tombstone ahead of the selected on disk update": {
+        "$numberLong": "963"
+      },
+      "eviction gave up due to detecting an out of order tombstone ahead of the selected on disk update after validating the update chain": {
+        "$numberLong": "0"
+      },
+      "eviction gave up due to detecting out of order timestamps on the update chain after the selected on disk update": {
+        "$numberLong": "3"
+      },
+      "eviction gave up due to needing to remove a record from the history store but checkpoint is running": {
+        "$numberLong": "0"
+      },
+      "eviction passes of a file": {
+        "$numberLong": "10697109567"
+      },
+      "eviction server candidate queue empty when topping up": {
+        "$numberLong": "94504665"
+      },
+      "eviction server candidate queue not empty when topping up": {
+        "$numberLong": "121781095"
+      },
+      "eviction server evicting pages": {
+        "$numberLong": "0"
+      },
+      "eviction server skips dirty pages during a running checkpoint": {
+        "$numberLong": "108912256"
+      },
+      "eviction server skips metadata pages with history": {
+        "$numberLong": "0"
+      },
+      "eviction server skips pages that are written with transactions greater than the last running": {
+        "$numberLong": "33510417"
+      },
+      "eviction server skips pages that previously failed eviction and likely will again": {
+        "$numberLong": "5633"
+      },
+      "eviction server skips pages that we do not want to evict": {
+        "$numberLong": "187667929887"
+      },
+      "eviction server skips trees because there are too many active walks": {
+        "$numberLong": "0"
+      },
+      "eviction server skips trees that are being checkpointed": {
+        "$numberLong": "76141"
+      },
+      "eviction server skips trees that are configured to stick in cache": {
+        "$numberLong": "16324100"
+      },
+      "eviction server skips trees that disable eviction": {
+        "$numberLong": "4373784063"
+      },
+      "eviction server skips trees that were not useful before": {
+        "$numberLong": "88819907564"
+      },
+      "eviction server slept, because we did not make progress with eviction": {
+        "$numberLong": "306257948"
+      },
+      "eviction server unable to reach eviction goal": {
+        "$numberLong": "0"
+      },
+      "eviction server waiting for a leaf page": {
+        "$numberLong": "711501511"
+      },
+      "eviction state": {
+        "$numberLong": "64"
+      },
+      "eviction walk most recent sleeps for checkpoint handle gathering": {
+        "$numberLong": "44405553"
+      },
+      "eviction walk target pages histogram - 0-9": {
+        "$numberLong": "8966484554"
+      },
+      "eviction walk target pages histogram - 10-31": {
+        "$numberLong": "1673178759"
+      },
+      "eviction walk target pages histogram - 128 and higher": {
+        "$numberLong": "0"
+      },
+      "eviction walk target pages histogram - 32-63": {
+        "$numberLong": "38181315"
+      },
+      "eviction walk target pages histogram - 64-128": {
+        "$numberLong": "19264939"
+      },
+      "eviction walk target pages reduced due to history store cache pressure": {
+        "$numberLong": "0"
+      },
+      "eviction walk target strategy both clean and dirty pages": {
+        "$numberLong": "5592796857"
+      },
+      "eviction walk target strategy only clean pages": {
+        "$numberLong": "2037055447"
+      },
+      "eviction walk target strategy only dirty pages": {
+        "$numberLong": "3067257263"
+      },
+      "eviction walks abandoned": {
+        "$numberLong": "534200189"
+      },
+      "eviction walks gave up because they restarted their walk twice": {
+        "$numberLong": "8337984852"
+      },
+      "eviction walks gave up because they saw too many pages and found no candidates": {
+        "$numberLong": "677678308"
+      },
+      "eviction walks gave up because they saw too many pages and found too few candidates": {
+        "$numberLong": "177772406"
+      },
+      "eviction walks reached end of tree": {
+        "$numberLong": "17934472059"
+      },
+      "eviction walks restarted": {
+        "$numberLong": "0"
+      },
+      "eviction walks started from root of tree": {
+        "$numberLong": "9408745418"
+      },
+      "eviction walks started from saved location in tree": {
+        "$numberLong": "1288364149"
+      },
+      "eviction worker thread active": {
+        "$numberLong": "4"
+      },
+      "eviction worker thread created": {
+        "$numberLong": "0"
+      },
+      "eviction worker thread evicting pages": {
+        "$numberLong": "19862110650"
+      },
+      "eviction worker thread removed": {
+        "$numberLong": "0"
+      },
+      "eviction worker thread stable number": {
+        "$numberLong": "0"
+      },
+      "files with active eviction walks": {
+        "$numberLong": "0"
+      },
+      "files with new eviction walks started": {
+        "$numberLong": "9596487207"
+      },
+      "force re-tuning of eviction workers once in a while": {
+        "$numberLong": "0"
+      },
+      "forced eviction - do not retry count to evict pages selected to evict during reconciliation": {
+        "$numberLong": "63775"
+      },
+      "forced eviction - history store pages failed to evict while session has history store cursor open": {
+        "$numberLong": "54523"
+      },
+      "forced eviction - history store pages selected while session has history store cursor open": {
+        "$numberLong": "2409704"
+      },
+      "forced eviction - history store pages successfully evicted while session has history store cursor open": {
+        "$numberLong": "2355181"
+      },
+      "forced eviction - pages evicted that were clean count": {
+        "$numberLong": "3614763"
+      },
+      "forced eviction - pages evicted that were clean time (usecs)": {
+        "$numberLong": "15055897"
+      },
+      "forced eviction - pages evicted that were dirty count": {
+        "$numberLong": "12790489"
+      },
+      "forced eviction - pages evicted that were dirty time (usecs)": {
+        "$numberLong": "4001195448"
+      },
+      "forced eviction - pages selected because of a large number of updates to a single item": {
+        "$numberLong": "1292"
+      },
+      "forced eviction - pages selected because of too many deleted items count": {
+        "$numberLong": "343620"
+      },
+      "forced eviction - pages selected count": {
+        "$numberLong": "22755593"
+      },
+      "forced eviction - pages selected unable to be evicted count": {
+        "$numberLong": "6350340"
+      },
+      "forced eviction - pages selected unable to be evicted time": {
+        "$numberLong": "20115608"
+      },
+      "hazard pointer blocked page eviction": {
+        "$numberLong": "2254519813"
+      },
+      "hazard pointer check calls": {
+        "$numberLong": "19885197995"
+      },
+      "hazard pointer check entries walked": {
+        "$numberLong": "2088587644710"
+      },
+      "hazard pointer maximum array length": {
+        "$numberLong": "2"
+      },
+      "history store score": {
+        "$numberLong": "0"
+      },
+      "history store table insert calls": {
+        "$numberLong": "2192172319"
+      },
+      "history store table insert calls that returned restart": {
+        "$numberLong": "0"
+      },
+      "history store table max on-disk size": {
+        "$numberLong": "0"
+      },
+      "history store table on-disk size": {
+        "$numberLong": "24457457664"
+      },
+      "history store table out-of-order resolved updates that lose their durable timestamp": {
+        "$numberLong": "0"
+      },
+      "history store table out-of-order updates that were fixed up by reinserting with the fixed timestamp": {
+        "$numberLong": "123960"
+      },
+      "history store table reads": {
+        "$numberLong": "411"
+      },
+      "history store table reads missed": {
+        "$numberLong": "4715"
+      },
+      "history store table reads requiring squashed modifies": {
+        "$numberLong": "32"
+      },
+      "history store table truncation by rollback to stable to remove an unstable update": {
+        "$numberLong": "0"
+      },
+      "history store table truncation by rollback to stable to remove an update": {
+        "$numberLong": "0"
+      },
+      "history store table truncation to remove an update": {
+        "$numberLong": "106529"
+      },
+      "history store table truncation to remove range of updates due to key being removed from the data page during reconciliation": {
+        "$numberLong": "7865"
+      },
+      "history store table truncation to remove range of updates due to out-of-order timestamp update on data page": {
+        "$numberLong": "123960"
+      },
+      "history store table writes requiring squashed modifies": {
+        "$numberLong": "5941"
+      },
+      "in-memory page passed criteria to be split": {
+        "$numberLong": "40298589"
+      },
+      "in-memory page splits": {
+        "$numberLong": "13079564"
+      },
+      "internal pages evicted": {
+        "$numberLong": "7198473426"
+      },
+      "internal pages queued for eviction": {
+        "$numberLong": "4061786437"
+      },
+      "internal pages seen by eviction walk": {
+        "$numberLong": "196816276749"
+      },
+      "internal pages seen by eviction walk that are already queued": {
+        "$numberLong": "992758132"
+      },
+      "internal pages split during eviction": {
+        "$numberLong": "40414"
+      },
+      "leaf pages split during eviction": {
+        "$numberLong": "469181251"
+      },
+      "maximum bytes configured": {
+        "$numberLong": "52613349376"
+      },
+      "maximum milliseconds spent at a single eviction": {
+        "$numberLong": "28"
+      },
+      "maximum page size seen at eviction": {
+        "$numberLong": "16957059"
+      },
+      "modified pages evicted": {
+        "$numberLong": "4777198607"
+      },
+      "modified pages evicted by application threads": {
+        "$numberLong": "153035"
+      },
+      "operations timed out waiting for space in cache": {
+        "$numberLong": "0"
+      },
+      "overflow pages read into cache": {
+        "$numberLong": "6155"
+      },
+      "page split during eviction deepened the tree": {
+        "$numberLong": "0"
+      },
+      "page written requiring history store records": {
+        "$numberLong": "1002735204"
+      },
+      "pages currently held in the cache": {
+        "$numberLong": "894127"
+      },
+      "pages dirtied due to obsolete time window": {
+        "$numberLong": "67079145"
+      },
+      "pages evicted by application threads": {
+        "$numberLong": "326854"
+      },
+      "pages evicted in parallel with checkpoint": {
+        "$numberLong": "8811360077"
+      },
+      "pages queued for eviction": {
+        "$numberLong": "17091531663"
+      },
+      "pages queued for eviction post lru sorting": {
+        "$numberLong": "17233310530"
+      },
+      "pages queued for urgent eviction": {
+        "$numberLong": "6443557376"
+      },
+      "pages queued for urgent eviction during walk": {
+        "$numberLong": "15387026"
+      },
+      "pages queued for urgent eviction from history store due to high dirty content": {
+        "$numberLong": "0"
+      },
+      "pages read into cache": {
+        "$numberLong": "13940830461"
+      },
+      "pages read into cache after truncate": {
+        "$numberLong": "106928332"
+      },
+      "pages read into cache after truncate in prepare state": {
+        "$numberLong": "0"
+      },
+      "pages removed from the ordinary queue to be queued for urgent eviction": {
+        "$numberLong": "10199"
+      },
+      "pages requested from the cache": {
+        "$numberLong": "182435639916"
+      },
+      "pages seen by eviction walk": {
+        "$numberLong": "283818235435"
+      },
+      "pages seen by eviction walk that are already queued": {
+        "$numberLong": "2836989039"
+      },
+      "pages selected for eviction unable to be evicted": {
+        "$numberLong": "2437467842"
+      },
+      "pages selected for eviction unable to be evicted because of active children on an internal page": {
+        "$numberLong": "167585501"
+      },
+      "pages selected for eviction unable to be evicted because of failure in reconciliation": {
+        "$numberLong": "5531"
+      },
+      "pages selected for eviction unable to be evicted because of race between checkpoint and out of order timestamps handling": {
+        "$numberLong": "0"
+      },
+      "pages walked for eviction": {
+        "$numberLong": "24668813329935"
+      },
+      "pages written from cache": {
+        "$numberLong": "6416798429"
+      },
+      "pages written requiring in-memory restoration": {
+        "$numberLong": "2944533588"
+      },
+      "percentage overhead": {
+        "$numberLong": "8"
+      },
+      "the number of times full update inserted to history store": {
+        "$numberLong": "1401106815"
+      },
+      "the number of times reverse modify inserted to history store": {
+        "$numberLong": "791065690"
+      },
+      "total milliseconds spent inside reentrant history store evictions in a reconciliation": {
+        "$numberLong": "0"
+      },
+      "tracked bytes belonging to internal pages in the cache": {
+        "$numberLong": "3980850203"
+      },
+      "tracked bytes belonging to leaf pages in the cache": {
+        "$numberLong": "38111042992"
+      },
+      "tracked dirty bytes in the cache": {
+        "$numberLong": "1414405176"
+      },
+      "tracked dirty pages in the cache": {
+        "$numberLong": "14966"
+      },
+      "unmodified pages evicted": {
+        "$numberLong": "12670531769"
+      }
+    },
+    "capacity": {
+      "background fsync file handles considered": {
+        "$numberLong": "0"
+      },
+      "background fsync file handles synced": {
+        "$numberLong": "0"
+      },
+      "background fsync time (msecs)": {
+        "$numberLong": "0"
+      },
+      "bytes read": {
+        "$numberLong": "269413859852288"
+      },
+      "bytes written for checkpoint": {
+        "$numberLong": "15751472399839"
+      },
+      "bytes written for eviction": {
+        "$numberLong": "197760303283523"
+      },
+      "bytes written for log": {
+        "$numberLong": "22540586154624"
+      },
+      "bytes written total": {
+        "$numberLong": "236052051681685"
+      },
+      "threshold to call fsync": {
+        "$numberLong": "0"
+      },
+      "time waiting due to total capacity (usecs)": {
+        "$numberLong": "0"
+      },
+      "time waiting during checkpoint (usecs)": {
+        "$numberLong": "0"
+      },
+      "time waiting during eviction (usecs)": {
+        "$numberLong": "0"
+      },
+      "time waiting during logging (usecs)": {
+        "$numberLong": "0"
+      },
+      "time waiting during read (usecs)": {
+        "$numberLong": "0"
+      }
+    },
+    "checkpoint-cleanup": {
+      "pages added for eviction": {
+        "$numberLong": "79803593"
+      },
+      "pages removed": {
+        "$numberLong": "658751165"
+      },
+      "pages skipped during tree walk": {
+        "$numberLong": "1465591284255"
+      },
+      "pages visited": {
+        "$numberLong": "1508019929854"
+      }
+    },
+    "concurrentTransactions": {
+      "read": {
+        "available": {
+          "$numberLong": "127"
+        },
+        "out": {
+          "$numberLong": "1"
+        },
+        "totalTickets": {
+          "$numberLong": "128"
+        }
+      },
+      "write": {
+        "available": {
+          "$numberLong": "185"
+        },
+        "out": {
+          "$numberLong": "7"
+        },
+        "totalTickets": {
+          "$numberLong": "192"
+        }
+      }
+    },
+    "connection": {
+      "auto adjusting condition resets": {
+        "$numberLong": "60974036"
+      },
+      "auto adjusting condition wait calls": {
+        "$numberLong": "72726616"
+      },
+      "auto adjusting condition wait raced to update timeout and skipped updating": {
+        "$numberLong": "92"
+      },
+      "detected system time went backwards": {
+        "$numberLong": "0"
+      },
+      "files currently open": {
+        "$numberLong": "5308"
+      },
+      "hash bucket array size for data handles": {
+        "$numberLong": "512"
+      },
+      "hash bucket array size general": {
+        "$numberLong": "512"
+      },
+      "memory allocations": {
+        "$numberLong": "1155183051804"
+      },
+      "memory frees": {
+        "$numberLong": "1155334421059"
+      },
+      "memory re-allocations": {
+        "$numberLong": "12829878389"
+      },
+      "pthread mutex condition wait calls": {
+        "$numberLong": "7589440776"
+      },
+      "pthread mutex shared lock read-lock calls": {
+        "$numberLong": "73289228685"
+      },
+      "pthread mutex shared lock write-lock calls": {
+        "$numberLong": "4402639113"
+      },
+      "total fsync I/Os": {
+        "$numberLong": "148845327"
+      },
+      "total read I/Os": {
+        "$numberLong": "13993211665"
+      },
+      "total write I/Os": {
+        "$numberLong": "6773920878"
+      }
+    },
+    "cursor": {
+      "Total number of deleted pages skipped during tree walk": {
+        "$numberLong": "323543957"
+      },
+      "Total number of entries skipped by cursor next calls": {
+        "$numberLong": "15370352500"
+      },
+      "Total number of entries skipped by cursor prev calls": {
+        "$numberLong": "14267973120"
+      },
+      "Total number of entries skipped to position the history store cursor": {
+        "$numberLong": "18308"
+      },
+      "Total number of in-memory deleted pages skipped during tree walk": {
+        "$numberLong": "376462"
+      },
+      "Total number of times a search near has exited due to prefix config": {
+        "$numberLong": "297746"
+      },
+      "cached cursor count": {
+        "$numberLong": "0"
+      },
+      "cursor bulk loaded cursor insert calls": {
+        "$numberLong": "0"
+      },
+      "cursor close calls that result in cache": {
+        "$numberLong": "0"
+      },
+      "cursor create calls": {
+        "$numberLong": "16769941198"
+      },
+      "cursor insert calls": {
+        "$numberLong": "6218331273"
+      },
+      "cursor insert key and value bytes": {
+        "$numberLong": "159792985905961"
+      },
+      "cursor modify calls": {
+        "$numberLong": "2559103939"
+      },
+      "cursor modify key and value bytes affected": {
+        "$numberLong": "226556375629801"
+      },
+      "cursor modify value bytes modified": {
+        "$numberLong": "659449646925"
+      },
+      "cursor next calls": {
+        "$numberLong": "64257638378"
+      },
+      "cursor next calls that skip due to a globally visible history store tombstone": {
+        "$numberLong": "0"
+      },
+      "cursor next calls that skip greater than or equal to 100 entries": {
+        "$numberLong": "37848243"
+      },
+      "cursor next calls that skip less than 100 entries": {
+        "$numberLong": "64217916057"
+      },
+      "cursor operation restarted": {
+        "$numberLong": "16192983"
+      },
+      "cursor prev calls": {
+        "$numberLong": "890932650"
+      },
+      "cursor prev calls that skip due to a globally visible history store tombstone": {
+        "$numberLong": "0"
+      },
+      "cursor prev calls that skip greater than or equal to 100 entries": {
+        "$numberLong": "37992144"
+      },
+      "cursor prev calls that skip less than 100 entries": {
+        "$numberLong": "852891379"
+      },
+      "cursor remove calls": {
+        "$numberLong": "2674740020"
+      },
+      "cursor remove key bytes removed": {
+        "$numberLong": "50910481120"
+      },
+      "cursor reserve calls": {
+        "$numberLong": "0"
+      },
+      "cursor reset calls": {
+        "$numberLong": "40200798447"
+      },
+      "cursor search calls": {
+        "$numberLong": "24197749887"
+      },
+      "cursor search history store calls": {
+        "$numberLong": "5126"
+      },
+      "cursor search near calls": {
+        "$numberLong": "10329551896"
+      },
+      "cursor sweep buckets": {
+        "$numberLong": "0"
+      },
+      "cursor sweep cursors closed": {
+        "$numberLong": "0"
+      },
+      "cursor sweep cursors examined": {
+        "$numberLong": "0"
+      },
+      "cursor sweeps": {
+        "$numberLong": "0"
+      },
+      "cursor truncate calls": {
+        "$numberLong": "1736"
+      },
+      "cursor update calls": {
+        "$numberLong": "0"
+      },
+      "cursor update key and value bytes": {
+        "$numberLong": "0"
+      },
+      "cursor update value size change": {
+        "$numberLong": "28797275305"
+      },
+      "cursors reused from cache": {
+        "$numberLong": "0"
+      },
+      "open cursor count": {
+        "$numberLong": "5146"
+      }
+    },
+    "data-handle": {
+      "connection data handle size": {
+        "$numberLong": "448"
+      },
+      "connection data handles currently active": {
+        "$numberLong": "10679"
+      },
+      "connection sweep candidate became referenced": {
+        "$numberLong": "5"
+      },
+      "connection sweep dhandles closed": {
+        "$numberLong": "3166368"
+      },
+      "connection sweep dhandles removed from hash list": {
+        "$numberLong": "139025968"
+      },
+      "connection sweep time-of-death sets": {
+        "$numberLong": "401147227"
+      },
+      "connection sweeps": {
+        "$numberLong": "277718"
+      },
+      "connection sweeps skipped due to checkpoint gathering handles": {
+        "$numberLong": "802"
+      },
+      "session dhandles swept": {
+        "$numberLong": "1656386307"
+      },
+      "session sweep attempts": {
+        "$numberLong": "11344140"
+      }
+    },
+    "lock": {
+      "checkpoint lock acquisitions": {
+        "$numberLong": "33185"
+      },
+      "checkpoint lock application thread wait time (usecs)": {
+        "$numberLong": "8"
+      },
+      "checkpoint lock internal thread wait time (usecs)": {
+        "$numberLong": "0"
+      },
+      "dhandle lock application thread time waiting (usecs)": {
+        "$numberLong": "556381394"
+      },
+      "dhandle lock internal thread time waiting (usecs)": {
+        "$numberLong": "48922527"
+      },
+      "dhandle read lock acquisitions": {
+        "$numberLong": "14627734645"
+      },
+      "dhandle write lock acquisitions": {
+        "$numberLong": "278097720"
+      },
+      "durable timestamp queue lock application thread time waiting (usecs)": {
+        "$numberLong": "0"
+      },
+      "durable timestamp queue lock internal thread time waiting (usecs)": {
+        "$numberLong": "0"
+      },
+      "durable timestamp queue read lock acquisitions": {
+        "$numberLong": "0"
+      },
+      "durable timestamp queue write lock acquisitions": {
+        "$numberLong": "0"
+      },
+      "metadata lock acquisitions": {
+        "$numberLong": "33184"
+      },
+      "metadata lock application thread wait time (usecs)": {
+        "$numberLong": "0"
+      },
+      "metadata lock internal thread wait time (usecs)": {
+        "$numberLong": "0"
+      },
+      "read timestamp queue lock application thread time waiting (usecs)": {
+        "$numberLong": "0"
+      },
+      "read timestamp queue lock internal thread time waiting (usecs)": {
+        "$numberLong": "0"
+      },
+      "read timestamp queue read lock acquisitions": {
+        "$numberLong": "0"
+      },
+      "read timestamp queue write lock acquisitions": {
+        "$numberLong": "0"
+      },
+      "schema lock acquisitions": {
+        "$numberLong": "170748361"
+      },
+      "schema lock application thread wait time (usecs)": {
+        "$numberLong": "61267083147"
+      },
+      "schema lock internal thread wait time (usecs)": {
+        "$numberLong": "0"
+      },
+      "table lock application thread time waiting for the table lock (usecs)": {
+        "$numberLong": "10517517"
+      },
+      "table lock internal thread time waiting for the table lock (usecs)": {
+        "$numberLong": "35716894"
+      },
+      "table read lock acquisitions": {
+        "$numberLong": "3"
+      },
+      "table write lock acquisitions": {
+        "$numberLong": "352070768"
+      },
+      "txn global lock application thread time waiting (usecs)": {
+        "$numberLong": "142478190"
+      },
+      "txn global lock internal thread time waiting (usecs)": {
+        "$numberLong": "95427308"
+      },
+      "txn global read lock acquisitions": {
+        "$numberLong": "3720534459"
+      },
+      "txn global write lock acquisitions": {
+        "$numberLong": "2958429095"
+      }
+    },
+    "log": {
+      "busy returns attempting to switch slots": {
+        "$numberLong": "4183675"
+      },
+      "force archive time sleeping (usecs)": {
+        "$numberLong": "0"
+      },
+      "log bytes of payload data": {
+        "$numberLong": "22372215225025"
+      },
+      "log bytes written": {
+        "$numberLong": "22539665113472"
+      },
+      "log files manually zero-filled": {
+        "$numberLong": "0"
+      },
+      "log flush operations": {
+        "$numberLong": "29747120"
+      },
+      "log force write operations": {
+        "$numberLong": "77714787"
+      },
+      "log force write operations skipped": {
+        "$numberLong": "3769068"
+      },
+      "log records compressed": {
+        "$numberLong": "997980986"
+      },
+      "log records not compressed": {
+        "$numberLong": "1493851412"
+      },
+      "log records too small to compress": {
+        "$numberLong": "30575726"
+      },
+      "log release advances write LSN": {
+        "$numberLong": "38821"
+      },
+      "log scan operations": {
+        "$numberLong": "6"
+      },
+      "log scan records requiring two reads": {
+        "$numberLong": "0"
+      },
+      "log server thread advances write LSN": {
+        "$numberLong": "166818529"
+      },
+      "log server thread write LSN walk skipped": {
+        "$numberLong": "2277573483"
+      },
+      "log sync operations": {
+        "$numberLong": "29837812"
+      },
+      "log sync time duration (usecs)": {
+        "$numberLong": "33840721429"
+      },
+      "log sync_dir operations": {
+        "$numberLong": "215170"
+      },
+      "log sync_dir time duration (usecs)": {
+        "$numberLong": "1332525"
+      },
+      "log write operations": {
+        "$numberLong": "2522405837"
+      },
+      "logging bytes consolidated": {
+        "$numberLong": "22539708778496"
+      },
+      "maximum log file size": {
+        "$numberLong": "104857600"
+      },
+      "number of pre-allocated log files to create": {
+        "$numberLong": "2"
+      },
+      "pre-allocated log files not ready and missed": {
+        "$numberLong": "1"
+      },
+      "pre-allocated log files prepared": {
+        "$numberLong": "215172"
+      },
+      "pre-allocated log files used": {
+        "$numberLong": "215170"
+      },
+      "records processed by log scan": {
+        "$numberLong": "15"
+      },
+      "slot close lost race": {
+        "$numberLong": "0"
+      },
+      "slot close unbuffered waits": {
+        "$numberLong": "0"
+      },
+      "slot closures": {
+        "$numberLong": "166888627"
+      },
+      "slot join atomic update races": {
+        "$numberLong": "1149716"
+      },
+      "slot join calls atomic updates raced": {
+        "$numberLong": "1148207"
+      },
+      "slot join calls did not yield": {
+        "$numberLong": "2520929571"
+      },
+      "slot join calls found active slot closed": {
+        "$numberLong": "342414"
+      },
+      "slot join calls slept": {
+        "$numberLong": "96835"
+      },
+      "slot join calls yielded": {
+        "$numberLong": "1484293"
+      },
+      "slot join found active slot closed": {
+        "$numberLong": "133421120"
+      },
+      "slot joins yield time (usecs)": {
+        "$numberLong": "5246006218"
+      },
+      "slot transitions unable to find free slot": {
+        "$numberLong": "1683"
+      },
+      "slot unbuffered writes": {
+        "$numberLong": "28166523"
+      },
+      "total in-memory size of compressed records": {
+        "$numberLong": "85720938525122"
+      },
+      "total log buffer size": {
+        "$numberLong": "33554432"
+      },
+      "total size of compressed records": {
+        "$numberLong": "21905681230754"
+      },
+      "written slots coalesced": {
+        "$numberLong": "31274"
+      },
+      "yields waiting for previous log file close": {
+        "$numberLong": "0"
+      }
+    },
+    "oplog": {
+      "visibility timestamp": [
+        {
+          "$numberLong": "1790024728"
+        },
+        {
+          "$numberLong": "2510"
+        }
+      ]
+    },
+    "perf": {
+      "file system read latency histogram (bucket 1) - 10-49ms": {
+        "$numberLong": "254575"
+      },
+      "file system read latency histogram (bucket 2) - 50-99ms": {
+        "$numberLong": "18976"
+      },
+      "file system read latency histogram (bucket 3) - 100-249ms": {
+        "$numberLong": "6207"
+      },
+      "file system read latency histogram (bucket 4) - 250-499ms": {
+        "$numberLong": "561"
+      },
+      "file system read latency histogram (bucket 5) - 500-999ms": {
+        "$numberLong": "44"
+      },
+      "file system read latency histogram (bucket 6) - 1000ms+": {
+        "$numberLong": "6"
+      },
+      "file system write latency histogram (bucket 1) - 10-49ms": {
+        "$numberLong": "59729"
+      },
+      "file system write latency histogram (bucket 2) - 50-99ms": {
+        "$numberLong": "9656"
+      },
+      "file system write latency histogram (bucket 3) - 100-249ms": {
+        "$numberLong": "4586"
+      },
+      "file system write latency histogram (bucket 4) - 250-499ms": {
+        "$numberLong": "273"
+      },
+      "file system write latency histogram (bucket 5) - 500-999ms": {
+        "$numberLong": "22"
+      },
+      "file system write latency histogram (bucket 6) - 1000ms+": {
+        "$numberLong": "5"
+      },
+      "operation read latency histogram (bucket 1) - 100-249us": {
+        "$numberLong": "775744206"
+      },
+      "operation read latency histogram (bucket 2) - 250-499us": {
+        "$numberLong": "602049554"
+      },
+      "operation read latency histogram (bucket 3) - 500-999us": {
+        "$numberLong": "278268308"
+      },
+      "operation read latency histogram (bucket 4) - 1000-9999us": {
+        "$numberLong": "75361747"
+      },
+      "operation read latency histogram (bucket 5) - 10000us+": {
+        "$numberLong": "657660"
+      },
+      "operation write latency histogram (bucket 1) - 100-249us": {
+        "$numberLong": "564345237"
+      },
+      "operation write latency histogram (bucket 2) - 250-499us": {
+        "$numberLong": "177056739"
+      },
+      "operation write latency histogram (bucket 3) - 500-999us": {
+        "$numberLong": "27303945"
+      },
+      "operation write latency histogram (bucket 4) - 1000-9999us": {
+        "$numberLong": "6984979"
+      },
+      "operation write latency histogram (bucket 5) - 10000us+": {
+        "$numberLong": "833359"
+      }
+    },
+    "reconciliation": {
+      "approximate byte size of timestamps in pages written": {
+        "$numberLong": "459118486760"
+      },
+      "approximate byte size of transaction IDs in pages written": {
+        "$numberLong": "229945550440"
+      },
+      "fast-path pages deleted": {
+        "$numberLong": "364699459"
+      },
+      "leaf-page overflow keys": {
+        "$numberLong": "885"
+      },
+      "maximum milliseconds spent in a reconciliation call": {
+        "$numberLong": "0"
+      },
+      "maximum milliseconds spent in building a disk image in a reconciliation": {
+        "$numberLong": "28"
+      },
+      "maximum milliseconds spent in moving updates to the history store in a reconciliation": {
+        "$numberLong": "14"
+      },
+      "page reconciliation calls": {
+        "$numberLong": "5567605535"
+      },
+      "page reconciliation calls for eviction": {
+        "$numberLong": "4352464238"
+      },
+      "page reconciliation calls that resulted in values with prepared transaction metadata": {
+        "$numberLong": "0"
+      },
+      "page reconciliation calls that resulted in values with timestamps": {
+        "$numberLong": "3228893960"
+      },
+      "page reconciliation calls that resulted in values with transaction ids": {
+        "$numberLong": "3249355941"
+      },
+      "pages deleted": {
+        "$numberLong": "174428631"
+      },
+      "pages written including an aggregated newest start durable timestamp ": {
+        "$numberLong": "996601157"
+      },
+      "pages written including an aggregated newest stop durable timestamp ": {
+        "$numberLong": "451302829"
+      },
+      "pages written including an aggregated newest stop timestamp ": {
+        "$numberLong": "23288878"
+      },
+      "pages written including an aggregated newest stop transaction ID": {
+        "$numberLong": "23288878"
+      },
+      "pages written including an aggregated newest transaction ID ": {
+        "$numberLong": "1161108793"
+      },
+      "pages written including an aggregated oldest start timestamp ": {
+        "$numberLong": "389843544"
+      },
+      "pages written including an aggregated prepare": {
+        "$numberLong": "0"
+      },
+      "pages written including at least one prepare state": {
+        "$numberLong": "0"
+      },
+      "pages written including at least one start durable timestamp": {
+        "$numberLong": "3020350448"
+      },
+      "pages written including at least one start timestamp": {
+        "$numberLong": "3020350734"
+      },
+      "pages written including at least one start transaction ID": {
+        "$numberLong": "3040866598"
+      },
+      "pages written including at least one stop durable timestamp": {
+        "$numberLong": "2378325527"
+      },
+      "pages written including at least one stop timestamp": {
+        "$numberLong": "2378345161"
+      },
+      "pages written including at least one stop transaction ID": {
+        "$numberLong": "2378345233"
+      },
+      "records written including a prepare state": {
+        "$numberLong": "0"
+      },
+      "records written including a start durable timestamp": {
+        "$numberLong": "9163437917"
+      },
+      "records written including a start timestamp": {
+        "$numberLong": "9163438566"
+      },
+      "records written including a start transaction ID": {
+        "$numberLong": "9206738281"
+      },
+      "records written including a stop durable timestamp": {
+        "$numberLong": "19526493261"
+      },
+      "records written including a stop timestamp": {
+        "$numberLong": "19536459320"
+      },
+      "records written including a stop transaction ID": {
+        "$numberLong": "19536459668"
+      },
+      "split bytes currently awaiting free": {
+        "$numberLong": "641"
+      },
+      "split objects currently awaiting free": {
+        "$numberLong": "17"
+      }
+    },
+    "session": {
+      "attempts to remove a local object and the object is in use": {
+        "$numberLong": "0"
+      },
+      "flush_tier operation calls": {
+        "$numberLong": "0"
+      },
+      "local objects removed": {
+        "$numberLong": "0"
+      },
+      "open session count": {
+        "$numberLong": "189"
+      },
+      "session query timestamp calls": {
+        "$numberLong": "308051"
+      },
+      "table alter failed calls": {
+        "$numberLong": "0"
+      },
+      "table alter successful calls": {
+        "$numberLong": "0"
+      },
+      "table alter triggering checkpoint calls": {
+        "$numberLong": "0"
+      },
+      "table alter unchanged and skipped": {
+        "$numberLong": "0"
+      },
+      "table compact failed calls": {
+        "$numberLong": "0"
+      },
+      "table compact failed calls due to cache pressure": {
+        "$numberLong": "0"
+      },
+      "table compact running": {
+        "$numberLong": "0"
+      },
+      "table compact skipped as process would not reduce file size": {
+        "$numberLong": "0"
+      },
+      "table compact successful calls": {
+        "$numberLong": "0"
+      },
+      "table compact timeout": {
+        "$numberLong": "0"
+      },
+      "table create failed calls": {
+        "$numberLong": "0"
+      },
+      "table create successful calls": {
+        "$numberLong": "52"
+      },
+      "table drop failed calls": {
+        "$numberLong": "0"
+      },
+      "table drop successful calls": {
+        "$numberLong": "5585"
+      },
+      "table rename failed calls": {
+        "$numberLong": "0"
+      },
+      "table rename successful calls": {
+        "$numberLong": "0"
+      },
+      "table salvage failed calls": {
+        "$numberLong": "0"
+      },
+      "table salvage successful calls": {
+        "$numberLong": "0"
+      },
+      "table truncate failed calls": {
+        "$numberLong": "0"
+      },
+      "table truncate successful calls": {
+        "$numberLong": "1736"
+      },
+      "table verify failed calls": {
+        "$numberLong": "0"
+      },
+      "table verify successful calls": {
+        "$numberLong": "0"
+      },
+      "tiered operations dequeued and processed": {
+        "$numberLong": "0"
+      },
+      "tiered operations scheduled": {
+        "$numberLong": "0"
+      },
+      "tiered storage local retention time (secs)": {
+        "$numberLong": "0"
+      }
+    },
+    "snapshot-window-settings": {
+      "current available snapshot window size in seconds": {
+        "$numberLong": "300"
+      },
+      "latest majority snapshot timestamp available": "Sep 21 21:05:28:2424",
+      "min pinned timestamp": [
+        {
+          "$numberLong": "4294967295"
+        },
+        {
+          "$numberLong": "4294967295"
+        }
+      ],
+      "minimum target snapshot window size in seconds": {
+        "$numberLong": "300"
+      },
+      "oldest majority snapshot timestamp available": "Sep 21 21:00:28:2424",
+      "pinned timestamp requests": {
+        "$numberLong": "0"
+      },
+      "total number of SnapshotTooOld errors": {
+        "$numberLong": "0"
+      }
+    },
+    "thread-state": {
+      "active filesystem fsync calls": {
+        "$numberLong": "0"
+      },
+      "active filesystem read calls": {
+        "$numberLong": "1"
+      },
+      "active filesystem write calls": {
+        "$numberLong": "1"
+      }
+    },
+    "thread-yield": {
+      "application thread time evicting (usecs)": {
+        "$numberLong": "135179959"
+      },
+      "application thread time waiting for cache (usecs)": {
+        "$numberLong": "1636005351"
+      },
+      "connection close blocked waiting for transaction state stabilization": {
+        "$numberLong": "0"
+      },
+      "connection close yielded for lsm manager shutdown": {
+        "$numberLong": "0"
+      },
+      "data handle lock yielded": {
+        "$numberLong": "42964850"
+      },
+      "get reference for page index and slot time sleeping (usecs)": {
+        "$numberLong": "0"
+      },
+      "page access yielded due to prepare state change": {
+        "$numberLong": "0"
+      },
+      "page acquire busy blocked": {
+        "$numberLong": "1142204"
+      },
+      "page acquire eviction blocked": {
+        "$numberLong": "6731038"
+      },
+      "page acquire locked blocked": {
+        "$numberLong": "44858786"
+      },
+      "page acquire read blocked": {
+        "$numberLong": "20658433"
+      },
+      "page acquire time sleeping (usecs)": {
+        "$numberLong": "31280418400"
+      },
+      "page delete rollback time sleeping for state change (usecs)": {
+        "$numberLong": "0"
+      },
+      "page reconciliation yielded due to child modification": {
+        "$numberLong": "735832085"
+      }
+    },
+    "transaction": {
+      "Number of prepared updates": {
+        "$numberLong": "0"
+      },
+      "Number of prepared updates committed": {
+        "$numberLong": "0"
+      },
+      "Number of prepared updates repeated on the same key": {
+        "$numberLong": "0"
+      },
+      "Number of prepared updates rolled back": {
+        "$numberLong": "0"
+      },
+      "oldest pinned transaction ID rolled back for eviction": {
+        "$numberLong": "0"
+      },
+      "prepared transactions": {
+        "$numberLong": "0"
+      },
+      "prepared transactions committed": {
+        "$numberLong": "0"
+      },
+      "prepared transactions currently active": {
+        "$numberLong": "0"
+      },
+      "prepared transactions rolled back": {
+        "$numberLong": "0"
+      },
+      "query timestamp calls": {
+        "$numberLong": "2996143139"
+      },
+      "race to read prepared update retry": {
+        "$numberLong": "0"
+      },
+      "rollback to stable calls": {
+        "$numberLong": "0"
+      },
+      "rollback to stable history store records with stop timestamps older than newer records": {
+        "$numberLong": "0"
+      },
+      "rollback to stable inconsistent checkpoint": {
+        "$numberLong": "0"
+      },
+      "rollback to stable keys removed": {
+        "$numberLong": "0"
+      },
+      "rollback to stable keys restored": {
+        "$numberLong": "0"
+      },
+      "rollback to stable pages visited": {
+        "$numberLong": "0"
+      },
+      "rollback to stable restored tombstones from history store": {
+        "$numberLong": "0"
+      },
+      "rollback to stable restored updates from history store": {
+        "$numberLong": "0"
+      },
+      "rollback to stable skipping delete rle": {
+        "$numberLong": "0"
+      },
+      "rollback to stable skipping stable rle": {
+        "$numberLong": "0"
+      },
+      "rollback to stable sweeping history store keys": {
+        "$numberLong": "0"
+      },
+      "rollback to stable tree walk skipping pages": {
+        "$numberLong": "0"
+      },
+      "rollback to stable updates aborted": {
+        "$numberLong": "0"
+      },
+      "rollback to stable updates removed from history store": {
+        "$numberLong": "0"
+      },
+      "sessions scanned in each walk of concurrent sessions": {
+        "$numberLong": "8399392232947"
+      },
+      "set timestamp calls": {
+        "$numberLong": "1463076594"
+      },
+      "set timestamp durable calls": {
+        "$numberLong": "0"
+      },
+      "set timestamp durable updates": {
+        "$numberLong": "0"
+      },
+      "set timestamp oldest calls": {
+        "$numberLong": "731205212"
+      },
+      "set timestamp oldest updates": {
+        "$numberLong": "731205212"
+      },
+      "set timestamp stable calls": {
+        "$numberLong": "731871382"
+      },
+      "set timestamp stable updates": {
+        "$numberLong": "731205212"
+      },
+      "transaction begins": {
+        "$numberLong": "17568271547"
+      },
+      "transaction checkpoint currently running": {
+        "$numberLong": "0"
+      },
+      "transaction checkpoint currently running for history store file": {
+        "$numberLong": "0"
+      },
+      "transaction checkpoint generation": {
+        "$numberLong": "33185"
+      },
+      "transaction checkpoint history store file duration (usecs)": {
+        "$numberLong": "1026603"
+      },
+      "transaction checkpoint max time (msecs)": {
+        "$numberLong": "72804"
+      },
+      "transaction checkpoint min time (msecs)": {
+        "$numberLong": "12"
+      },
+      "transaction checkpoint most recent duration for gathering all handles (usecs)": {
+        "$numberLong": "401856"
+      },
+      "transaction checkpoint most recent duration for gathering applied handles (usecs)": {
+        "$numberLong": "353726"
+      },
+      "transaction checkpoint most recent duration for gathering skipped handles (usecs)": {
+        "$numberLong": "9176"
+      },
+      "transaction checkpoint most recent handles applied": {
+        "$numberLong": "3784"
+      },
+      "transaction checkpoint most recent handles skipped": {
+        "$numberLong": "1513"
+      },
+      "transaction checkpoint most recent handles walked": {
+        "$numberLong": "14454"
+      },
+      "transaction checkpoint most recent time (msecs)": {
+        "$numberLong": "23593"
+      },
+      "transaction checkpoint prepare currently running": {
+        "$numberLong": "0"
+      },
+      "transaction checkpoint prepare max time (msecs)": {
+        "$numberLong": "4476"
+      },
+      "transaction checkpoint prepare min time (msecs)": {
+        "$numberLong": "0"
+      },
+      "transaction checkpoint prepare most recent time (msecs)": {
+        "$numberLong": "401"
+      },
+      "transaction checkpoint prepare total time (msecs)": {
+        "$numberLong": "8187833"
+      },
+      "transaction checkpoint scrub dirty target": {
+        "$numberLong": "0"
+      },
+      "transaction checkpoint scrub time (msecs)": {
+        "$numberLong": "100"
+      },
+      "transaction checkpoint stop timing stress active": {
+        "$numberLong": "0"
+      },
+      "transaction checkpoint total time (msecs)": {
+        "$numberLong": "766583637"
+      },
+      "transaction checkpoints": {
+        "$numberLong": "33184"
+      },
+      "transaction checkpoints due to obsolete pages": {
+        "$numberLong": "4235"
+      },
+      "transaction checkpoints skipped because database was clean": {
+        "$numberLong": "0"
+      },
+      "transaction fsync calls for checkpoint after allocating the transaction ID": {
+        "$numberLong": "33184"
+      },
+      "transaction fsync duration for checkpoint after allocating the transaction ID (usecs)": {
+        "$numberLong": "543947"
+      },
+      "transaction range of IDs currently pinned": {
+        "$numberLong": "116"
+      },
+      "transaction range of IDs currently pinned by a checkpoint": {
+        "$numberLong": "0"
+      },
+      "transaction range of timestamps currently pinned": {
+        "$numberLong": "1288490188888"
+      },
+      "transaction range of timestamps pinned by a checkpoint": {
+        "$numberLong": "7688097665791298000"
+      },
+      "transaction range of timestamps pinned by the oldest active read timestamp": {
+        "$numberLong": "0"
+      },
+      "transaction range of timestamps pinned by the oldest timestamp": {
+        "$numberLong": "1288490188888"
+      },
+      "transaction read timestamp of the oldest active reader": {
+        "$numberLong": "0"
+      },
+      "transaction rollback to stable currently running": {
+        "$numberLong": "0"
+      },
+      "transaction walk of concurrent sessions": {
+        "$numberLong": "26542480920"
+      },
+      "transactions committed": {
+        "$numberLong": "2527126007"
+      },
+      "transactions rolled back": {
+        "$numberLong": "15040271283"
+      },
+      "update conflicts": {
+        "$numberLong": "5392911"
+      }
+    },
+    "uri": "statistics:"
+  }
+}
