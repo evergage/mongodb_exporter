@@ -27,7 +27,19 @@ var datePaths = stringSet{
 	"security.SSLServerCertificateExpirationDate":                  {},
 }
 var objectIDPaths = stringSet{"repl.topologyVersion.processId": {}, "repl.electionId": {}, "$gleStats.electionId": {}}
-var timestampPaths = stringSet{"$clusterTime.clusterTime": {}, "$gleStats.lastOpTime": {}}
+var timestampPaths = stringSet{
+	"$clusterTime.clusterTime":                                 {},
+	"$configServerState.opTime.ts":                             {},
+	"$gleStats.lastOpTime":                                     {},
+	"lastCommittedOpTime":                                      {},
+	"operationTime":                                            {},
+	"repl.lastWrite.majorityOpTime.ts":                         {},
+	"repl.lastWrite.opTime.ts":                                 {},
+	"sharding.lastSeenConfigServerOpTime.ts":                   {},
+	"storageEngine.oldestRequiredTimestampForCrashRecovery":    {},
+	"wiredTiger.oplog.visibility timestamp":                    {},
+	"wiredTiger.snapshot-window-settings.min pinned timestamp": {},
+}
 var binaryPaths = stringSet{"$clusterTime.signature.hash": {}}
 var forbiddenIdentityFragments = []string{"evergage.com", "salesforce.com", "prod4", "p4m1ssd", "rs_prod"}
 

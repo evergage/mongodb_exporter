@@ -34,3 +34,25 @@ func TestFocusedCanonicalExtendedJSONTypes(t *testing.T) {
 		}
 	}
 }
+
+func TestFixtureLogicalTimesUseWireTimestampType(t *testing.T) {
+	raw := loadFixtureRaw(t, "primary")
+	paths := [][]string{
+		{"$clusterTime", "clusterTime"},
+		{"$configServerState", "opTime", "ts"},
+		{"$gleStats", "lastOpTime"},
+		{"lastCommittedOpTime"},
+		{"operationTime"},
+		{"repl", "lastWrite", "majorityOpTime", "ts"},
+		{"repl", "lastWrite", "opTime", "ts"},
+		{"sharding", "lastSeenConfigServerOpTime", "ts"},
+		{"storageEngine", "oldestRequiredTimestampForCrashRecovery"},
+		{"wiredTiger", "oplog", "visibility timestamp"},
+		{"wiredTiger", "snapshot-window-settings", "min pinned timestamp"},
+	}
+	for _, path := range paths {
+		if got := raw.Lookup(path...).Type; got != bsontype.Timestamp {
+			t.Errorf("%v type = %s, want %s", path, got, bsontype.Timestamp)
+		}
+	}
+}

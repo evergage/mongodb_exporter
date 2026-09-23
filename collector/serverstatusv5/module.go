@@ -258,19 +258,37 @@ func (m *Module) recordUnknownKeys(raw bson.Raw) {
 			continue
 		}
 		walkDynamic(value.Document(), nil, func(path string) {
-			if _, ok := family.Allowed[path]; !ok {
+			if !dynamicPathAllowed(family.Allowed, path) {
 				m.unknownKeys.WithLabelValues(family.Name).Inc()
 			}
 		})
 	}
 }
+
+func dynamicPathAllowed(allowed map[string]struct{}, path string) bool {
+	if _, ok := allowed[path]; ok {
+		return true
+	}
+	prefix := path + "\x00"
+	for candidate := range allowed {
+		if strings.HasPrefix(candidate, prefix) {
+			return true
+		}
+	}
+	return false
+}
+
 func walkDynamic(doc bson.Raw, prefix []string, visit func(string)) {
 	elements, err := doc.Elements()
 	if err != nil {
 		return
 	}
+	if len(elements) == 0 && len(prefix) > 0 {
+		visit(strings.Join(prefix, "\x00"))
+		return
+	}
 	for _, element := range elements {
-		path := append(prefix, element.Key())
+		path := append(append([]string(nil), prefix...), element.Key())
 		value := element.Value()
 		if value.Type == bsontype.EmbeddedDocument {
 			walkDynamic(value.Document(), path, visit)
