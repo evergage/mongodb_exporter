@@ -11,17 +11,24 @@ import (
 	"time"
 )
 
-var datePaths = map[string]bool{
-	"localTime": true,
-	"logicalSessionRecordCache.lastSessionsCollectionJobTimestamp": true,
-	"logicalSessionRecordCache.lastTransactionReaperJobTimestamp":  true,
-	"repl.lastWrite.lastWriteDate":                                 true,
-	"repl.lastWrite.majorityWriteDate":                             true,
-	"security.SSLServerCertificateExpirationDate":                  true,
+type stringSet map[string]struct{}
+
+func (set stringSet) contains(value string) bool {
+	_, ok := set[value]
+	return ok
 }
-var objectIDPaths = map[string]bool{"repl.topologyVersion.processId": true, "repl.electionId": true, "$gleStats.electionId": true}
-var timestampPaths = map[string]bool{"$clusterTime.clusterTime": true, "$gleStats.lastOpTime": true}
-var binaryPaths = map[string]bool{"$clusterTime.signature.hash": true}
+
+var datePaths = stringSet{
+	"localTime": {},
+	"logicalSessionRecordCache.lastSessionsCollectionJobTimestamp": {},
+	"logicalSessionRecordCache.lastTransactionReaperJobTimestamp":  {},
+	"repl.lastWrite.lastWriteDate":                                 {},
+	"repl.lastWrite.majorityWriteDate":                             {},
+	"security.SSLServerCertificateExpirationDate":                  {},
+}
+var objectIDPaths = stringSet{"repl.topologyVersion.processId": {}, "repl.electionId": {}, "$gleStats.electionId": {}}
+var timestampPaths = stringSet{"$clusterTime.clusterTime": {}, "$gleStats.lastOpTime": {}}
+var binaryPaths = stringSet{"$clusterTime.signature.hash": {}}
 var forbiddenIdentityFragments = []string{"evergage.com", "salesforce.com", "prod4", "p4m1ssd", "rs_prod"}
 
 // ReconstructJSON converts the sanitized fixture into deterministic Canonical Extended JSON.
@@ -55,7 +62,7 @@ func decodeJSON(data []byte) (interface{}, error) {
 	return value, nil
 }
 func reconstruct(value interface{}, path string) interface{} {
-	if timestampPaths[path] {
+	if timestampPaths.contains(path) {
 		if values, ok := value.([]interface{}); ok && len(values) == 2 {
 			return map[string]interface{}{"$timestamp": map[string]interface{}{"t": values[0], "i": values[1]}}
 		}
@@ -80,15 +87,15 @@ func reconstruct(value interface{}, path string) interface{} {
 		}
 		return map[string]interface{}{"$numberLong": text}
 	case string:
-		if datePaths[path] {
+		if datePaths.contains(path) {
 			if parsed, err := time.Parse(time.RFC3339Nano, v); err == nil {
 				return map[string]interface{}{"$date": map[string]interface{}{"$numberLong": strconv.FormatInt(parsed.UnixNano()/int64(time.Millisecond), 10)}}
 			}
 		}
-		if objectIDPaths[path] && len(v) == 24 {
+		if objectIDPaths.contains(path) && len(v) == 24 {
 			return map[string]interface{}{"$oid": v}
 		}
-		if binaryPaths[path] {
+		if binaryPaths.contains(path) {
 			if _, err := base64.StdEncoding.DecodeString(v); err == nil {
 				return map[string]interface{}{"$binary": map[string]interface{}{"base64": v, "subType": "00"}}
 			}
