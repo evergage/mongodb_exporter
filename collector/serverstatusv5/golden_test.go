@@ -3,7 +3,6 @@ package serverstatusv5
 import (
 	"bytes"
 	"io/ioutil"
-	"os"
 	"path/filepath"
 	"sort"
 	"testing"
@@ -44,21 +43,12 @@ func TestFixtureGoldenSamplesAndSeriesCeilings(t *testing.T) {
 				t.Fatalf("series=%d, exact ceiling=%d", series, test.ceiling)
 			}
 			path := filepath.Join("testdata", "golden", test.role+".prom")
-			if os.Getenv("UPDATE_GOLDEN") == "1" {
-				if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
-					t.Fatal(err)
-				}
-				if err := ioutil.WriteFile(path, actual, 0644); err != nil {
-					t.Fatal(err)
-				}
-				return
-			}
 			expected, err := ioutil.ReadFile(path)
 			if err != nil {
 				t.Fatal(err)
 			}
 			if !bytes.Equal(expected, actual) {
-				t.Fatalf("golden output differs; run UPDATE_GOLDEN=1 go test ./collector/serverstatusv5 -run TestFixtureGoldenSamplesAndSeriesCeilings")
+				t.Fatalf("golden output differs for %s; review the semantic change before replacing %s", test.role, path)
 			}
 		})
 	}

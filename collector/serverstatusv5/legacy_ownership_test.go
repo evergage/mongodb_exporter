@@ -47,29 +47,30 @@ func TestLegacyOwnershipClaimsAreObservable(t *testing.T) {
 			continue
 		}
 		claims++
-		role := entry.Roles[0]
-		mutated, err := mutateSourceLeaf(sources[role], entry.PathSegments)
-		if err != nil {
-			t.Fatalf("%s: %v", entry.Path, err)
-		}
-		raw, err := sourceToRaw(mutated)
-		if err != nil {
-			t.Fatalf("%s: %v", entry.Path, err)
-		}
-		after, err := legacySamples(raw)
-		if err != nil {
-			t.Fatalf("%s: %v", entry.Path, err)
-		}
-		changed := false
-		for _, family := range strings.Split(entry.LegacyFamily, ",") {
-			family = strings.TrimSpace(family)
-			if !equalStrings(baseline[role][family], after[family]) {
-				changed = true
-				break
+		for _, role := range entry.Roles {
+			mutated, err := mutateSourceLeaf(sources[role], entry.PathSegments)
+			if err != nil {
+				t.Fatalf("%s (%s): %v", entry.Path, role, err)
 			}
-		}
-		if !changed {
-			t.Errorf("%s did not change claimed legacy family %s", entry.Path, entry.LegacyFamily)
+			raw, err := sourceToRaw(mutated)
+			if err != nil {
+				t.Fatalf("%s (%s): %v", entry.Path, role, err)
+			}
+			after, err := legacySamples(raw)
+			if err != nil {
+				t.Fatalf("%s (%s): %v", entry.Path, role, err)
+			}
+			changed := false
+			for _, family := range strings.Split(entry.LegacyFamily, ",") {
+				family = strings.TrimSpace(family)
+				if !equalStrings(baseline[role][family], after[family]) {
+					changed = true
+					break
+				}
+			}
+			if !changed {
+				t.Errorf("%s (%s) did not change claimed legacy family %s", entry.Path, role, entry.LegacyFamily)
+			}
 		}
 	}
 	if claims != 144 {

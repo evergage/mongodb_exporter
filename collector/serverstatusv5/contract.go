@@ -24,6 +24,12 @@ type SeriesCeilings struct {
 	Secondary int `json:"secondary"`
 	Union     int `json:"union"`
 }
+type CoverageLeaf struct {
+	Path         string
+	PathSegments []string
+	Roles        []string
+}
+
 type ContractEntry struct {
 	Path              string           `json:"path"`
 	PathSegments      []string         `json:"path_segments"`
@@ -58,52 +64,70 @@ func ParseContract(data []byte) (*Contract, error) {
 	return &c, nil
 }
 
-func (c *Contract) Audit(paths []string) error {
+func (c *Contract) Audit(leaves []CoverageLeaf) error {
 	valid := map[string]bool{}
-	for _, v := range c.Classifications {
-		valid[v] = true
+	for _, value := range c.Classifications {
+		valid[value] = true
 	}
-	fixture := map[string]int{}
-	for _, p := range paths {
-		fixture[p]++
+	fixture := map[string]CoverageLeaf{}
+	fixtureCounts := map[string]int{}
+	for _, leaf := range leaves {
+		fixture[leaf.Path] = leaf
+		fixtureCounts[leaf.Path]++
 	}
-	entries := map[string]int{}
+	entryCounts := map[string]int{}
+	entryByPath := map[string]ContractEntry{}
 	var invalid []string
-	for _, e := range c.Entries {
-		entries[e.Path]++
-		if !valid[e.Classification] || e.Reason == "" || e.DecisionSource == "" || len(e.PathSegments) == 0 {
-			invalid = append(invalid, e.Path)
+	for _, entry := range c.Entries {
+		entryCounts[entry.Path]++
+		entryByPath[entry.Path] = entry
+		if !valid[entry.Classification] || entry.Reason == "" || entry.DecisionSource == "" || len(entry.PathSegments) == 0 {
+			invalid = append(invalid, entry.Path)
 		}
-		switch e.Classification {
+		if leaf, ok := fixture[entry.Path]; ok {
+			if !sameStrings(entry.PathSegments, leaf.PathSegments) || !sameStrings(entry.Roles, leaf.Roles) {
+				invalid = append(invalid, entry.Path)
+			}
+		}
+		switch entry.Classification {
 		case "legacy":
-			if e.LegacyFamily == "" || e.Metric != nil {
-				invalid = append(invalid, e.Path)
+			if entry.LegacyFamily == "" || entry.Metric != nil {
+				invalid = append(invalid, entry.Path)
 			}
 		case "modern":
-			if e.Metric == nil && e.ConsumedBy == "" {
-				invalid = append(invalid, e.Path)
+			if entry.Metric == nil && entry.ConsumedBy == "" {
+				invalid = append(invalid, entry.Path)
 			}
 		case "drop":
-			if !e.Reviewed || e.Metric != nil {
-				invalid = append(invalid, e.Path)
+			if !entry.Reviewed || entry.Metric != nil {
+				invalid = append(invalid, entry.Path)
 			}
+		}
+	}
+	for _, entry := range c.Entries {
+		if entry.ConsumedBy == "" {
+			continue
+		}
+		target, ok := entryByPath[entry.ConsumedBy]
+		if !ok || target.Metric == nil || entry.ConsumedBy == entry.Path {
+			invalid = append(invalid, entry.Path)
 		}
 	}
 	var missing, duplicate, stale []string
-	for p, n := range fixture {
-		if n > 1 || entries[p] > 1 {
-			duplicate = append(duplicate, p)
+	for path, count := range fixtureCounts {
+		if count > 1 || entryCounts[path] > 1 {
+			duplicate = append(duplicate, path)
 		}
-		if entries[p] == 0 {
-			missing = append(missing, p)
+		if entryCounts[path] == 0 {
+			missing = append(missing, path)
 		}
 	}
-	for p, n := range entries {
-		if n > 1 {
-			duplicate = append(duplicate, p)
+	for path, count := range entryCounts {
+		if count > 1 {
+			duplicate = append(duplicate, path)
 		}
-		if fixture[p] == 0 {
-			stale = append(stale, p)
+		if fixtureCounts[path] == 0 {
+			stale = append(stale, path)
 		}
 	}
 	sort.Strings(missing)
@@ -114,6 +138,18 @@ func (c *Contract) Audit(paths []string) error {
 		return fmt.Errorf("coverage audit failed: missing=%v duplicate=%v stale=%v invalid=%v", missing, duplicate, stale, invalid)
 	}
 	return nil
+}
+
+func sameStrings(left, right []string) bool {
+	if len(left) != len(right) {
+		return false
+	}
+	for i := range left {
+		if left[i] != right[i] {
+			return false
+		}
+	}
+	return true
 }
 
 func (c *Contract) ValidatePolicy() error {

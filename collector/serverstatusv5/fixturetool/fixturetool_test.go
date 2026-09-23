@@ -11,7 +11,7 @@ import (
 
 const (
 	redactionVersion           = "1"
-	reconstructionVersion      = "1"
+	reconstructionVersion      = "2"
 	normalizationVersion       = "1"
 	originalBSONTypesAvailable = false
 )
@@ -19,8 +19,8 @@ const (
 var fixtureMetadata = []struct {
 	role, mongoVersion, captureTime, sourceSHA256, reconstructedSHA256 string
 }{
-	{"primary", "5.0.34", "2026-09-21T21:05:28.899Z", "5c84aec99d1de82306b09f2a44af4e5fd59af38997ff7d0665b2b08f78d57a0b", "808ee6ef1a5c8aed11d41508fe132651e489fccfdbb75aa62d7d7f3e2c83b166"},
-	{"secondary", "5.0.34", "2026-09-21T20:42:39.325Z", "227abf474edc8b83ab63311b5c19cecab9e11918c3a819237eadb5875efe8ac7", "f7985c6ed450f694db0bc19603e74770707c06f25eeeade98db3a98a4c844152"},
+	{"primary", "5.0.34", "2026-09-21T21:05:28.899Z", "5c84aec99d1de82306b09f2a44af4e5fd59af38997ff7d0665b2b08f78d57a0b", "cb75123b38e49b4acda26f6aa64f6fd4182cbdac2441ec636212fdd1c3dba4cb"},
+	{"secondary", "5.0.34", "2026-09-21T20:42:39.325Z", "227abf474edc8b83ab63311b5c19cecab9e11918c3a819237eadb5875efe8ac7", "935552dfb34b91157b7a339b0321d08191da0e7feeefa013e108d9b00291659e"},
 }
 
 func readFixture(path string) ([]byte, error) {

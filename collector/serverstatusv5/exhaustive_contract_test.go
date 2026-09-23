@@ -22,8 +22,8 @@ func TestFixtureLeafInventoryPreservesLiteralKeysAndTypes(t *testing.T) {
 		t.Fatalf("paths=%d entries=%d, want 1581 each", len(paths), len(contract.Entries))
 	}
 	seen := map[string]bool{}
-	for _, path := range paths {
-		seen[path] = true
+	for _, leaf := range paths {
+		seen[leaf.Path] = true
 	}
 	for _, path := range []string{"metrics.apiVersions[''][0]", "transportSecurity['1.2']"} {
 		if !seen[path] {
@@ -68,8 +68,16 @@ func TestGeneratedNumericPolicyAndExceptions(t *testing.T) {
 			}
 		}
 	}
-	if counts["counter"] != 419 || counts["gauge"] != 242 {
-		t.Fatalf("generated types=%v", counts)
+	if counts["counter"] != 411 || counts["gauge"] != 248 {
+		t.Fatalf("review-corrected generated types=%v", counts)
+	}
+	for _, entry := range contract.Entries {
+		if !strings.Contains(entry.DecisionSource, "BSON Timestamp state") {
+			continue
+		}
+		if entry.Metric == nil || entry.Metric.Type != "gauge" || entry.Metric.Transform == "" || strings.HasSuffix(entry.Metric.Family, "_total") {
+			t.Errorf("logical timestamp %s has invalid mapping %+v", entry.Path, entry.Metric)
+		}
 	}
 	checks := map[string]string{
 		"connections.exhaustHello":                                         "gauge",
@@ -88,7 +96,6 @@ func TestGeneratedNumericPolicyAndExceptions(t *testing.T) {
 		}
 	}
 }
-
 func TestGeneratedDefinitionsUsePreSplitPaths(t *testing.T) {
 	for _, definition := range metricDefinitions {
 		if len(definition.PathSegments) == 0 {
@@ -118,7 +125,7 @@ func TestDynamicVocabulariesAndUnknownDiagnostics(t *testing.T) {
 	}
 
 	data, err := bson.Marshal(bson.M{"metrics": bson.M{
-		"commands":         bson.M{"notReviewed": bson.M{"total": 1}},
+		"commands":         bson.M{"notReviewed": bson.M{"total": 1}, "emptyUnknown": bson.M{}},
 		"aggStageCounters": bson.M{"$notReviewed": 1},
 		"operatorCounters": bson.M{"notReviewedCategory": bson.M{"$eq": 1}, "expressions": bson.M{"$notReviewed": 1}},
 	}})
@@ -145,7 +152,7 @@ func TestDynamicVocabulariesAndUnknownDiagnostics(t *testing.T) {
 			}
 		}
 	}
-	if values["commands"] != 1 || values["aggregation_stages"] != 1 || values["operators"] != 2 {
+	if values["commands"] != 2 || values["aggregation_stages"] != 1 || values["operators"] != 2 {
 		t.Fatalf("unknown diagnostics=%v", values)
 	}
 }
@@ -209,16 +216,15 @@ func TestReviewedStringsAndDuplicateOwnership(t *testing.T) {
 			modern[entry.Path] = true
 		}
 	}
-	if drops != 26 {
-		t.Fatalf("reviewed drops=%d want 26", drops)
+	if drops != 28 {
+		t.Fatalf("reviewed drops=%d want 28", drops)
 	}
-	for _, path := range []string{"metrics.cursor.open.noTimeout", "metrics.cursor.open.pinned", "metrics.cursor.open.total", "metrics.cursor.timedOut", "wiredTiger.concurrentTransactions.read.available", "wiredTiger.concurrentTransactions.write.out"} {
+	for _, path := range []string{"$clusterTime.signature.keyId", "pid", "metrics.cursor.open.noTimeout", "metrics.cursor.open.pinned", "metrics.cursor.open.total", "metrics.cursor.timedOut", "wiredTiger.concurrentTransactions.read.available", "wiredTiger.concurrentTransactions.write.out"} {
 		if modern[path] {
-			t.Errorf("duplicate modern mapping remains for %s", path)
+			t.Errorf("modern mapping remains for reviewed legacy/drop path %s", path)
 		}
 	}
 }
-
 func TestAnchoredSnapshotTimestampSelection(t *testing.T) {
 	parts, err := parseSnapshotParts("Dec 31 23:59:59:42")
 	if err != nil {
@@ -301,23 +307,26 @@ func gatherRaw(t *testing.T, document interface{}) map[string]*dto.MetricFamily 
 
 func TestMethodAndReplicationDatesArePresenceAware(t *testing.T) {
 	absent := gatherRaw(t, bson.M{})
-	for _, family := range []string{
-		"mongodb_server_status_oplog_truncation_processing_method_info",
-		"mongodb_server_status_repl_last_write_last_write_date_milliseconds",
-		"mongodb_server_status_repl_last_write_majority_write_date_milliseconds",
-	} {
+	for _, family := range []string{"mongodb_server_status_oplog_truncation_processing_method_info", "mongodb_server_status_repl_last_write_last_write_date_milliseconds", "mongodb_server_status_repl_last_write_majority_write_date_milliseconds"} {
 		if absent[family] != nil {
 			t.Errorf("absent field emitted %s", family)
 		}
 	}
-
 	present := gatherRaw(t, bson.M{
-		"oplogTruncation": bson.M{"processingMethod": "changed-method"},
+		"oplogTruncation": bson.M{"processingMethod": "sampling"},
 		"repl":            bson.M{"lastWrite": bson.M{"lastWriteDate": primitive.DateTime(1234), "majorityWriteDate": primitive.DateTime(5678)}},
 	})
-	method := metricWithLabels(present["mongodb_server_status_oplog_truncation_processing_method_info"], map[string]string{"method": "changed-method"})
+	method := metricWithLabels(present["mongodb_server_status_oplog_truncation_processing_method_info"], map[string]string{"method": "sampling"})
 	if method == nil || metricValueDTO(method) != 1 {
-		t.Fatal("changed processing method was not emitted raw")
+		t.Fatal("reviewed processing method was not emitted")
+	}
+	unknown := gatherRaw(t, bson.M{"oplogTruncation": bson.M{"processingMethod": "not-reviewed"}})
+	if unknown["mongodb_server_status_oplog_truncation_processing_method_info"] != nil {
+		t.Fatal("unknown processing method was emitted")
+	}
+	errorMetric := metricWithLabels(unknown["mongodb_server_status_decode_errors_total"], map[string]string{"family": "mongodb_server_status_oplog_truncation_processing_method_info"})
+	if errorMetric == nil || metricValueDTO(errorMetric) != 1 {
+		t.Fatal("unknown processing method did not increment bounded diagnostic")
 	}
 	if got := metricValueDTO(metricWithLabels(present["mongodb_server_status_repl_last_write_last_write_date_milliseconds"], nil)); got != 1234 {
 		t.Errorf("lastWriteDate=%v", got)
@@ -326,7 +335,6 @@ func TestMethodAndReplicationDatesArePresenceAware(t *testing.T) {
 		t.Errorf("majorityWriteDate=%v", got)
 	}
 }
-
 func TestSnapshotAnchoringFailureEmitsZeroSentinels(t *testing.T) {
 	families := gatherRaw(t, bson.M{
 		"localTime":    time.Unix(1790024728, 0),
