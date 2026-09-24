@@ -33,6 +33,11 @@ export APP_VERSION     := $(shell echo $(TRAVIS_TAG) | sed -e 's/v//g')
 export APP_REVISION    := $(shell git rev-parse HEAD)
 export BUILD_TIME      := $(shell date '+%Y%m%d-%H:%M:%S')
 
+DIST_VERSION         ?= $(shell tr -d '\n' < VERSION)
+LINUX_ARM64_NAME     := $(BIN_NAME)-$(DIST_VERSION).linux-aarch64
+LINUX_ARM64_DIR      := $(BIN_DIR)/$(LINUX_ARM64_NAME)
+LINUX_ARM64_ARCHIVE  := $(BIN_DIR)/$(LINUX_ARM64_NAME).tar.gz
+
 # We sets default pmm version to empty as we want to build community release by default
 export PMM_RELEASE_VERSION    ?=
 export PMM_RELEASE_TIMESTAMP  = $(shell date '+%s')
@@ -87,6 +92,24 @@ release:
 		'\
 		-o $(BIN_DIR)/$(BIN_NAME) .
 
+build-linux-arm64:
+	@echo ">> building linux/arm64 binary"
+	@mkdir -p $(LINUX_ARM64_DIR)
+	@CGO_ENABLED=0 GOOS=linux GOARCH=arm64 $(GO) build -trimpath -v \
+		-ldflags '\
+		-X github.com/percona/pmm/version.ProjectName=$(BIN_NAME) \
+		-X github.com/percona/pmm/version.Version=$(DIST_VERSION) \
+		-X github.com/percona/pmm/version.PMMVersion=$(PMM_RELEASE_VERSION) \
+		-X github.com/percona/pmm/version.Timestamp=$(PMM_RELEASE_TIMESTAMP) \
+		-X github.com/percona/pmm/version.FullCommit=$(PMM_RELEASE_FULLCOMMIT) \
+		-X github.com/percona/pmm/version.Branch=$(PMM_RELEASE_BRANCH) \
+		-X github.com/prometheus/common/version.BuildUser=$(USER)@$(TRAVIS_APP_HOST)' \
+		-o $(LINUX_ARM64_DIR)/$(BIN_NAME) .
+
+package-linux-arm64: build-linux-arm64
+	@echo ">> packaging $(LINUX_ARM64_ARCHIVE)"
+	@tar -C $(BIN_DIR) -czf $(LINUX_ARM64_ARCHIVE) $(LINUX_ARM64_NAME)
+
 community-release: $(GOPATH)/bin/goreleaser
 	@echo ">> building release"
 	goreleaser release --rm-dist --skip-validate
@@ -133,4 +156,4 @@ mongo-db-in-docker:
 gen-ssl-certs:
 	./scripts/ssl.sh
 
-.PHONY: init all style format build release test vet release docker clean check-vendor-synced mongo-db-in-docker gen-ssl-certs
+.PHONY: init all style format build release build-linux-arm64 package-linux-arm64 test vet docker clean check-vendor-synced mongo-db-in-docker gen-ssl-certs

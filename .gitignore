@@ -10,3 +10,4 @@ coverage_temp.txt
 
 # ignore built binaries
 /bin
+/.direnv
