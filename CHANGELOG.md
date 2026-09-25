@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The modern collector exposes 835 metric families and at most 1,347 primary, 1,280 secondary, or 1,355 union series. Command, aggregation-stage, operator, and range labels use fixed reviewed vocabularies.
 - The `--suppress.collectserverstatusv5` rollout switch disables only the modern metric module.
 
+### Compatibility
+- Based on the deployed `0.11.2-evg1` dependency stack (MongoDB Go driver v1.8.6); existing collector flags and legacy metrics remain intact.
+- Release builds require the deployed Go 1.24.2 toolchain to preserve the existing `go_info` version label and time-series identity.
+
+### Fixed
+- Preserve release version, branch, revision, and build-user metadata with the current Go linker by correcting the inherited multi-architecture build flags.
+
 ## [0.11.2]
 ### Added
 - [PMM-6361](https://jira.percona.com/browse/PMM-6361): New flag `--suppress.collectshardingstatus` can be used to disable the collection of Sharding Status. This flag is not set by default. 

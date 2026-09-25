@@ -38,6 +38,18 @@ export PMM_RELEASE_VERSION    ?=
 export PMM_RELEASE_TIMESTAMP  = $(shell date '+%s')
 export PMM_RELEASE_FULLCOMMIT = $(APP_REVISION)
 export PMM_RELEASE_BRANCH     = $(TRAVIS_BRANCH)
+VERSION_LINKER_FLAGS = \
+  -X github.com/percona/pmm/version.ProjectName=$(BIN_NAME) \
+  -X github.com/percona/pmm/version.Version=$(APP_VERSION) \
+  -X github.com/percona/pmm/version.PMMVersion=$(PMM_RELEASE_VERSION) \
+  -X github.com/percona/pmm/version.Timestamp=$(PMM_RELEASE_TIMESTAMP) \
+  -X github.com/percona/pmm/version.FullCommit=$(PMM_RELEASE_FULLCOMMIT) \
+  -X github.com/percona/pmm/version.Branch=$(PMM_RELEASE_BRANCH) \
+  -X github.com/prometheus/common/version.BuildUser=$(USER)@$(TRAVIS_APP_HOST)
+RELEASE_GO_VERSION := go1.24.2
+
+check-release-go:
+	@actual="$(word 3,$(shell $(GO) version))"; if [ "$$actual" != "$(RELEASE_GO_VERSION)" ]; then echo "Release requires $(RELEASE_GO_VERSION) to preserve go_info labels (found $$actual)" >&2; exit 1; fi
 
 all: init clean format style build test-all
 
@@ -73,53 +85,23 @@ snapshot: $(GOPATH)/bin/goreleaser
 	goreleaser --snapshot --skip-sign --skip-validate --skip-publish --rm-dist
 
 # We use this target name to build binary across all PMM components
-release:
+release: check-release-go
 	@echo ">> building binary"
-	@CGO_ENABLED=0 $(GO) build -v \
-		-ldflags '\
-		-X 'github.com/percona/pmm/version.ProjectName=$(BIN_NAME)' \
-		-X 'github.com/percona/pmm/version.Version=$(APP_VERSION)' \
-		-X 'github.com/percona/pmm/version.PMMVersion=$(PMM_RELEASE_VERSION)' \
-		-X 'github.com/percona/pmm/version.Timestamp=$(PMM_RELEASE_TIMESTAMP)' \
-		-X 'github.com/percona/pmm/version.FullCommit=$(PMM_RELEASE_FULLCOMMIT)' \
-		-X 'github.com/percona/pmm/version.Branch=$(PMM_RELEASE_BRANCH)' \
-		-X 'github.com/prometheus/common/version.BuildUser=$(USER)@$(TRAVIS_APP_HOST)' \
-		'\
-		-o $(BIN_DIR)/$(BIN_NAME) .
+	@CGO_ENABLED=0 $(GO) build -v -ldflags "$(VERSION_LINKER_FLAGS)" -o $(BIN_DIR)/$(BIN_NAME) .
 
 community-release: $(GOPATH)/bin/goreleaser
 	@echo ">> building release"
 	goreleaser release --rm-dist --skip-validate
 
-release-multi-arch: clean
+release-multi-arch: check-release-go clean
 	@echo ">> building for linux/amd64"
 	@mkdir -p $(BIN_DIR)/$(BIN_NAME)-$(APP_VERSION).linux-amd64
-	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 $(GO) build -v \
-		-ldflags '\
-		-X 'github.com/percona/pmm/version.ProjectName=$(BIN_NAME)' \
-		-X 'github.com/percona/pmm/version.Version=$(APP_VERSION)' \
-		-X 'github.com/percona/pmm/version.PMMVersion=$(PMM_RELEASE_VERSION)' \
-		-X 'github.com/percona/pmm/version.Timestamp=$(PMM_RELEASE_TIMESTAMP)' \
-		-X 'github.com/percona/pmm/version.FullCommit=$(PMM_RELEASE_FULLCOMMIT)' \
-		-X 'github.com/percona/pmm/version.Branch=$(PMM_RELEASE_BRANCH)' \
-		-X 'github.com/prometheus/common/version.BuildUser=$(USER)@$(TRAVIS_APP_HOST)' \
-		' \
-		-o $(BIN_DIR)/$(BIN_NAME)-$(APP_VERSION).linux-amd64/$(BIN_NAME) .
+	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 $(GO) build -v -ldflags "$(VERSION_LINKER_FLAGS)" -o $(BIN_DIR)/$(BIN_NAME)-$(APP_VERSION).linux-amd64/$(BIN_NAME) .
 	@cd $(BIN_DIR) && tar -czf $(BIN_NAME)-$(APP_VERSION).linux-amd64.tar.gz $(BIN_NAME)-$(APP_VERSION).linux-amd64
 
 	@echo ">> building for linux/aarch64"
 	@mkdir -p $(BIN_DIR)/$(BIN_NAME)-$(APP_VERSION).linux-aarch64
-	@GOOS=linux GOARCH=arm64 CGO_ENABLED=0 $(GO) build -v \
-		-ldflags '\
-		-X 'github.com/percona/pmm/version.ProjectName=$(BIN_NAME)' \
-		-X 'github.com/percona/pmm/version.Version=$(APP_VERSION)' \
-		-X 'github.com/percona/pmm/version.PMMVersion=$(PMM_RELEASE_VERSION)' \
-		-X 'github.com/percona/pmm/version.Timestamp=$(PMM_RELEASE_TIMESTAMP)' \
-		-X 'github.com/percona/pmm/version.FullCommit=$(PMM_RELEASE_FULLCOMMIT)' \
-		-X 'github.com/percona/pmm/version.Branch=$(PMM_RELEASE_BRANCH)' \
-		-X 'github.com/prometheus/common/version.BuildUser=$(USER)@$(TRAVIS_APP_HOST)' \
-		' \
-		-o $(BIN_DIR)/$(BIN_NAME)-$(APP_VERSION).linux-aarch64/$(BIN_NAME) .
+	@GOOS=linux GOARCH=arm64 CGO_ENABLED=0 $(GO) build -v -ldflags "$(VERSION_LINKER_FLAGS)" -o $(BIN_DIR)/$(BIN_NAME)-$(APP_VERSION).linux-aarch64/$(BIN_NAME) .
 	@cd $(BIN_DIR) && tar -czf $(BIN_NAME)-$(APP_VERSION).linux-aarch64.tar.gz $(BIN_NAME)-$(APP_VERSION).linux-aarch64
 
 docker:
@@ -164,4 +146,4 @@ mongo-db-in-docker:
 gen-ssl-certs:
 	./scripts/ssl.sh
 
-.PHONY: init all style format build release test vet release docker clean check-vendor-synced mongo-db-in-docker gen-ssl-certs release-multi-arch
+.PHONY: init all style format build release test vet release docker clean check-vendor-synced mongo-db-in-docker gen-ssl-certs release-multi-arch check-release-go
