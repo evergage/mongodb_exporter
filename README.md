@@ -58,6 +58,14 @@ Metrics `mongodb_mongod_replset_oplog_*` doesn't work in [Master/Slave](https://
         make docker
         ```
 
+### Nix development shell (Apple Silicon)
+
+On `aarch64-darwin`, `nix develop` provides Go, Make, MongoDB 5.0.31 (`mongod`, `mongos`, and `mongo`), Prometheus, and Python. MongoDB 5.0 has no native Apple Silicon macOS binary; its Intel binary requires Rosetta 2. The shell provides executables but does not start servers. Other supported shell systems provide the development tools without MongoDB 5.0.
+
+This branch builds directly on the deployed `0.11.2-evg1` exporter, which already uses MongoDB Go driver v1.8.6; it does not upgrade the driver. It adds `mongodb_server_status_*` metrics without changing the existing collector or the production `--suppress.collectshardingstatus` option; `--suppress.collectserverstatusv5` disables the additions for a staged rollout.
+
+Release builds use Go 1.24.2, matching the deployed artifact. Run `GOTOOLCHAIN=go1.24.2 make release-multi-arch` in the release environment; the Makefile rejects other Go versions so `go_info{version="go1.24.2"}` remains the same time series after cutover. A first build may download that Go toolchain.
+
 ### Running
 
 To define your own MongoDB URL, use environment variable `MONGODB_URI`. If set this variable takes precedence over `--mongodb.uri` flag.

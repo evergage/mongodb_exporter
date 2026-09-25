@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Exact MongoDB 5.0.34 server-status coverage classifies all 1,581 observed scalar leaves: 144 remain with the legacy collector, 1,409 have bounded modern dispositions, and 28 reviewed identity or opaque-text fields are omitted.
+- The modern collector exposes 835 metric families and at most 1,347 primary, 1,280 secondary, or 1,355 union series. Command, aggregation-stage, operator, and range labels use fixed reviewed vocabularies.
+- The `--suppress.collectserverstatusv5` rollout switch disables only the modern metric module.
+
+### Compatibility
+- Based on the deployed `0.11.2-evg1` dependency stack (MongoDB Go driver v1.8.6); existing collector flags and legacy metrics remain intact.
+- Release builds require the deployed Go 1.24.2 toolchain to preserve the existing `go_info` version label and time-series identity.
+
+### Fixed
+- Preserve release version, branch, revision, and build-user metadata with the current Go linker by correcting the inherited multi-architecture build flags.
 
 ## [0.11.2]
 ### Added

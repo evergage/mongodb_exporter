@@ -27,6 +27,7 @@ import (
 	commoncollector "github.com/percona/mongodb_exporter/collector/common"
 	"github.com/percona/mongodb_exporter/collector/mongod"
 	"github.com/percona/mongodb_exporter/collector/mongos"
+	"github.com/percona/mongodb_exporter/collector/serverstatusv5"
 	"github.com/percona/mongodb_exporter/shared"
 )
 
@@ -41,6 +42,7 @@ type MongodbCollectorOpts struct {
 	CollectIndexUsageStats   bool
 	CollectConnPoolStats     bool
 	SuppressCollectShardingStatus    bool
+	SuppressServerStatusV5        bool
 }
 
 func (in *MongodbCollectorOpts) toSessionOps() *shared.MongoSessionOpts {
@@ -61,12 +63,14 @@ type MongodbCollector struct {
 
 	mongoSessLock sync.Mutex
 	mongoClient   *mongo.Client
+	ssv5          *serverstatusv5.Module
 }
 
 // NewMongodbCollector returns a new instance of a MongodbCollector.
 func NewMongodbCollector(opts *MongodbCollectorOpts) *MongodbCollector {
 	exporter := &MongodbCollector{
 		Opts: opts,
+		ssv5: serverstatusv5.New(),
 
 		scrapesTotal: prometheus.NewCounter(prometheus.CounterOpts{
 			Namespace: namespace,
@@ -265,6 +269,9 @@ func (exporter *MongodbCollector) collectMongod(client *mongo.Client, ch chan<- 
 	serverStatus := mongod.GetServerStatus(client)
 	if serverStatus != nil {
 		serverStatus.Export(ch)
+		if !exporter.Opts.SuppressServerStatusV5 {
+			exporter.ssv5.Collect(serverStatus.Raw, ch)
+		}
 	}
 
 	if exporter.Opts.CollectDatabaseMetrics {
