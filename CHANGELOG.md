@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Exact MongoDB 5.0.34 server-status coverage classifies all 1,904 reviewed scalar leaves, including 323 reviewed command leaves. Legacy ownership and reviewed identity or opaque-text drops remain explicit.
+- Modern fixture ceilings are 1,670 primary and 1,603 secondary samples across both scrape surfaces; the fast WiredTiger subset has 495 mappings and the detailed command family has a fixed 436 outcome-label ceiling.
+- The `--suppress.collectserverstatusv5` rollout switch disables only the modern metric module.
+- Split modern server-status ownership across two complementary same-listener paths: `/metrics` preserves legacy output and adds only reviewed modern WiredTiger mappings, while `/metrics/detail` exposes only the reviewed non-WiredTiger modern mappings.
+- Each path performs an independent request-time `serverStatus` command; there is no response cache or background polling. Suppressing the modern module keeps legacy `/metrics` output and makes detail unavailable before it queries MongoDB.
+- Expanded detailed command metrics use the fixed reviewed `command`/`outcome` and validator `command`/`kind` schemas. The direct `<UNKNOWN>` sentinel has its own unlabeled counter, while unreviewed runtime command keys remain unexported and increment only a bounded family diagnostic.
+
+### Operations
+- The existing `job=mongodb` target remains on port `9216` at its `60s` interval. No detailed target is enrolled by this exporter change; `job=mongodb-detailed` is a separate, un-applied opt-in proposal for `/metrics/detail` at a slower interval selected from staged measurements.
+
+### Compatibility
+- Based on the deployed `0.11.2-evg1` dependency stack (MongoDB Go driver v1.8.6); existing collector flags and legacy metrics remain intact.
+- Release builds require the deployed Go 1.24.2 toolchain to preserve the existing `go_info` version label and time-series identity.
+
+### Fixed
+- Preserve release version, branch, revision, and build-user metadata with the current Go linker by correcting the inherited multi-architecture build flags.
 
 ## [0.11.2]
 ### Added

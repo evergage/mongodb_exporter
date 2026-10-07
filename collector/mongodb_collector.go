@@ -27,6 +27,7 @@ import (
 	commoncollector "github.com/percona/mongodb_exporter/collector/common"
 	"github.com/percona/mongodb_exporter/collector/mongod"
 	"github.com/percona/mongodb_exporter/collector/mongos"
+	"github.com/percona/mongodb_exporter/collector/serverstatusv5"
 	"github.com/percona/mongodb_exporter/shared"
 )
 
@@ -34,13 +35,14 @@ const namespace = "mongodb"
 
 // MongodbCollectorOpts is the options of the mongodb collector.
 type MongodbCollectorOpts struct {
-	URI                      string
-	CollectDatabaseMetrics   bool
-	CollectCollectionMetrics bool
-	CollectTopMetrics        bool
-	CollectIndexUsageStats   bool
-	CollectConnPoolStats     bool
-	SuppressCollectShardingStatus    bool
+	URI                           string
+	CollectDatabaseMetrics        bool
+	CollectCollectionMetrics      bool
+	CollectTopMetrics             bool
+	CollectIndexUsageStats        bool
+	CollectConnPoolStats          bool
+	SuppressCollectShardingStatus bool
+	SuppressServerStatusV5        bool
 }
 
 func (in *MongodbCollectorOpts) toSessionOps() *shared.MongoSessionOpts {
@@ -61,13 +63,14 @@ type MongodbCollector struct {
 
 	mongoSessLock sync.Mutex
 	mongoClient   *mongo.Client
+	ssv5          *serverstatusv5.Module
 }
 
 // NewMongodbCollector returns a new instance of a MongodbCollector.
 func NewMongodbCollector(opts *MongodbCollectorOpts) *MongodbCollector {
 	exporter := &MongodbCollector{
 		Opts: opts,
-
+		ssv5: serverstatusv5.NewWiredTiger(),
 		scrapesTotal: prometheus.NewCounter(prometheus.CounterOpts{
 			Namespace: namespace,
 			Subsystem: "exporter",
@@ -227,7 +230,7 @@ func (exporter *MongodbCollector) collectMongos(client *mongo.Client, ch chan<- 
 		serverStatus.Export(ch)
 	}
 
-	if !exporter.Opts.SuppressCollectShardingStatus  {
+	if !exporter.Opts.SuppressCollectShardingStatus {
 		log.Debug("Collecting Sharding Status")
 		shardingStatus := mongos.GetShardingStatus(client)
 		if shardingStatus != nil {
@@ -263,10 +266,7 @@ func (exporter *MongodbCollector) collectMongos(client *mongo.Client, ch chan<- 
 func (exporter *MongodbCollector) collectMongod(client *mongo.Client, ch chan<- prometheus.Metric) {
 	log.Debug("Collecting Server Status")
 	serverStatus := mongod.GetServerStatus(client)
-	if serverStatus != nil {
-		serverStatus.Export(ch)
-	}
-
+	exporter.collectMongodServerStatus(serverStatus, ch)
 	if exporter.Opts.CollectDatabaseMetrics {
 		log.Debug("Collecting Database Status From Mongod")
 		dbStatList := mongod.GetDatabaseStatList(client)
@@ -305,6 +305,16 @@ func (exporter *MongodbCollector) collectMongod(client *mongo.Client, ch chan<- 
 		if connPoolStats != nil {
 			connPoolStats.Export(ch)
 		}
+	}
+}
+
+func (exporter *MongodbCollector) collectMongodServerStatus(serverStatus *mongod.ServerStatus, ch chan<- prometheus.Metric) {
+	if serverStatus == nil {
+		return
+	}
+	serverStatus.Export(ch)
+	if !exporter.Opts.SuppressServerStatusV5 {
+		exporter.ssv5.Collect(serverStatus.Raw, ch)
 	}
 }
 

@@ -18,9 +18,11 @@ package exporter_shared
 import (
 	"bytes"
 	"crypto/tls"
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -57,54 +59,193 @@ func DefaultMetricsHandler() http.Handler {
 	return promhttp.InstrumentMetricHandler(prometheus.DefaultRegisterer, h)
 }
 
-// RunServer runs server for exporter with given name (it is used on landing page) on given address,
-// with HTTP basic authentication (if configured)
-// and with given HTTP handler (that should be created with DefaultMetricsHandler or manually).
+const (
+	landingPath             = "/"
+	detailPathSuffix        = "/detail"
+	strictTransportSecurity = "max-age=63072000; includeSubDomains"
+)
+
+type serverPaths struct {
+	telemetry string
+	detail    string
+	landing   string
+}
+
+// RunServer runs a server for an exporter with one telemetry route. It retains
+// the existing landing page, HTTP basic-authentication, and TLS behavior.
 // Function never returns.
 func RunServer(name, addr, path string, handler http.Handler) {
-	if (*sslCertFileF == "") != (*sslKeyFileF == "") {
-		log.Fatal("One of the flags --web.ssl-cert-file or --web.ssl-key-file is missing to enable HTTPS.")
-	}
+	runServer(name, addr, path, handler, nil, false)
+}
 
-	ssl := false
-	if *sslCertFileF != "" && *sslKeyFileF != "" {
-		if _, err := os.Stat(*sslCertFileF); os.IsNotExist(err) {
-			log.Fatalf("SSL certificate file does not exist: %s", *sslCertFileF)
-		}
-		if _, err := os.Stat(*sslKeyFileF); os.IsNotExist(err) {
-			log.Fatalf("SSL key file does not exist: %s", *sslKeyFileF)
-		}
-		ssl = true
-	}
+// RunServerWithDetail runs a server for an exporter with fast metrics at base
+// and detailed metrics at base + "/detail". Both metric routes use the same
+// listener, TLS configuration, and HTTP basic-authentication policy.
+// Function never returns.
+func RunServerWithDetail(name, addr, base string, fast, detail http.Handler) {
+	runServer(name, addr, base, fast, detail, true)
+}
 
-	var buf bytes.Buffer
-	data := map[string]string{"name": name, "path": path}
-	if err := landingPage.Execute(&buf, data); err != nil {
+func runServer(name, addr, base string, fast, detail http.Handler, withDetail bool) {
+	paths, err := newServerPaths(base, withDetail)
+	if err != nil {
 		log.Fatal(err)
 	}
 
-	h := authHandler(handler)
+	ssl, err := tlsEnabled(*sslCertFileF, *sslKeyFileF)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	mux, err := newServerMux(name, paths, fast, detail, ssl)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	if ssl {
-		runHTTPS(addr, path, h, buf.Bytes())
+		runHTTPS(addr, paths.telemetry, mux)
 	} else {
-		runHTTP(addr, path, h, buf.Bytes())
+		runHTTP(addr, paths.telemetry, mux)
 	}
 }
 
-func runHTTPS(addr, path string, handler http.Handler, landing []byte) {
-	mux := http.NewServeMux()
-	mux.Handle(path, handler)
-	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		w.Header().Add("Strict-Transport-Security", "max-age=63072000; includeSubDomains")
-		w.Write(landing)
-	})
+func newServerPaths(base string, withDetail bool) (serverPaths, error) {
+	paths := serverPaths{
+		telemetry: base,
+		landing:   landingPath,
+	}
+	if withDetail {
+		paths.detail = base + detailPathSuffix
+	}
 
-	// see internal security baseline
-	tlsCfg := &tls.Config{
+	if err := paths.validate(); err != nil {
+		return serverPaths{}, err
+	}
+	return paths, nil
+}
+
+func (paths serverPaths) validate() error {
+	routes := []struct {
+		name string
+		path string
+	}{
+		{name: "telemetry", path: paths.telemetry},
+	}
+	if paths.detail != "" {
+		routes = append(routes, struct {
+			name string
+			path string
+		}{name: "detail", path: paths.detail})
+	}
+	routes = append(routes, struct {
+		name string
+		path string
+	}{name: "landing", path: paths.landing})
+
+	for i, route := range routes {
+		for _, other := range routes[:i] {
+			if route.path == other.path {
+				return fmt.Errorf("%s path %q collides with %s path", route.name, route.path, other.name)
+			}
+		}
+	}
+
+	for _, route := range routes {
+		if err := validateRoutePath(route.path); err != nil {
+			return fmt.Errorf("invalid %s path %q: %v", route.name, route.path, err)
+		}
+	}
+	return nil
+}
+
+func validateRoutePath(routePath string) error {
+	if routePath == "" {
+		return fmt.Errorf("must not be empty")
+	}
+	if !strings.HasPrefix(routePath, "/") {
+		return fmt.Errorf("must begin with /")
+	}
+	if strings.ContainsAny(routePath, "?#") {
+		return fmt.Errorf("must not contain a query or fragment")
+	}
+	if routePath != path.Clean(routePath) {
+		return fmt.Errorf("must be a canonical path")
+	}
+	return nil
+}
+
+func newServerMux(name string, paths serverPaths, fast, detail http.Handler, ssl bool) (*http.ServeMux, error) {
+	if fast == nil {
+		return nil, fmt.Errorf("fast handler must not be nil")
+	}
+	if paths.detail != "" && detail == nil {
+		return nil, fmt.Errorf("detail handler must not be nil")
+	}
+
+	var buf bytes.Buffer
+	data := map[string]string{"name": name, "path": paths.telemetry}
+	if err := landingPage.Execute(&buf, data); err != nil {
+		return nil, err
+	}
+	landing := buf.Bytes()
+
+	mux := http.NewServeMux()
+	mux.Handle(paths.telemetry, authHandler(fast))
+	if paths.detail != "" {
+		mux.Handle(paths.detail, authHandler(detail))
+	}
+	mux.HandleFunc(paths.landing, func(w http.ResponseWriter, _ *http.Request) {
+		if ssl {
+			w.Header().Add("Strict-Transport-Security", strictTransportSecurity)
+		}
+		_, _ = w.Write(landing)
+	})
+	return mux, nil
+}
+
+func tlsEnabled(certFile, keyFile string) (bool, error) {
+	if (certFile == "") != (keyFile == "") {
+		return false, fmt.Errorf("one of the flags --web.ssl-cert-file or --web.ssl-key-file is missing to enable HTTPS")
+	}
+	if certFile == "" {
+		return false, nil
+	}
+	if _, err := os.Stat(certFile); err != nil {
+		if os.IsNotExist(err) {
+			return false, fmt.Errorf("SSL certificate file does not exist: %s", certFile)
+		}
+		return false, fmt.Errorf("cannot stat SSL certificate file %q: %v", certFile, err)
+	}
+	if _, err := os.Stat(keyFile); err != nil {
+		if os.IsNotExist(err) {
+			return false, fmt.Errorf("SSL key file does not exist: %s", keyFile)
+		}
+		return false, fmt.Errorf("cannot stat SSL key file %q: %v", keyFile, err)
+	}
+	return true, nil
+}
+
+func runHTTPS(addr, path string, handler http.Handler) {
+	srv := newHTTPSServer(addr, handler)
+	log.Infof("Starting HTTPS server for https://%s%s ...", addr, path)
+	log.Fatal(srv.ListenAndServeTLS(*sslCertFileF, *sslKeyFileF))
+}
+
+func newHTTPSServer(addr string, handler http.Handler) *http.Server {
+	return &http.Server{
+		Addr:      addr,
+		Handler:   handler,
+		TLSConfig: newTLSConfig(),
+	}
+}
+
+func newTLSConfig() *tls.Config {
+	// See internal security baseline.
+	return &tls.Config{
 		MinVersion:               tls.VersionTLS12,
 		PreferServerCipherSuites: true,
 		CipherSuites: []uint16{
-			// no SHA-1, ECDHE before plain RSA, GCM before CBC
+			// No SHA-1, ECDHE before plain RSA, GCM before CBC.
 			tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
 			tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
 			tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
@@ -116,27 +257,17 @@ func runHTTPS(addr, path string, handler http.Handler, landing []byte) {
 			tls.TLS_RSA_WITH_AES_128_CBC_SHA256,
 		},
 	}
-
-	srv := &http.Server{
-		Addr:      addr,
-		Handler:   mux,
-		TLSConfig: tlsCfg,
-	}
-	log.Infof("Starting HTTPS server for https://%s%s ...", addr, path)
-	log.Fatal(srv.ListenAndServeTLS(*sslCertFileF, *sslKeyFileF))
 }
 
-func runHTTP(addr, path string, handler http.Handler, landing []byte) {
-	mux := http.NewServeMux()
-	mux.Handle(path, handler)
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(landing)
-	})
-
-	srv := &http.Server{
-		Addr:    addr,
-		Handler: mux,
-	}
+func runHTTP(addr, path string, handler http.Handler) {
+	srv := newHTTPServer(addr, handler)
 	log.Infof("Starting HTTP server for http://%s%s ...", addr, path)
 	log.Fatal(srv.ListenAndServe())
+}
+
+func newHTTPServer(addr string, handler http.Handler) *http.Server {
+	return &http.Server{
+		Addr:    addr,
+		Handler: handler,
+	}
 }
