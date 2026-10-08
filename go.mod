@@ -9,9 +9,12 @@ require (
 	github.com/percona/exporter_shared v0.4.0
 	github.com/percona/pmm v0.0.0-20190616165924-3b769b4ca86e
 	github.com/prometheus/client_golang v1.5.1
+	github.com/prometheus/client_model v0.2.0
 	github.com/prometheus/common v0.9.1
 	github.com/sergi/go-diff v1.0.0 // indirect
 	github.com/stretchr/testify v1.6.1
 	go.mongodb.org/mongo-driver v1.8.6
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
+
+replace github.com/percona/exporter_shared => ./vendor/github.com/percona/exporter_shared
