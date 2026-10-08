@@ -58,6 +58,31 @@ Metrics `mongodb_mongod_replset_oplog_*` doesn't work in [Master/Slave](https://
         make docker
         ```
 
+### Nix development shell (Apple Silicon)
+
+On `aarch64-darwin`, `nix develop` provides Go, Make, MongoDB 5.0.31 (`mongod`, `mongos`, and `mongo`), Prometheus, and Python. MongoDB 5.0 has no native Apple Silicon macOS binary; its Intel binary requires Rosetta 2. The shell provides executables but does not start servers. Other supported shell systems provide the development tools without MongoDB 5.0.
+
+This branch builds directly on the deployed `0.11.2-evg1` exporter, which already uses MongoDB Go driver v1.8.6; it does not upgrade the driver. It adds `mongodb_server_status_*` metrics without changing the existing collector or the production `--suppress.collectshardingstatus` option; `--suppress.collectserverstatusv5` disables the additions for a staged rollout.
+
+Release builds use Go 1.24.2, matching the deployed artifact. Run `GOTOOLCHAIN=go1.24.2 make release-multi-arch` in the release environment; the Makefile rejects other Go versions so `go_info{version="go1.24.2"}` remains the same time series after cutover. A first build may download that Go toolchain.
+
+### Server-status scrape surfaces
+
+The exporter serves two metric surfaces from the same listener. They are complementary, not two names for the same snapshot:
+
+- **`/metrics` (fast path):** keeps the existing legacy MongoDB, exporter, process, and runtime metrics and owns the approved modern server-status mappings rooted at `wiredTiger`. Legacy-owned fields, including legacy WiredTiger families, remain owned by their existing legacy metrics. Non-WiredTiger modern mappings are not emitted on this path.
+- **`/metrics/detail` (detailed path):** owns the complementary approved modern server-status mappings whose source root is not `wiredTiger`, including the reviewed finite command inventory. It does not emit legacy metrics, modern WiredTiger metrics, build-info, Go/process metrics, or fast-path exporter self-metrics. Reviewed `drop` fields remain absent from both paths. The detailed path is not a replacement for `/metrics`; it is unavailable for a `mongos` target because these detailed mappings are mongod-only.
+
+Each HTTP request performs its own current `serverStatus` command. There is no response cache, TTL, or background polling loop, and the two paths never share a response. A detailed request performs one `serverStatus` command and does not run a second full legacy collection, `buildInfo`, `isMaster`, or optional legacy collector. Scraping both paths therefore intentionally adds one independent `serverStatus` request, and their values can reflect different moments.
+
+Command metrics use a fixed, reviewed label schema rather than a metric family per runtime command. The accepted command vocabulary has 218 reviewed names and uses `mongodb_server_status_commands_total{command,outcome}` with only `outcome="total"` and `outcome="failed"`; `total` includes failed executions. Validator leaves use `mongodb_server_status_command_validator_total{command,kind}`, with fixed `kind` values `total`, `failed`, and `json_schema`. The direct `metrics.commands.<UNKNOWN>` sentinel uses `mongodb_server_status_unknown_commands_total` with no invented outcome or command label. An unreviewed future command key is not exported as a sample or label; the detailed path records only the bounded family-level unknown-key diagnostic. The reviewed vocabulary is not a promise to expose every future MongoDB key.
+
+With `--suppress.collectserverstatusv5`, `/metrics` retains its established legacy behavior while the modern module is disabled. `/metrics/detail` returns an unsuccessful disabled response before querying MongoDB; it does not publish an empty or older modern value.
+
+#### Operations scrape boundary
+
+The existing `job=mongodb` scrape remains unchanged: port `9216`, `/metrics`, and a `60s` interval. This exporter change does not enroll another production target or alter Operations discovery. A separately reviewed, **un-applied** Operations change may add a selected target as `job=mongodb-detailed` for `/metrics/detail` at a deliberately slower interval chosen from measured MongoDB and ingestion capacity. Do not add that target by treating this exporter release as an automatic enrollment.
+
 ### Running
 
 To define your own MongoDB URL, use environment variable `MONGODB_URI`. If set this variable takes precedence over `--mongodb.uri` flag.

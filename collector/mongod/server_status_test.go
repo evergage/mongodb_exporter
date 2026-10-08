@@ -16,11 +16,13 @@ package mongod
 
 import (
 	"context"
+	"sync"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/event"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
@@ -107,4 +109,67 @@ func TestGetServerStatusDecodesFine(t *testing.T) {
 	// test
 	assert.NotNil(t, statusDefault)
 	assert.Equal(t, 1.0, statusDefault.Ok)
+}
+
+func TestGetRawServerStatusRunsExpectedCommandOnce(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	type commandStarted struct {
+		name     string
+		database string
+		command  bson.Raw
+	}
+
+	var mu sync.Mutex
+	var commands []commandStarted
+	client, err := mongo.Connect(ctx, options.Client().
+		ApplyURI("mongodb://127.0.0.1:27017/admin").
+		SetDirect(true).
+		SetServerSelectionTimeout(time.Second).
+		SetMonitor(&event.CommandMonitor{
+			Started: func(_ context.Context, started *event.CommandStartedEvent) {
+				mu.Lock()
+				defer mu.Unlock()
+				commands = append(commands, commandStarted{
+					name:     started.CommandName,
+					database: started.DatabaseName,
+					command:  append(bson.Raw(nil), started.Command...),
+				})
+			},
+		}))
+	if !assert.NoError(t, err) {
+		return
+	}
+	defer client.Disconnect(ctx)
+
+	raw, err := GetRawServerStatus(client)
+	if !assert.NoError(t, err) {
+		return
+	}
+	assert.NotEmpty(t, raw)
+
+	mu.Lock()
+	defer mu.Unlock()
+	if !assert.Len(t, commands, 1) {
+		return
+	}
+
+	command := commands[0]
+	assert.Equal(t, "serverStatus", command.name)
+	assert.Equal(t, "admin", command.database)
+
+	var observed struct {
+		ServerStatus int32 `bson:"serverStatus"`
+		RecordStats  int32 `bson:"recordStats"`
+		OpLatencies  struct {
+			Histograms bool `bson:"histograms"`
+		} `bson:"opLatencies"`
+	}
+	if !assert.NoError(t, bson.Unmarshal(command.command, &observed)) {
+		return
+	}
+	assert.Equal(t, int32(1), observed.ServerStatus)
+	assert.Equal(t, int32(0), observed.RecordStats)
+	assert.True(t, observed.OpLatencies.Histograms)
 }

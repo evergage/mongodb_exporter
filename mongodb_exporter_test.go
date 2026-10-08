@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"os"
 	"os/exec"
@@ -25,9 +26,11 @@ import (
 
 	"github.com/andreyvit/diff"
 	pmmVersion "github.com/percona/pmm/version"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/version"
 	"github.com/stretchr/testify/assert"
 
+	"github.com/percona/mongodb_exporter/collector"
 	"github.com/percona/mongodb_exporter/shared"
 )
 
@@ -437,4 +440,46 @@ func TestVersionInfo(t *testing.T) {
 		initVersionInfo()
 		assert.Equal(t, pmmVersion.Version, version.Version)
 	})
+}
+
+func TestNewMetricsHandlersKeepFastAndDetailGatherersSeparate(t *testing.T) {
+	previousRegisterer := prometheus.DefaultRegisterer
+	previousGatherer := prometheus.DefaultGatherer
+	fastRegistry := prometheus.NewRegistry()
+	prometheus.DefaultRegisterer = fastRegistry
+	prometheus.DefaultGatherer = fastRegistry
+	defer func() {
+		prometheus.DefaultRegisterer = previousRegisterer
+		prometheus.DefaultGatherer = previousGatherer
+	}()
+
+	fastOnly := prometheus.NewGauge(prometheus.GaugeOpts{Name: "fast_route_only", Help: "Test-only fast route metric."})
+	fastOnly.Set(1)
+	if err := fastRegistry.Register(fastOnly); err != nil {
+		t.Fatal(err)
+	}
+
+	mongodbCollector := collector.NewMongodbCollector(&collector.MongodbCollectorOpts{
+		URI:                    "mongodb://127.0.0.1:1/?serverSelectionTimeoutMS=1",
+		SuppressServerStatusV5: true,
+	})
+	fast, detail := newMetricsHandlers(mongodbCollector)
+
+	fastResponse := httptest.NewRecorder()
+	fast.ServeHTTP(fastResponse, httptest.NewRequest(http.MethodGet, "/metrics", nil))
+	if fastResponse.Code != http.StatusOK {
+		t.Fatalf("fast handler status = %d, want %d: %s", fastResponse.Code, http.StatusOK, fastResponse.Body.String())
+	}
+	if !strings.Contains(fastResponse.Body.String(), "fast_route_only 1") {
+		t.Fatalf("fast handler did not use the default gatherer: %s", fastResponse.Body.String())
+	}
+
+	detailResponse := httptest.NewRecorder()
+	detail.ServeHTTP(detailResponse, httptest.NewRequest(http.MethodGet, "/metrics/detail", nil))
+	if detailResponse.Code < 400 {
+		t.Fatalf("suppressed detail status = %d, want non-2xx", detailResponse.Code)
+	}
+	if strings.Contains(detailResponse.Body.String(), "fast_route_only") {
+		t.Fatalf("detail handler leaked the fast gatherer: %s", detailResponse.Body.String())
+	}
 }
