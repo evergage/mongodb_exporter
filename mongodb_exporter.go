@@ -16,16 +16,16 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"strconv"
-	"time"
-
 	"github.com/percona/exporter_shared"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/log"
 	"github.com/prometheus/common/version"
 	"gopkg.in/alecthomas/kingpin.v2"
+	"net/http"
+	"os"
+	"strconv"
+	"time"
 
 	pmmVersion "github.com/percona/pmm/version"
 
@@ -42,12 +42,13 @@ var (
 	listenAddressF = kingpin.Flag("web.listen-address", "Address to listen on for web interface and telemetry.").Default(":9216").String()
 	metricsPathF   = kingpin.Flag("web.telemetry-path", "Path under which to expose metrics.").Default("/metrics").String()
 
-	collectDatabaseF             = kingpin.Flag("collect.database", "Enable collection of Database metrics").Bool()
-	collectCollectionF           = kingpin.Flag("collect.collection", "Enable collection of Collection metrics").Bool()
-	collectTopF                  = kingpin.Flag("collect.topmetrics", "Enable collection of table top metrics").Bool()
-	collectIndexUsageF           = kingpin.Flag("collect.indexusage", "Enable collection of per index usage stats").Bool()
-	mongodbCollectConnPoolStatsF = kingpin.Flag("collect.connpoolstats", "Collect MongoDB connpoolstats").Bool()
+	collectDatabaseF               = kingpin.Flag("collect.database", "Enable collection of Database metrics").Bool()
+	collectCollectionF             = kingpin.Flag("collect.collection", "Enable collection of Collection metrics").Bool()
+	collectTopF                    = kingpin.Flag("collect.topmetrics", "Enable collection of table top metrics").Bool()
+	collectIndexUsageF             = kingpin.Flag("collect.indexusage", "Enable collection of per index usage stats").Bool()
+	mongodbCollectConnPoolStatsF   = kingpin.Flag("collect.connpoolstats", "Collect MongoDB connpoolstats").Bool()
 	suppressCollectShardingStatusF = kingpin.Flag("suppress.collectshardingstatus", "Suppress the collection of Sharding Status").Default("false").Bool()
+	suppressSSV5F                  = kingpin.Flag("suppress.collectserverstatusv5", "Suppress the modern MongoDB 5 server-status metric module").Default("false").Bool()
 
 	uriF = kingpin.Flag("mongodb.uri", "MongoDB URI, format").
 		PlaceHolder("[mongodb://][user:pass@]host1[:port1][,host2[:port2],...][/database][?options]").
@@ -83,18 +84,24 @@ func main() {
 
 	programCollector := version.NewCollector(program)
 	mongodbCollector := collector.NewMongodbCollector(&collector.MongodbCollectorOpts{
-		URI:                      *uriF,
-		CollectDatabaseMetrics:   *collectDatabaseF,
-		CollectCollectionMetrics: *collectCollectionF,
-		CollectTopMetrics:        *collectTopF,
-		CollectIndexUsageStats:   *collectIndexUsageF,
-		CollectConnPoolStats:     *mongodbCollectConnPoolStatsF,
-		SuppressCollectShardingStatus:    *suppressCollectShardingStatusF,
+		URI:                           *uriF,
+		CollectDatabaseMetrics:        *collectDatabaseF,
+		CollectCollectionMetrics:      *collectCollectionF,
+		CollectTopMetrics:             *collectTopF,
+		CollectIndexUsageStats:        *collectIndexUsageF,
+		CollectConnPoolStats:          *mongodbCollectConnPoolStatsF,
+		SuppressCollectShardingStatus: *suppressCollectShardingStatusF,
+		SuppressServerStatusV5:        *suppressSSV5F,
 	})
 	prometheus.MustRegister(programCollector, mongodbCollector)
 
-	promHandler := promhttp.InstrumentMetricHandler(prometheus.DefaultRegisterer, promhttp.HandlerFor(prometheus.DefaultGatherer, promhttp.HandlerOpts{ErrorHandling: promhttp.ContinueOnError}))
-	exporter_shared.RunServer("MongoDB", *listenAddressF, *metricsPathF, promHandler)
+	fastHandler, detailHandler := newMetricsHandlers(mongodbCollector)
+	exporter_shared.RunServerWithDetail("MongoDB", *listenAddressF, *metricsPathF, fastHandler, detailHandler)
+}
+
+func newMetricsHandlers(mongodbCollector *collector.MongodbCollector) (http.Handler, http.Handler) {
+	fast := promhttp.InstrumentMetricHandler(prometheus.DefaultRegisterer, promhttp.HandlerFor(prometheus.DefaultGatherer, promhttp.HandlerOpts{ErrorHandling: promhttp.ContinueOnError}))
+	return fast, collector.NewDetailedHandler(mongodbCollector)
 }
 
 // initVersionInfo sets version info
